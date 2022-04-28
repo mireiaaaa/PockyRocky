@@ -31,11 +31,11 @@ void Personaje::init(const char* image)
 	SizeGfx.x = 0; // RAFEL: Si queremos cambiar el frame, estos son los valores a tocar.
 	SizeGfx.y = 0; // RAFEL: Si queremos cambiar el frame, estos son los valores a tocar.
 	SizeGfx.w = 34; // RAFEL: Cambio valores para ejemplo con guybush
-	SizeGfx.h = 27; // RAFEL: Cambio valores para ejemplo con guybush
+	SizeGfx.h = 28; // RAFEL: Cambio valores para ejemplo con guybush
 	PositionRender.h = SizeGfx.h; // RAFEL: Cambio valores para ejemplo con guybush
 	PositionRender.w = SizeGfx.w; // RAFEL: Cambio valores para ejemplo con guybush
 	PositionRender.x = 200; // RAFEL: Estos son los valores a cambiar si lo quiero mover.
-	PositionRender.y = 300; // RAFEL: Estos son los valores a cambiar si lo quiero mover.
+	PositionRender.y = 350; // RAFEL: Estos son los valores a cambiar si lo quiero mover.
 	//mudar variaveis pelas variaveis que tenho em video
 	 _dir= DOWN;
 
@@ -54,7 +54,13 @@ void Personaje::update()
 		timeFrame = 0;
 	}
 	
+	if (InputManager::getInstance()->getAtaque() == true) {
 
+		_atacando = true;
+
+		//collider(6);
+
+	}
 	if (InputManager::getInstance()->getRight() == true) {
 		PositionRender.x += 5; 
 		_estado = MOVE;
@@ -85,22 +91,35 @@ void Personaje::update()
 		collider(2);
 		
 	}
-	if (InputManager::getInstance()->getParado() == true) {
+	/*
+	if (InputManager::getInstance()->getParado()||) {
 		_estado = IDLE;
 		frame = 0;
 	}
+	*/
+	if (!InputManager::getInstance()->getRight() && !InputManager::getInstance()->getLeft() && !InputManager::getInstance()->getUp() && !InputManager::getInstance()->getDown()) {
+		_estado = IDLE;
+		frame = 0;
+	}
+
 	switch (_dir)
 	{
 	case DOWN:
 		if (_estado == MOVE) {
 			SizeGfx.x = 0;
 			SizeGfx.y = 0;
-
+			/*
+			if (_atacando) {
+				SizeGfx.x = 0;
+				SizeGfx.y = (27 * 6) + (7 * 6);
+			}
+			*/
 	
 			//colocar animacao
 		}
 
 		if (_estado == IDLE) {
+			
 			SizeGfx.x = 0;
 			SizeGfx.y = 0;
 		}
@@ -165,35 +184,35 @@ void Personaje::collider(int _dir)
 {
 	switch (_dir) {
 	case 8:
-		while (!_instanceMap->getIDfromLayer(PositionRender.x, PositionRender.y)) {
+		while (!_instanceMap->getIDfromLayer(PositionRender.x+6, PositionRender.y)) {
 			PositionRender.y++;
 		}
-		while (!_instanceMap->getIDfromLayer(SizeGfx.w + PositionRender.x, PositionRender.y)) {
+		while (!_instanceMap->getIDfromLayer(SizeGfx.w + PositionRender.x-6, PositionRender.y)) {
 			PositionRender.y++;
 		}
 
 		break;
 	case 6:
-		while (!_instanceMap->getIDfromLayer(PositionRender.x+SizeGfx.w, PositionRender.y)) {
+		while (!_instanceMap->getIDfromLayer(PositionRender.x+SizeGfx.w-6, PositionRender.y)) {
 			PositionRender.x--;
 		}
-		while (!_instanceMap->getIDfromLayer(SizeGfx.w + PositionRender.x, SizeGfx.h + PositionRender.y)) {
+		while (!_instanceMap->getIDfromLayer(SizeGfx.w + PositionRender.x-6, SizeGfx.h + PositionRender.y)) {
 			PositionRender.x--;
 		}
 		break;
 	case 4:
-		while (!_instanceMap->getIDfromLayer(PositionRender.x, PositionRender.y)) {
+		while (!_instanceMap->getIDfromLayer(PositionRender.x+6, PositionRender.y)) {
 			PositionRender.x++;
 		}
-		while (!_instanceMap->getIDfromLayer(PositionRender.x, SizeGfx.h + PositionRender.y)) {
+		while (!_instanceMap->getIDfromLayer(PositionRender.x+6, SizeGfx.h + PositionRender.y)) {
 			PositionRender.x++;
 		}
 		break;
 	case 2:
-		while (!_instanceMap->getIDfromLayer(PositionRender.x, PositionRender.y+SizeGfx.h)) {
+		while (!_instanceMap->getIDfromLayer(PositionRender.x +6, PositionRender.y+SizeGfx.h)) {
 			PositionRender.y--;
 		}
-		while (!_instanceMap->getIDfromLayer(SizeGfx.w + PositionRender.x, SizeGfx.h + PositionRender.y)) {
+		while (!_instanceMap->getIDfromLayer(SizeGfx.w + PositionRender.x-6, SizeGfx.h + PositionRender.y)) {
 			PositionRender.y--;
 		}
 		break;

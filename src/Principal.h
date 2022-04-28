@@ -8,7 +8,7 @@ struct MyRectangle
 {
 	int x,y,w,h;
 };
-enum Estado { IDLE,MOVE,ATTACK,HURT,DEAD };
+enum Estado { IDLE,MOVE,HURT,DEAD };
 enum Dir { UP, DOWN, LEFT, RIGHT };
 
 class Principal

@@ -11,6 +11,7 @@ class InputManager
 	bool left;
 	bool up; 
 	bool down;
+	bool _ataque;
 	bool _parado;
 public:
 	
@@ -20,6 +21,7 @@ public:
 	bool getLeft();
 	bool getDown();
 	bool getUp();
+	bool getAtaque();
 	bool getParado();
 
 	static InputManager* getInstance()

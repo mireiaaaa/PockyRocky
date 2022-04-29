@@ -38,7 +38,7 @@ void Personaje::init(const char* image)
 	PositionRender.y = 350; // RAFEL: Estos son los valores a cambiar si lo quiero mover.
 	//mudar variaveis pelas variaveis que tenho em video
 	 _dir= DOWN;
-
+	_atacando = false;
 
 }
 
@@ -108,12 +108,9 @@ void Personaje::update()
 		if (_estado == MOVE) {
 			SizeGfx.x = 0;
 			SizeGfx.y = 0;
-			/*
-			if (_atacando) {
-				SizeGfx.x = 0;
-				SizeGfx.y = (27 * 6) + (7 * 6);
-			}
-			*/
+			
+			
+			
 	
 			//colocar animacao
 		}
@@ -122,6 +119,13 @@ void Personaje::update()
 			
 			SizeGfx.x = 0;
 			SizeGfx.y = 0;
+			
+			/*
+			if (_atacando==true) {
+				SizeGfx.x = 0;
+				SizeGfx.y = (27 * 6) + (7 * 6);
+			}
+			*/
 		}
 		break;
 	case UP:

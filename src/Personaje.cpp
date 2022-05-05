@@ -56,8 +56,10 @@ void Personaje::update()
 	
 	if (InputManager::getInstance()->getAtaque() == true) {
 
-		_atacando = true;
-
+		if (_atacando == false) {
+			SizeGfx.x = 0;
+			_atacando = true;
+		}
 		//collider(6);
 
 	}
@@ -116,16 +118,18 @@ void Personaje::update()
 		}
 
 		if (_estado == IDLE) {
-			
-			SizeGfx.x = 0;
-			SizeGfx.y = 0;
-			
-			/*
-			if (_atacando==true) {
+
+			if (_atacando == false) {
 				SizeGfx.x = 0;
-				SizeGfx.y = (27 * 6) + (7 * 6);
+				SizeGfx.y = 0;
 			}
-			*/
+			
+			if (_atacando==true) {
+
+				SizeGfx.y = (27 * 6) + (7 * 6);
+				_atacando = false;
+			}
+			
 		}
 		break;
 	case UP:

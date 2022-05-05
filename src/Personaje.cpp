@@ -50,16 +50,30 @@ void Personaje::update()
 	timeFrame += Video::getInstance()->getDeltaTime();
 	if (timeFrame >= maxTimeFrame) {
 		frame++;
-		if (frame > 4) frame = 0;
+		int maxf = 4;
+		if (_atacando) {
+			maxf = 2;
+			if (frame > 2) frame = 0;
+		}
+		if (frame > maxf) frame = 0;
 		timeFrame = 0;
 	}
 	
 	if (InputManager::getInstance()->getAtaque() == true) {
 
-		if (_atacando == false) {
-			SizeGfx.x = 0;
-			_atacando = true;
-		}
+		//if (_atacando == false) {
+		//	SizeGfx.x = 0;
+ 			_atacando = true;
+		//}
+		//collider(6);
+
+	}
+	if (!InputManager::getInstance()->getAtaque() == true) {
+
+		//if (_atacando == false) {
+		//	SizeGfx.x = 0;
+		_atacando = false;
+		//}
 		//collider(6);
 
 	}
@@ -113,6 +127,11 @@ void Personaje::update()
 			
 			
 			
+			if (_atacando==true) {
+
+				SizeGfx.y += (27 * 5) + (7 * 5);
+				//_atacando = false;
+			}
 	
 			//colocar animacao
 		}
@@ -124,11 +143,6 @@ void Personaje::update()
 				SizeGfx.y = 0;
 			}
 			
-			if (_atacando==true) {
-
-				SizeGfx.y = (27 * 6) + (7 * 6);
-				_atacando = false;
-			}
 			
 		}
 		break;
@@ -137,7 +151,12 @@ void Personaje::update()
 			SizeGfx.x = 0;
 			SizeGfx.y = (27*4)+(7*4);
 
-	
+			if (_atacando == true) {
+
+				SizeGfx.y += (27 * 5) + (7 * 5);
+				//_atacando = false;
+			}
+
 			//colocar animacao
 		}
 
@@ -150,6 +169,11 @@ void Personaje::update()
 		if (_estado == MOVE) {
 			SizeGfx.x = 0;
 			SizeGfx.y = (27 * 2) + (7 * 2);
+			if (_atacando == true) {
+
+				SizeGfx.y += (27 * 5) + (7 * 5);
+				//_atacando = false;
+			}
 			//colocar animacao
 		}
 
@@ -162,6 +186,11 @@ void Personaje::update()
 		if (_estado == MOVE) {
 			SizeGfx.x = 0;
 			SizeGfx.y = (27 * 2) + (7 * 2);
+			if (_atacando == true) {
+
+				SizeGfx.y += (27 * 5) + (7 * 5);
+				//_atacando = false;
+			}
 			//colocar animacao
 		}
 

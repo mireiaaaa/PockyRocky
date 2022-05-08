@@ -51,9 +51,11 @@ void Personaje::update()
 	if (timeFrame >= maxTimeFrame) {
 		frame++;
 		int maxf = 4;
+
+		
 		if (_atacando) {
-			maxf = 2;
-			if (frame > 2) frame = 0;
+			maxf = 3;
+			if (frame > 3) frame = 1;
 		}
 		if (frame > maxf) frame = 0;
 		timeFrame = 0;
@@ -128,7 +130,7 @@ void Personaje::update()
 			
 			
 			if (_atacando==true) {
-
+				SizeGfx.x = 0;
 				SizeGfx.y += (27 * 5) + (7 * 5);
 				//_atacando = false;
 			}
@@ -148,7 +150,7 @@ void Personaje::update()
 		break;
 	case UP:
 		if (_estado == MOVE) {
-			SizeGfx.x = 0;
+			
 			SizeGfx.y = (27*4)+(7*4);
 
 			if (_atacando == true) {

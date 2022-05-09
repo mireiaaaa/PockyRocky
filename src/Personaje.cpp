@@ -57,28 +57,40 @@ void Personaje::update()
 			maxf = 3;
 			if (frame > 3) frame = 1;
 		}
+		if (_estado == PROTECT) {
+			maxf = 5;
+			if (frame > 5) frame = 0;
+
+		}
 		if (frame > maxf) frame = 0;
 		timeFrame = 0;
 	}
 	
-	if (InputManager::getInstance()->getAtaque() == true) {
+	if (InputManager::getInstance()->getAtaque() == true) {//tá atacando
 
 		//if (_atacando == false) {
 		//	SizeGfx.x = 0;
- 			_atacando = true;
+
+ 		_atacando = true;
 		//}
 		//collider(6);
 
 	}
-	if (!InputManager::getInstance()->getAtaque() == true) {
+	if (!InputManager::getInstance()->getAtaque() == true) {//não ta atacando
 
 		//if (_atacando == false) {
 		//	SizeGfx.x = 0;
+	
 		_atacando = false;
 		//}
 		//collider(6);
 
 	}
+	if (InputManager::getInstance()->getProtect() == true) {
+		_estado = PROTECT;
+	}
+	//nao funciona
+
 	if (InputManager::getInstance()->getRight() == true) {
 		PositionRender.x += 5; 
 		_estado = MOVE;
@@ -106,6 +118,7 @@ void Personaje::update()
 		PositionRender.y += 5;
 		_estado = MOVE;
 		_dir = DOWN;
+		
 		collider(2);
 		
 	}
@@ -118,6 +131,11 @@ void Personaje::update()
 	if (!InputManager::getInstance()->getRight() && !InputManager::getInstance()->getLeft() && !InputManager::getInstance()->getUp() && !InputManager::getInstance()->getDown()) {
 		_estado = IDLE;
 		frame = 0;
+		if (_atacando == true) {
+
+			_estado = MOVE;
+			frame=1;
+		}
 	}
 
 	switch (_dir)
@@ -130,7 +148,7 @@ void Personaje::update()
 			
 			
 			if (_atacando==true) {
-				SizeGfx.x = 0;
+				
 				SizeGfx.y += (27 * 5) + (7 * 5);
 				//_atacando = false;
 			}
@@ -139,13 +157,21 @@ void Personaje::update()
 		}
 
 		if (_estado == IDLE) {
-
-			if (_atacando == false) {
-				SizeGfx.x = 0;
-				SizeGfx.y = 0;
+			SizeGfx.x = 0;
+			SizeGfx.y = 0;
+			
+			if (_atacando == true) {
+			
+		
+				SizeGfx.y += (27 * 11) + (7 * 11);
 			}
 			
 			
+		}
+		if (_estado == PROTECT) {
+			SizeGfx.x = 0;
+			SizeGfx.y += (27 * 16) + (7 * 16);
+			cout << "a" << endl;
 		}
 		break;
 	case UP:

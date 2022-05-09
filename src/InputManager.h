@@ -13,6 +13,7 @@ class InputManager
 	bool down;
 	bool _ataque;
 	bool _parado;
+	bool _protect;
 public:
 	
 	~InputManager();
@@ -23,6 +24,7 @@ public:
 	bool getUp();
 	bool getAtaque();
 	bool getParado();
+	bool getProtect();
 
 	static InputManager* getInstance()
 	{

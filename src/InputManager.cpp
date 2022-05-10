@@ -116,6 +116,7 @@ bool InputManager::getProtect()
 	return _protect;
 }
 
+
 /*
 
 bool InputManager::getParado()

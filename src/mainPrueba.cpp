@@ -7,9 +7,10 @@
 #include "InputManager.h"
 #include "Mapa.h"
 #include "Camera.h"
-//#include "Background.h"
+
+
+//#include "Fantasmita.h"
 #include "Personaje.h"
-//#include "Rocks.h"
 using namespace std;
 #include<iostream>
 
@@ -30,6 +31,7 @@ int main(int argc, char* args[]) {
 	//Background Fondo;
 	Personaje Player;
 	Mapa Map;
+	//Fantasmita Ghost;
 
 	// RAFEL: Tras crear el objeto, te falta iniciarlo
 	Player.init("pocky.png");

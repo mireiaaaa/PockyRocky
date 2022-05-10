@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Camera.cpp" />
+    <ClCompile Include="src\Fantasmita.cpp" />
     <ClCompile Include="src\InputManager.cpp" />
     <ClCompile Include="src\mainPrueba.cpp" />
     <ClCompile Include="src\Mapa.cpp" />
@@ -33,6 +34,7 @@
   <ItemGroup>
     <ClInclude Include="src\Camera.h" />
     <ClInclude Include="src\Defines.h" />
+    <ClInclude Include="src\Fantasmita.h" />
     <ClInclude Include="src\InputManager.h" />
     <ClInclude Include="src\Mapa.h" />
     <ClInclude Include="src\Personaje.h" />

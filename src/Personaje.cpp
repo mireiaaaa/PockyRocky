@@ -46,6 +46,7 @@ void Personaje::init(const char* image)
 void Personaje::update()
 {
 	
+	if(_estado==MOVE||_estado==STAYATTACK){
 
 	timeFrame += Video::getInstance()->getDeltaTime();
 	if (timeFrame >= maxTimeFrame) {
@@ -65,13 +66,14 @@ void Personaje::update()
 		if (frame > maxf) frame = 0;
 		timeFrame = 0;
 	}
-	
+	}
 	if (InputManager::getInstance()->getAtaque() == true) {//tá atacando
 
 		//if (_atacando == false) {
-		//	SizeGfx.x = 0;
+		SizeGfx.x = 0;
 
  		_atacando = true;
+		_estado = MOVE;
 		//}
 		//collider(6);
 
@@ -86,6 +88,7 @@ void Personaje::update()
 		//collider(6);
 
 	}
+	
 	if (InputManager::getInstance()->getProtect() == true) {
 		_estado = PROTECT;
 	}
@@ -130,11 +133,15 @@ void Personaje::update()
 	*/
 	if (!InputManager::getInstance()->getRight() && !InputManager::getInstance()->getLeft() && !InputManager::getInstance()->getUp() && !InputManager::getInstance()->getDown()) {
 		_estado = IDLE;
-		frame = 0;
+	
+			frame = 0;
+		
+
+		
 		if (_atacando == true) {
 
-			_estado = MOVE;
-			frame=1;
+			_estado = STAYATTACK;
+			frame = 1;
 		}
 	}
 
@@ -160,18 +167,18 @@ void Personaje::update()
 			SizeGfx.x = 0;
 			SizeGfx.y = 0;
 			
-			if (_atacando == true) {
-			
-		
-				SizeGfx.y += (27 * 11) + (7 * 11);
-			}
 			
 			
 		}
+		if (_estado==STAYATTACK) {
+			SizeGfx.x = 0;		
+			SizeGfx.y += (27 * 11) + (7 * 11);
+
+		}
 		if (_estado == PROTECT) {
-			SizeGfx.x = 0;
+			
 			SizeGfx.y += (27 * 16) + (7 * 16);
-			cout << "a" << endl;
+			
 		}
 		break;
 	case UP:
@@ -192,6 +199,11 @@ void Personaje::update()
 			SizeGfx.x = 0;
 			SizeGfx.y = (27 * 4) + (7* 4);
 		}
+		if (_estado == STAYATTACK) {
+			SizeGfx.x = 0;
+			SizeGfx.y += (27 * 15) + (7 * 15);
+
+		}
 		break;
 	case LEFT:
 		if (_estado == MOVE) {
@@ -209,6 +221,11 @@ void Personaje::update()
 			SizeGfx.x = 0;
 			SizeGfx.y = (27 * 2) + (7 * 2);
 		}
+		if (_estado == STAYATTACK) {
+			SizeGfx.x = 0;
+			SizeGfx.y += (27 * 13) + (7 * 13);
+
+		}
 		break;
 	case RIGHT:
 		if (_estado == MOVE) {
@@ -225,6 +242,11 @@ void Personaje::update()
 		if (_estado == IDLE) {
 			SizeGfx.x = 0;
 			SizeGfx.y = (27 * 2) + (7 * 2);
+		}
+		if (_estado == STAYATTACK) {
+			SizeGfx.x = 0;
+			SizeGfx.y += (27 * 13) + (7 * 13);
+
 		}
 		break;
 	default:

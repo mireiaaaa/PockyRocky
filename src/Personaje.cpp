@@ -15,9 +15,12 @@ Personaje::~Personaje()
 Personaje::Personaje()
 {
 	frame = 0;
-	timeFrame = 0;
+	Maxframe = 0;
+	currentTimeFrame = 0;
 	maxTimeFrame = 100;
-
+	// RAFEL2
+	_state = Personaje::ST_IDLE;
+	_instanceMap = nullptr;
 }
 
 
@@ -38,220 +41,78 @@ void Personaje::init(const char* image)
 	PositionRender.y = 350; // RAFEL: Estos son los valores a cambiar si lo quiero mover.
 	//mudar variaveis pelas variaveis que tenho em video
 	 _dir= DOWN;
-	_atacando = false;
-
 }
 
 
 void Personaje::update()
 {
-	
-	if(_estado==MOVE||_estado==STAYATTACK){
-
-	timeFrame += Video::getInstance()->getDeltaTime();
-	if (timeFrame >= maxTimeFrame) {
-		frame++;
-		int maxf = 4;
-
-		
-		if (_atacando) {
-			maxf = 3;
-			if (frame > 3) frame = 1;
-		}
-		if (_estado == PROTECT) {
-			maxf = 5;
-			if (frame > 5) frame = 0;
-
-		}
-		if (frame > maxf) frame = 0;
-		timeFrame = 0;
-	}
-	}
-	if (InputManager::getInstance()->getAtaque() == true) {//tá atacando
-
-		//if (_atacando == false) {
-		SizeGfx.x = 0;
-
- 		_atacando = true;
-		_estado = MOVE;
-		//}
-		//collider(6);
-
-	}
-	if (!InputManager::getInstance()->getAtaque() == true) {//não ta atacando
-
-		//if (_atacando == false) {
-		//	SizeGfx.x = 0;
-	
-		_atacando = false;
-		//}
-		//collider(6);
-
-	}
-	
-	if (InputManager::getInstance()->getProtect() == true) {
-		_estado = PROTECT;
-	}
-	//nao funciona
-
-	if (InputManager::getInstance()->getRight() == true) {
-		PositionRender.x += 5; 
-		_estado = MOVE;
-		_dir = RIGHT;
-
-		collider(6);
-		
-	}
-
-	if (InputManager::getInstance()->getLeft() == true) {
-		PositionRender.x -= 5;
-		_estado = MOVE;
-		_dir = LEFT;
-		collider(4);
-		
-	}
-	if (InputManager::getInstance()->getUp() == true) {
-		PositionRender.y -= 5;
-		_estado = MOVE;
-		_dir = UP;
-		collider(8);
-		
-	}
-	if (InputManager::getInstance()->getDown() == true) {
-		PositionRender.y += 5;
-		_estado = MOVE;
-		_dir = DOWN;
-		
-		collider(2);
-		
-	}
-	/*
-	if (InputManager::getInstance()->getParado()||) {
-		_estado = IDLE;
-		frame = 0;
-	}
-	*/
-	if (!InputManager::getInstance()->getRight() && !InputManager::getInstance()->getLeft() && !InputManager::getInstance()->getUp() && !InputManager::getInstance()->getDown()) {
-		_estado = IDLE;
-	
-			frame = 0;
-		
-
-		
-		if (_atacando == true) {
-
-			_estado = STAYATTACK;
-			frame = 1;
-		}
-	}
-
-	switch (_dir)
+	switch (_state)
 	{
-	case DOWN:
-		if (_estado == MOVE) {
-			SizeGfx.x = 0;
-			SizeGfx.y = 0;
-			
-			
-			
-			if (_atacando==true) {
-				
-				SizeGfx.y += (27 * 5) + (7 * 5);
-				//_atacando = false;
-			}
-	
-			//colocar animacao
+	case Personaje::ST_IDLE:
+		idleaction();
+		if (InputManager::getInstance()->getAtaque() == true) {//tá atacando
+			_state = Personaje::ST_IDLEATTACK;
 		}
-
-		if (_estado == IDLE) {
-			SizeGfx.x = 0;
-			SizeGfx.y = 0;
-			
-			
-			
+		if (InputManager::getInstance()->getRight() ||
+			InputManager::getInstance()->getLeft() ||
+			InputManager::getInstance()->getUp() ||
+			InputManager::getInstance()->getDown()) {
+			_state = Personaje::ST_WALK;
 		}
-		if (_estado==STAYATTACK) {
-			SizeGfx.x = 0;		
-			SizeGfx.y += (27 * 11) + (7 * 11);
-
-		}
-		if (_estado == PROTECT) {
-			
-			SizeGfx.y += (27 * 16) + (7 * 16);
-			
+		if (InputManager::getInstance()->getProtect() == true) { // Se proteje
+			_state = Personaje::ST_DEFEND;
 		}
 		break;
-	case UP:
-		if (_estado == MOVE) {
-			
-			SizeGfx.y = (27*4)+(7*4);
-
-			if (_atacando == true) {
-
-				SizeGfx.y += (27 * 5) + (7 * 5);
-				//_atacando = false;
-			}
-
-			//colocar animacao
+	case Personaje::ST_WALK:
+		walking();
+		if (InputManager::getInstance()->getAtaque() == true) {//tá atacando
+			_state = Personaje::ST_WALKATTACK;
 		}
-
-		if (_estado == IDLE) {
-			SizeGfx.x = 0;
-			SizeGfx.y = (27 * 4) + (7* 4);
-		}
-		if (_estado == STAYATTACK) {
-			SizeGfx.x = 0;
-			SizeGfx.y += (27 * 15) + (7 * 15);
-
+		if (!InputManager::getInstance()->getRight() &&
+			!InputManager::getInstance()->getLeft() &&
+			!InputManager::getInstance()->getUp() &&
+			!InputManager::getInstance()->getDown()) {
+			_state = Personaje::ST_IDLE;
 		}
 		break;
-	case LEFT:
-		if (_estado == MOVE) {
-			SizeGfx.x = 0;
-			SizeGfx.y = (27 * 2) + (7 * 2);
-			if (_atacando == true) {
 
-				SizeGfx.y += (27 * 5) + (7 * 5);
-				//_atacando = false;
-			}
-			//colocar animacao
+		break;
+	case Personaje::ST_IDLEATTACK:
+		idleaction();
+		idleandAttack();
+		if (InputManager::getInstance()->getRight() ||
+			InputManager::getInstance()->getLeft() ||
+			InputManager::getInstance()->getUp() ||
+			InputManager::getInstance()->getDown()) {
+			_state = Personaje::ST_WALKATTACK;
 		}
-
-		if (_estado == IDLE) {
-			SizeGfx.x = 0;
-			SizeGfx.y = (27 * 2) + (7 * 2);
-		}
-		if (_estado == STAYATTACK) {
-			SizeGfx.x = 0;
-			SizeGfx.y += (27 * 13) + (7 * 13);
-
+		if (InputManager::getInstance()->getAtaque() == false) {//deja de atacar
+			_state = Personaje::ST_IDLE;
 		}
 		break;
-	case RIGHT:
-		if (_estado == MOVE) {
-			SizeGfx.x = 0;
-			SizeGfx.y = (27 * 2) + (7 * 2);
-			if (_atacando == true) {
-
-				SizeGfx.y += (27 * 5) + (7 * 5);
-				//_atacando = false;
-			}
-			//colocar animacao
+	case Personaje::ST_WALKATTACK:
+		walking();
+		walkandAttack();
+		if (!InputManager::getInstance()->getRight() &&
+			!InputManager::getInstance()->getLeft() &&
+			!InputManager::getInstance()->getUp() &&
+			!InputManager::getInstance()->getDown()) {
+			_state = Personaje::ST_IDLEATTACK;
 		}
-
-		if (_estado == IDLE) {
-			SizeGfx.x = 0;
-			SizeGfx.y = (27 * 2) + (7 * 2);
+		if (InputManager::getInstance()->getAtaque() == false) {//deja de atacar
+			_state = Personaje::ST_WALK;
 		}
-		if (_estado == STAYATTACK) {
-			SizeGfx.x = 0;
-			SizeGfx.y += (27 * 13) + (7 * 13);
-
+		break;
+	case Personaje::ST_DEFEND:
+		protecting();
+		if (InputManager::getInstance()->getProtect() == false) {// deja de proteger
+			_state = Personaje::ST_IDLE;
 		}
 		break;
 	default:
 		break;
 	}
+	updateFrame();
 
 }
 void Personaje::render() {
@@ -304,6 +165,161 @@ void Personaje::collider(int _dir)
 		}
 		break;
 		
+	default:
+		break;
+	}
+}
+
+// RAFEL2
+void Personaje::updateFrame()
+{
+	switch (_state)
+	{
+	case Personaje::ST_IDLE:
+		Maxframe = 1;
+		maxTimeFrame = 0;
+		break;
+	case Personaje::ST_WALK:
+		Maxframe = 5;
+		maxTimeFrame = 80;
+		break;
+	case Personaje::ST_IDLEATTACK:
+		// RAFEL2 : Preparalo tu
+		Maxframe = 3;
+		maxTimeFrame = 80;
+		break;
+	case Personaje::ST_WALKATTACK:
+		// RAFEL2 : Preparalo tu
+		Maxframe = 3;
+		maxTimeFrame = 80;
+		break;
+	case Personaje::ST_DEFEND:
+		// RAFEL2 : Preparalo tu
+		Maxframe = 6;
+		maxTimeFrame = 80;
+		break;
+	default:
+		break;
+	}
+	currentTimeFrame += Video::getInstance()->getDeltaTime();
+	if (currentTimeFrame >= maxTimeFrame) {
+		frame++;
+		if (frame >= Maxframe)
+		{
+			frame = 0;
+		}
+		currentTimeFrame = 0;
+	}
+}
+
+void Personaje::idleaction()
+{
+	switch (_dir)
+	{
+	case UP:
+		SizeGfx.y = (27 * 4) + (7 * 4);
+		break;
+	case DOWN:
+		SizeGfx.y = 0;
+		break;
+	case LEFT:
+		SizeGfx.y = (27 * 2) + (7 * 2);
+		break;
+	case RIGHT:
+		SizeGfx.y = (27 * 2) + (7 * 2);
+		break;
+	default:
+		break;
+	}
+}
+
+void Personaje::walking()
+{
+	if (InputManager::getInstance()->getRight() == true) {
+		PositionRender.x += 5;
+		SizeGfx.y = (27 * 2) + (7 * 2);
+		_dir = RIGHT;
+		collider(6);
+	}
+	if (InputManager::getInstance()->getLeft() == true) {
+		PositionRender.x -= 5;
+		SizeGfx.y = (27 * 2) + (7 * 2);
+		_dir = LEFT;
+		collider(4);
+
+	}
+	if (InputManager::getInstance()->getUp() == true) {
+		PositionRender.y -= 5;
+		SizeGfx.y = (27 * 4) + (7 * 4);
+		_dir = UP;
+		collider(8);
+
+	}
+	if (InputManager::getInstance()->getDown() == true) {
+		PositionRender.y += 5;
+	
+		SizeGfx.y = 0;
+		_dir = DOWN;
+		collider(2);
+
+	}
+}
+
+void Personaje::walkandAttack()
+{
+	switch (_dir)
+	{
+	case UP:
+		SizeGfx.y += (27 * 5) + (7 * 5);
+		break;
+	case DOWN:
+		SizeGfx.y += (27 * 5) + (7 * 5);
+		break;
+	case LEFT:
+		SizeGfx.y += (27 * 5) + (7 * 5);
+		break;
+	case RIGHT:
+		SizeGfx.y += (27 * 5) + (7 * 5);
+		break;
+	default:
+		break;
+	}
+}
+
+void Personaje::idleandAttack()
+{
+	switch (_dir)
+	{
+	case UP:
+		SizeGfx.y += (27 * 10) + (7 * 10);
+		break;
+	case DOWN:
+		SizeGfx.y += (27 * 10) + (7 * 10);
+		break;
+	case LEFT:
+		SizeGfx.y += (27 * 10) + (7 * 10);
+		break;
+	case RIGHT:
+		SizeGfx.y += (27 * 10) + (7 * 10);
+		break;
+	default:
+		break;
+	}
+}
+
+void Personaje::protecting()
+{
+	switch (_dir)
+	{
+	case UP:
+		break;
+	case DOWN:
+		SizeGfx.y += (27 * 16) + (7 * 16);
+		break;
+	case LEFT:
+		break;
+	case RIGHT:
+		break;
 	default:
 		break;
 	}

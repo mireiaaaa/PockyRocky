@@ -7,7 +7,7 @@ Fantasmita::~Fantasmita()
 Fantasmita::Fantasmita()
 {
 	frame = 0;
-	timeFrame = 0;
+	currentTimeFrame = 0;
 	maxTimeFrame = 100;
 }
 
@@ -49,7 +49,7 @@ void Fantasmita::update()
 	PositionRender.x +=2;
 	PositionRender.x -= 2;
 	*/
-	_estado = MOVE;
+	//_estado = MOVE;
 	_dir = DOWN;
 
 
@@ -58,15 +58,17 @@ void Fantasmita::update()
 	switch (_dir)
 	{
 	case DOWN:
-		if (_estado == MOVE) {
-			SizeGfx.x = 0;
-			SizeGfx.y = (27 * 3) + (7 * 3);
+		// RAFEL2 : Crea su propio enum de estados
+		//if (_estado == MOVE) {
+		//	SizeGfx.x = 0;
+		//	SizeGfx.y = (27 * 3) + (7 * 3);
 
-			//colocar animacao
-		}
+		//	//colocar animacao
+		//}
 		break;
-	case DEAD:
-		break;
+	// RAFEL2 : DEAD no esta en el enum de _dir
+	//case DEAD:
+	//	break;
 
 	default:
 		break;

@@ -8,7 +8,9 @@ struct MyRectangle
 {
 	int x,y,w,h;
 };
-enum Estado { IDLE,MOVE,HURT,DEAD,PROTECT,STAYATTACK};
+//RAFEL2
+// Cada ersonaje ha de tener sus propios estados. No es general para todos igual
+//enum Estado { IDLE,MOVE,HURT,DEAD,PROTECT,STAYATTACK};
 enum Dir { UP, DOWN, LEFT, RIGHT };
 
 class Principal
@@ -56,10 +58,15 @@ protected:
 	MyRectangle SizeGfx;
 	double Angulo;
 	
-	Estado _estado;
+	//Estado _estado;
 	Dir _dir;
 	// RAFEL: No ha de haber nada de SDL aquí. Esto ya está en ResourceManager
 	// SDL_Texture* ImageTexture;
+	//RAFEL2
+	int frame;
+	int Maxframe;
+	int maxTimeFrame;
+	int currentTimeFrame;
 };
 
 

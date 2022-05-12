@@ -16,8 +16,4 @@ public:
 	void collider(int _dir);
 private:
 	Mapa* _instanceMap;
-	bool _atacando;
-	int frame;
-	int timeFrame;
-	int maxTimeFrame;
 };

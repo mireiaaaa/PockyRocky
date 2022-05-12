@@ -13,6 +13,7 @@ struct MyRectangle
 //enum Estado { IDLE,MOVE,HURT,DEAD,PROTECT,STAYATTACK};
 enum Dir { UP, DOWN, LEFT, RIGHT };
 
+
 class Principal
 {
 	

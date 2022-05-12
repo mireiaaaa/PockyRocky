@@ -195,7 +195,7 @@ void Personaje::updateFrame()
 		break;
 	case Personaje::ST_DEFEND:
 		// RAFEL2 : Preparalo tu
-		Maxframe = 6;
+		Maxframe = 5;
 		maxTimeFrame = 80;
 		break;
 	default:
@@ -312,13 +312,16 @@ void Personaje::protecting()
 	switch (_dir)
 	{
 	case UP:
+		SizeGfx.y = (27 * 19) + (7 * 19);
 		break;
 	case DOWN:
-		SizeGfx.y += (27 * 16) + (7 * 16);
+		SizeGfx.y = (27 * 15) + (7 * 15);
 		break;
 	case LEFT:
+		SizeGfx.y = (27 * 17) + (7 * 17);
 		break;
 	case RIGHT:
+		SizeGfx.y = (27 * 17) + (7 * 17);
 		break;
 	default:
 		break;

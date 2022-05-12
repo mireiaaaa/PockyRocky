@@ -8,6 +8,7 @@ class Camera
 	Mapa* _instanceNivel;
 	Personaje* _instancePocky;
 
+
 	int _positionMap;
 
 	int _CY;//coordenada y da camera
@@ -19,7 +20,6 @@ class Camera
 public:
 	Camera();
 	~Camera();
-
 
 	void setPos(Personaje* _pocky) { _instancePocky = _pocky; };
 	void setPos(Mapa* _nivel) { _instanceNivel = _nivel; };

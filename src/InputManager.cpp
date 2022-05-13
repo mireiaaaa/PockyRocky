@@ -45,6 +45,10 @@ void InputManager::update()
 				_protect = true;
 				//_parado = false;
 			}
+			if (test_event.key.keysym.scancode == SDL_SCANCODE_E) {
+				_slide = true;
+				//_parado = false;
+			}
 			if (test_event.key.keysym.scancode == SDL_SCANCODE_SPACE) {
 				_ataque = true;
 				//_parado = false;
@@ -69,9 +73,13 @@ void InputManager::update()
 				up = false;
 				//_parado = true;
 			}
-		if (test_event.key.keysym.scancode == SDL_SCANCODE_P) {
+			if (test_event.key.keysym.scancode == SDL_SCANCODE_P) {
 				_protect = false;
 				//_parado = true;
+			}
+			if (test_event.key.keysym.scancode == SDL_SCANCODE_E) {
+				_slide = false;
+				//_parado = false;
 			}
 			if (test_event.key.keysym.scancode == SDL_SCANCODE_SPACE) {
 				_ataque = false;
@@ -114,6 +122,11 @@ bool InputManager::getAtaque()
 bool InputManager::getProtect()
 {
 	return _protect;
+}
+
+bool InputManager::getSlide()
+{
+	return _slide;
 }
 
 

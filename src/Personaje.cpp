@@ -27,11 +27,7 @@ Personaje::Personaje()
 
 void Personaje::init(const char* image)
 {
-	_cont++;
-	if (_cont == 30) {
-		_ground = !_ground;
-		_cont = 0;
-	}
+
 	//DANDO ERRO N SEI PQ AAAA
 	// RAFEL: Guarda la ID que loadAndGetGraphicID te devuelve. No sabes que numero va a ocupar tu grafico en el almacen.
 	IDGfx = ResourceManager::getInstance()->loadAndGetGraphicID(Video::getInstance()->getRenderer(), image);
@@ -50,6 +46,7 @@ void Personaje::init(const char* image)
 
 void Personaje::update()
 {
+	
 	switch (_state)
 	{
 	case Personaje::ST_IDLE:
@@ -67,6 +64,7 @@ void Personaje::update()
 			_state = Personaje::ST_DEFEND;
 		}
 		if (InputManager::getInstance()->getSlide() == true) { // Se proteje
+			_ground = true;
 			_state = Personaje::ST_SLIDE;
 		}
 		break;
@@ -82,7 +80,12 @@ void Personaje::update()
 			_state = Personaje::ST_IDLE;
 		}
 		if (InputManager::getInstance()->getProtect() == true) { // Se proteje
+
 			_state = Personaje::ST_DEFEND;
+		}
+		if (InputManager::getInstance()->getSlide() == true) { // Se proteje
+			_ground = true;
+			_state = Personaje::ST_SLIDE;
 		}
 		
 
@@ -122,23 +125,27 @@ void Personaje::update()
 		break;
 
 	case Personaje::ST_SLIDE:
-		slide();
-
-		if (InputManager::getInstance()->getSlide() == false) {// deja de slidar
+		
+		_cont++;
+		if (_cont >= 30) {
+			_ground = false;
+			if (_cont > 30&&InputManager::getInstance()->getSlide() == false) {
 			_state = Personaje::ST_IDLE;
+			_cont = 0;
+			break;
+			}
 		}
+		slide();
+		/*
+		if (InputManager::getInstance()->getSlide() == false) {// deja de slidar
+			
+		}
+		*/
 		break;
 	default:
 		break;
 	}
-	if (_state == Personaje::ST_DEFEND) {
-		SizeGfx.w = 40;
-		SizeGfx.h = 33;
-	}
-	else {
-		SizeGfx.w = 34;
-		SizeGfx.h = 28;
-	}
+	
 	updateFrame();
 
 }
@@ -205,6 +212,7 @@ void Personaje::updateFrame()
 	case Personaje::ST_IDLE:
 		Maxframe = 1;
 		maxTimeFrame = 0;
+		frame = 0;
 		break;
 	case Personaje::ST_WALK:
 		Maxframe = 5;
@@ -236,15 +244,15 @@ void Personaje::updateFrame()
 		break;
 	}
 	if(_state != Personaje::ST_SLIDE){
-	currentTimeFrame += Video::getInstance()->getDeltaTime();
-	if (currentTimeFrame >= maxTimeFrame) {
-		frame++;
-		if (frame >= Maxframe)
-		{
-			frame = 0;
+		currentTimeFrame += Video::getInstance()->getDeltaTime();
+		if (currentTimeFrame >= maxTimeFrame) {
+			frame++;
+			if (frame >= Maxframe)
+			{
+				frame = 0;
+			}
+			currentTimeFrame = 0;
 		}
-		currentTimeFrame = 0;
-	}
 	}
 }
 
@@ -348,16 +356,16 @@ void Personaje::protecting()
 	switch (_dir)
 	{
 	case UP:
-		SizeGfx.y = (27 * 19) + (7 * 19);
+		SizeGfx.y = (27 * 17) + (7 * 17);
 		break;
 	case DOWN:
 		SizeGfx.y = (27 * 15) + (7 * 15);
 		break;
 	case LEFT:
-		SizeGfx.y = (27 * 17) + (7 * 17);
+		SizeGfx.y = (27 * 16) + (7 * 16);
 		break;
 	case RIGHT:
-		SizeGfx.y = (27 * 17) + (7 * 17);
+		SizeGfx.y = (27 * 16) + (7 * 16);
 		break;
 	default:
 		break;
@@ -373,11 +381,9 @@ void Personaje::slide()
 			PositionRender.y -= 4;
 			frame = 0;
 		}
-		else {
-			frame = 1;
-		}
-		SizeGfx.y = (21 * 2) + (7 * 2);
-
+		
+		SizeGfx.y = (27 * 22) + (7 * 22);
+		collider(8);
 		break;
 	case DOWN:
 
@@ -385,11 +391,9 @@ void Personaje::slide()
 			PositionRender.y += 4;
 			frame = 0;
 		}
-		else {
-
-			frame = 1;
-		}
-		SizeGfx.y = (25 * 2) + (25 * 2);
+		
+		SizeGfx.y = (27 * 18) + (7 * 18);
+		collider(2);
 
 		break;
 	case LEFT:
@@ -398,12 +402,9 @@ void Personaje::slide()
 			PositionRender.x -= 4;
 			frame = 0;
 		}
-		else {
-
-			frame = 1;
-		}
-		SizeGfx.y = (23 * 2) + (23 * 2);
-
+		
+		SizeGfx.y = (27 * 20) + (7 * 20);
+		collider(4);
 		break;
 
 	case RIGHT:
@@ -412,11 +413,9 @@ void Personaje::slide()
 			PositionRender.x += 4;
 			frame = 0;
 		}
-		else {
-
-			frame = 1;
-		}
-		SizeGfx.y = (23 * 2) + (23 * 2);
+		
+		SizeGfx.y = (27 * 20) + (7 * 20);
+		collider(6);
 
 
 

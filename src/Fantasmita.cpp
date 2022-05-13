@@ -33,6 +33,9 @@ void Fantasmita::init(const char* image)
 	//mudar variaveis pelas variaveis que tenho em video
 	
 	_dir = DOWN;
+	_distX = (_instancePocky->getPositionX() - (_instancePocky->getSizeWidth() / 2)) ;
+	_distY = (_instancePocky->getPositionY() - (_instancePocky->getSizeHeight() / 2)) ;
+
 
 }
 
@@ -47,11 +50,21 @@ void Fantasmita::update()
 	{
 	case MOVE:
 		floating();
+
 	/*
 		//zig-zag
 		PositionRender.x +=2;
 		PositionRender.x -= 2;
 		*/
+		if (_distX - PositionRender.x >= 60) {
+			//vai pra esquerda
+		}
+		else if (_distX - PositionRender.x <= 60) {
+			//vai normal
+		}
+
+
+
 
 		//if personaje esta 60 px cerca(ejemplo) ir _estadosFantasmita=ATTACK;
 		break;

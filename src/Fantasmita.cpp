@@ -2,6 +2,7 @@
 #include "Video.h"
 #include "ResourceManager.h"
 #include "Camera.h"
+#include <iostream>
 
 extern Camera* _cam;
 Fantasmita::~Fantasmita()
@@ -28,19 +29,21 @@ void Fantasmita::init(const char* image)
 	SizeGfx.h = 24; // RAFEL: Cambio valores para ejemplo con guybush
 	PositionRender.h = SizeGfx.h; // RAFEL: Cambio valores para ejemplo con guybush
 	PositionRender.w = SizeGfx.w; // RAFEL: Cambio valores para ejemplo con guybush
-	PositionRender.x = 100; // RAFEL: Estos son los valores a cambiar si lo quiero mover.
+	PositionRender.x = 130; // RAFEL: Estos son los valores a cambiar si lo quiero mover.
 	PositionRender.y = 350; // RAFEL: Estos son los valores a cambiar si lo quiero mover.
 	//mudar variaveis pelas variaveis que tenho em video
-	
+	_follow = false;
 	_dir = DOWN;
-	_distX = (_instancePocky->getPositionX() - (_instancePocky->getSizeWidth() / 2)) ;
-	_distY = (_instancePocky->getPositionY() - (_instancePocky->getSizeHeight() / 2)) ;
-
+	_distX = ((_instancePersonaje->getPositionX()) + (_instancePersonaje->getSizeWidth() / 2)) ;
+	_distY = ((_instancePersonaje->getPositionY()) + (_instancePersonaje->getSizeHeight() / 2)) ;
+	
 
 }
 
 void Fantasmita::update()
 {
+	_distX = ((_instancePersonaje->getPositionX()) + (_instancePersonaje->getSizeWidth() / 2));
+	_distY = ((_instancePersonaje->getPositionY()) + (_instancePersonaje->getSizeHeight() / 2));
 	_cont++;
 	if (_cont == 30) {
 		_zig = !_zig;
@@ -49,18 +52,37 @@ void Fantasmita::update()
 	switch (_estadosFantasmita)
 	{
 	case MOVE:
-		floating();
+			floating();
 
 	/*
 		//zig-zag
 		PositionRender.x +=2;
 		PositionRender.x -= 2;
 		*/
-		if (_distX - PositionRender.x >= 60) {
-			//vai pra esquerda
+		if(_follow==false){
+		if (_distY >= PositionRender.y-2&& _distY <= PositionRender.y +2) {
+			_estadosFantasmita = Fantasmita::ATTACK;
+			if(_distX > PositionRender.x ){
+			_dir = RIGHT;
+			cout << "derecha";
+			}
+			else {
+				_dir = LEFT;
+				cout << "esquerda";
+			}
+			
 		}
-		else if (_distX - PositionRender.x <= 60) {
-			//vai normal
+		if (_distX >= PositionRender.x-2&& _distX <= PositionRender.x + 2) {
+			if (_distY > PositionRender.y) {
+			_follow = true;
+			}
+			
+			
+			cout << "bajo";
+			//_estadosFantasmita = Fantasmita::ATTACK;
+			
+		}
+	
 		}
 
 
@@ -70,6 +92,8 @@ void Fantasmita::update()
 		break;
 	case ATTACK:
 		//sigue el personaje
+		attacking();
+
 		break;
 	case DEAD:
 		break;
@@ -101,7 +125,8 @@ void Fantasmita::updateFrame()
 		maxTimeFrame = 600;
 		break;
 	case ATTACK:
-
+		Maxframe = 3;
+		maxTimeFrame = 150;
 		break;
 	case DEAD:
 		
@@ -131,12 +156,23 @@ void Fantasmita::floating()
 		break;
 	case DOWN:
 		PositionRender.y += 1;
+		/*
+		if (_follow == true) {
+			PositionRender.y += 3;
+		}
+		*/
 		if (_zig==true) {
-			PositionRender.x -= 1;
+			
+			if (_follow == false) {
+				PositionRender.x -= 1;
+			}
 			frame = 0;
 		}
 		else {
-			PositionRender.x += 1;
+			
+			if (_follow == false) {
+				PositionRender.x += 1;
+			}
 			frame = 1;
 		}
 		SizeGfx.y = (14 * 2) + (14 * 2);
@@ -149,6 +185,27 @@ void Fantasmita::floating()
 	default:
 		break;
 	}
+}
+
+void Fantasmita::attacking()
+{
+	switch (_dir) {
+		
+		
+	case LEFT:
+		PositionRender.x -= 1;
+		SizeGfx.y = (14 * 1) + (14 * 1);
+		
+		break;
+
+	case RIGHT:
+		PositionRender.x += 1;
+		SizeGfx.y = 0;
+		break;
+	default:
+		break;
+	}
+
 }
 
 void Fantasmita::dead()

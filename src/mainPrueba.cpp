@@ -34,12 +34,13 @@ int main(int argc, char* args[]) {
 	Fantasmita Ghost;
 
 	// RAFEL: Tras crear el objeto, te falta iniciarlo
+	Ghost.setPos(&Player);
 	Player.init("pocky.png");
 	Ghost.init("fantasmita.png");
 	Map.init("tilesetpoqui.png");
 	Player.setPos(&Map);
-
-
+	
+	
 	_cam->setPos(&Player);
 	_cam->setPos(&Map);
 	_cam->init();

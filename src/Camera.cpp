@@ -15,16 +15,16 @@ Camera::~Camera()
 
 void Camera::init()
 {
-	_CX = (_instancePocky->getPositionX() - (_instancePocky->getSizeWidth() / 2)) - (SCREEN_WIDTH / 2);
-	_CY = (_instancePocky->getPositionY() - (_instancePocky->getSizeHeight() / 2)) - (SCREEN_HEIGHT/ 2);
+	_CX = (_instancePocky->getPositionX() + (_instancePocky->getSizeWidth() / 2)) - (SCREEN_WIDTH / 2);
+	_CY = (_instancePocky->getPositionY() + (_instancePocky->getSizeHeight() / 2)) - (SCREEN_HEIGHT/ 2);
 	//se _CX>do de mede o mapa entao CX=o que o mapa mede(mesmo com _CY mas com _CY=0)
 	
 }
 
 void Camera::update()
 {
-	_CX = (_instancePocky->getPositionX() - (_instancePocky->getSizeWidth() / 2)) - (SCREEN_WIDTH / 2);
-	_CY = (_instancePocky->getPositionY() - (_instancePocky->getSizeHeight() / 2)) - (SCREEN_HEIGHT / 2);
+	_CX = (_instancePocky->getPositionX() + (_instancePocky->getSizeWidth() / 2)) - (SCREEN_WIDTH / 2);
+	_CY = (_instancePocky->getPositionY() + (_instancePocky->getSizeHeight() / 2)) - (SCREEN_HEIGHT / 2);
 
 	if(_CX> _instanceNivel->getSizeWidth()){
 		_CX= _instanceNivel->getSizeWidth();

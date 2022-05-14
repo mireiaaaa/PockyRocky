@@ -37,8 +37,8 @@ void Personaje::init(const char* image)
 	SizeGfx.h = 28; // RAFEL: Cambio valores para ejemplo con guybush
 	PositionRender.h = SizeGfx.h; // RAFEL: Cambio valores para ejemplo con guybush
 	PositionRender.w = SizeGfx.w; // RAFEL: Cambio valores para ejemplo con guybush
-	PositionRender.x = 200; // RAFEL: Estos son los valores a cambiar si lo quiero mover.
-	PositionRender.y = 350; // RAFEL: Estos son los valores a cambiar si lo quiero mover.
+	PositionRender.x = 100; // RAFEL: Estos son los valores a cambiar si lo quiero mover.
+	PositionRender.y = 600; // RAFEL: Estos son los valores a cambiar si lo quiero mover.
 	//mudar variaveis pelas variaveis que tenho em video
 	 _dir= DOWN;
 }

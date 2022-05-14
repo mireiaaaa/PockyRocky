@@ -16,19 +16,21 @@ public:
 
 	void updateFrame();
 	void floating();
+	void attacking();
 	void dead();
 
-	void setPos(Personaje* _pocky) { _instancePocky = _pocky; };
 	
+	void setPos(Personaje* _personaje) { _instancePersonaje = _personaje; };
 	void setPos(Mapa* _map) { _instanceMap = _map; };
 	void collider(int _dir);
 private:
 	Mapa* _instanceMap;
-	Personaje* _instancePocky;
+	Personaje* _instancePersonaje;
 	statesFantasmita _estadosFantasmita;
 	bool _zig;
 	int _cont;
 	int _distX;
 	int _distY;
+	bool _follow;
 
 };

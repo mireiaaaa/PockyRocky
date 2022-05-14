@@ -1,6 +1,6 @@
 #pragma once
 #include "Principal.h"
-#include "Fantasmita.h"
+//#include "Fantasmita.h"
 #include "Mapa.h"
 
 class Personaje :public Principal

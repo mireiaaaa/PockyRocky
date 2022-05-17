@@ -8,7 +8,7 @@ class Personaje :public Principal
 public:
 	//RAFEL 2
 	enum StatesPersonaje {
-		ST_IDLE, ST_WALK, ST_IDLEATTACK, ST_WALKATTACK, ST_DEFEND,ST_SLIDE
+		ST_IDLE, ST_WALK, ST_IDLEATTACK, ST_WALKATTACK, ST_DEFEND, ST_SLIDE,ST_SPECIAL, ST_HURT,ST_DEAD
 	};
 	//FAZER ESTADO DE ATAQUE ESPECIAL
 	~Personaje();
@@ -29,6 +29,7 @@ private:
 	void idleandAttack();
 	void protecting();
 	void slide();
+	void special();
 	int _cont;
 	bool _ground;
 };

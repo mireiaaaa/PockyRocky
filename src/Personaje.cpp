@@ -67,6 +67,9 @@ void Personaje::update()
 			_ground = true;
 			_state = Personaje::ST_SLIDE;
 		}
+		if (InputManager::getInstance()->getSpecial() == true) {
+			_state = Personaje::ST_SPECIAL;
+		}
 		break;
 	case Personaje::ST_WALK:
 		walking();
@@ -83,9 +86,12 @@ void Personaje::update()
 
 			_state = Personaje::ST_DEFEND;
 		}
-		if (InputManager::getInstance()->getSlide() == true) { // Se proteje
+		if (InputManager::getInstance()->getSlide() == true) { // esquiva
 			_ground = true;
 			_state = Personaje::ST_SLIDE;
+		}
+		if (InputManager::getInstance()->getSpecial() == true) {
+			_state = Personaje::ST_SPECIAL;
 		}
 		
 
@@ -141,6 +147,12 @@ void Personaje::update()
 			
 		}
 		*/
+		break;
+	case Personaje::ST_SPECIAL:
+		special();
+		if (InputManager::getInstance()->getSpecial() == false) {// deja de hacer ataque especial
+			_state = Personaje::ST_IDLE;
+		}
 		break;
 	default:
 		break;
@@ -239,7 +251,10 @@ void Personaje::updateFrame()
 		Maxframe = 2;
 		maxTimeFrame = 80;
 		break;
-		
+	case Personaje::ST_SPECIAL:
+		Maxframe = 2;
+		maxTimeFrame = 80;
+		break;
 	default:
 		break;
 	}
@@ -423,4 +438,26 @@ void Personaje::slide()
 	default:
 		break;
 	}
+}
+
+void Personaje::special()
+{
+	switch (_dir)
+	{
+	case UP:
+		SizeGfx.y = (27 * 23) + (7 * 23);
+		break;
+	case DOWN:
+		SizeGfx.y = (27 * 23) + (7 * 23);
+		break;
+	case LEFT:
+		SizeGfx.y = (27 * 23) + (7 * 23);
+		break;
+	case RIGHT:
+		SizeGfx.y = (27 * 23) + (7 * 23);
+		break;
+	default:
+		break;
+	}
+
 }

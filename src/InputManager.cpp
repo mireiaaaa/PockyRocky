@@ -52,6 +52,12 @@ void InputManager::update()
 			if (test_event.key.keysym.scancode == SDL_SCANCODE_Z) {
 				_special = true;
 			}
+			if (test_event.key.keysym.scancode == SDL_SCANCODE_H) {
+				_hurt = true;
+			}
+			if (test_event.key.keysym.scancode == SDL_SCANCODE_M) {
+				_dead = true;
+			}
 			if (test_event.key.keysym.scancode == SDL_SCANCODE_SPACE) {
 				_ataque = true;
 				//_parado = false;
@@ -87,6 +93,12 @@ void InputManager::update()
 			if (test_event.key.keysym.scancode == SDL_SCANCODE_Z) {
 				_special = false;
 				//_parado = false;
+			}
+			if (test_event.key.keysym.scancode == SDL_SCANCODE_H) {
+				_hurt = false;
+			}
+			if (test_event.key.keysym.scancode == SDL_SCANCODE_M) {
+				_dead = false;
 			}
 			if (test_event.key.keysym.scancode == SDL_SCANCODE_SPACE) {
 				_ataque = false;
@@ -140,6 +152,16 @@ bool InputManager::getSlide()
 bool InputManager::getSpecial()
 {
 	return _special;
+}
+
+bool InputManager::getHurt()
+{
+	return _hurt;
+}
+
+bool InputManager::getDead()
+{
+	return _dead;
 }
 
 

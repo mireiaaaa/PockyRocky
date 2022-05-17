@@ -16,6 +16,8 @@ class InputManager
 	bool _protect;
 	bool _slide;
 	bool _special;
+	bool _hurt;
+	bool _dead;
 public:
 	
 	~InputManager();
@@ -29,6 +31,8 @@ public:
 	bool getProtect();
 	bool getSlide();
 	bool getSpecial();
+	bool getHurt();
+	bool getDead();
 
 
 	static InputManager* getInstance()

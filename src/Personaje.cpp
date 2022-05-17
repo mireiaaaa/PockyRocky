@@ -49,9 +49,9 @@ void Personaje::init(const char* image)
 
 void Personaje::update()
 {
-	
 	switch (_state)
 	{
+		
 	case Personaje::ST_IDLE:
 		idleaction();
 		if (InputManager::getInstance()->getAtaque() == true) {//tá atacando
@@ -75,6 +75,13 @@ void Personaje::update()
 				_state = Personaje::ST_SPECIAL;
 			}
 		}
+		
+	if (InputManager::getInstance()->getHurt() == true) { // Se proteje
+			_state = Personaje::ST_HURT;
+	}
+	if (InputManager::getInstance()->getDead() == true) { // Se proteje
+			_state = Personaje::ST_DEAD;
+	}
 		break;
 	case Personaje::ST_WALK:
 		walking();
@@ -165,6 +172,28 @@ void Personaje::update()
 			}
 		}
 		special();
+		break;
+	case Personaje::ST_HURT:
+		
+		_hurtCount++;
+		if (_hurtCount >= 30) {
+			if (InputManager::getInstance()->getHurt() == false) {// deja de hacer ataque especial
+				_state = Personaje::ST_IDLE;
+			}
+			
+		}
+		hurt();
+		break;
+	case Personaje::ST_DEAD:
+		_deadCount++;
+		if (_deadCount >= 30) {
+
+			if (InputManager::getInstance()->getDead() == false) {// deja de hacer ataque especial
+				_state = Personaje::ST_IDLE;
+			}
+
+		}
+		dead();
 		break;
 	default:
 		break;
@@ -265,6 +294,14 @@ void Personaje::updateFrame()
 		break;
 	case Personaje::ST_SPECIAL:
 		Maxframe = 2;
+		maxTimeFrame = 90;
+		break;
+	case Personaje::ST_HURT:
+		Maxframe = 1;
+		maxTimeFrame = 90;
+		break;
+	case Personaje::ST_DEAD:
+		Maxframe = 6;
 		maxTimeFrame = 90;
 		break;
 	default:
@@ -472,4 +509,46 @@ void Personaje::special()
 		break;
 	}
 
+}
+
+void Personaje::hurt()
+{
+	switch (_dir)
+	{
+	case UP:
+		SizeGfx.y = (27 * 24) + (7 * 24);
+		break;
+	case DOWN:
+		SizeGfx.y = (27 * 24) + (7 * 24);
+		break;
+	case LEFT:
+		SizeGfx.y = (27 * 24) + (7 * 24);
+		break;
+	case RIGHT:
+		SizeGfx.y = (27 * 24) + (7 * 24);
+		break;
+	default:
+		break;
+	}
+}
+
+void Personaje::dead()
+{
+	switch (_dir)
+	{
+	case UP:
+		SizeGfx.y = (27 * 25) + (7 * 25);
+		break;
+	case DOWN:
+		SizeGfx.y = (27 * 25) + (7 * 25);
+		break;
+	case LEFT:
+		SizeGfx.y = (27 * 25) + (7 * 25);
+		break;
+	case RIGHT:
+		SizeGfx.y = (27 * 25) + (7 * 25);
+		break;
+	default:
+		break;
+	}
 }

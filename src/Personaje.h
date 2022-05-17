@@ -30,9 +30,13 @@ private:
 	void protecting();
 	void slide();
 	void special();
+	void hurt();
+	void dead();
 	int _cont;
 	bool _ground;
 	int _specialCount;
 	bool _oneTime;
+	int _hurtCount;
+	int _deadCount;
 
 };

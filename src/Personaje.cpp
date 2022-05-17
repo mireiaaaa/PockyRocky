@@ -21,6 +21,8 @@ Personaje::Personaje()
 	// RAFEL2
 	_state = Personaje::ST_IDLE;
 	_instanceMap = nullptr;
+	_oneTime = false;
+	_specialCount = 0;
 }
 
 
@@ -39,6 +41,7 @@ void Personaje::init(const char* image)
 	PositionRender.w = SizeGfx.w; // RAFEL: Cambio valores para ejemplo con guybush
 	PositionRender.x = 100; // RAFEL: Estos son los valores a cambiar si lo quiero mover.
 	PositionRender.y = 600; // RAFEL: Estos son los valores a cambiar si lo quiero mover.
+
 	//mudar variaveis pelas variaveis que tenho em video
 	 _dir= DOWN;
 }
@@ -68,7 +71,9 @@ void Personaje::update()
 			_state = Personaje::ST_SLIDE;
 		}
 		if (InputManager::getInstance()->getSpecial() == true) {
-			_state = Personaje::ST_SPECIAL;
+			if (_oneTime == false) {
+				_state = Personaje::ST_SPECIAL;
+			}
 		}
 		break;
 	case Personaje::ST_WALK:
@@ -91,7 +96,9 @@ void Personaje::update()
 			_state = Personaje::ST_SLIDE;
 		}
 		if (InputManager::getInstance()->getSpecial() == true) {
-			_state = Personaje::ST_SPECIAL;
+			if (_oneTime == false) {
+				_state = Personaje::ST_SPECIAL;
+			}
 		}
 		
 
@@ -149,10 +156,15 @@ void Personaje::update()
 		*/
 		break;
 	case Personaje::ST_SPECIAL:
-		special();
-		if (InputManager::getInstance()->getSpecial() == false) {// deja de hacer ataque especial
-			_state = Personaje::ST_IDLE;
+		_oneTime = true;
+		
+		_specialCount++;
+		if (_specialCount >= 30) {
+			if (InputManager::getInstance()->getSpecial() == false) {// deja de hacer ataque especial
+				_state = Personaje::ST_IDLE;
+			}
 		}
+		special();
 		break;
 	default:
 		break;
@@ -253,7 +265,7 @@ void Personaje::updateFrame()
 		break;
 	case Personaje::ST_SPECIAL:
 		Maxframe = 2;
-		maxTimeFrame = 80;
+		maxTimeFrame = 90;
 		break;
 	default:
 		break;

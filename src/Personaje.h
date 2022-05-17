@@ -32,4 +32,7 @@ private:
 	void special();
 	int _cont;
 	bool _ground;
+	int _specialCount;
+	bool _oneTime;
+
 };

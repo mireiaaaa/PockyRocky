@@ -12,6 +12,7 @@ InputManager::InputManager() {
 	up = false;
 	down = false;
 	_parado = true;
+	_out = false;
 }
 InputManager::~InputManager()
 {
@@ -62,8 +63,8 @@ void InputManager::update()
 				_ataque = true;
 				//_parado = false;
 			}
-			if (test_event.key.keysym.scancode == SDL_SCANCODE_ESC) {
-				_ataque = true;
+			if (test_event.key.keysym.scancode == SDL_SCANCODE_ESCAPE) {
+				_out = true;
 				//_parado = false;
 			}
 
@@ -108,7 +109,10 @@ void InputManager::update()
 				_ataque = false;
 				//_parado = false;
 			}
-
+			if (test_event.key.keysym.scancode == SDL_SCANCODE_ESCAPE) {
+				_out = false;
+				//_parado = false;
+			}
 
 			break;
 		default: break;
@@ -166,6 +170,11 @@ bool InputManager::getHurt()
 bool InputManager::getDead()
 {
 	return _dead;
+}
+
+bool InputManager::getOut()
+{
+	return _out;
 }
 
 

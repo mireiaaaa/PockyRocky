@@ -61,7 +61,7 @@ int main(int argc, char* args[]) {
 	//Player.init();
 	//Piedra.init();
 
-	while (coiso == 1) { // RAFEL: Faltaba el ==, solo tenias 1 =
+	while (InputManager::getInstance()->getOut() == false) { // RAFEL: Faltaba el ==, solo tenias 1 =
 
 		InputManager::getInstance()->update();
 		Video::getInstance()->clearScreen();

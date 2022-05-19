@@ -28,7 +28,7 @@ void Esquelety::init(const char* image)
 	SizeGfx.x = 0; // RAFEL: Si queremos cambiar el frame, estos son los valores a tocar.
 	SizeGfx.y = 0; // RAFEL: Si queremos cambiar el frame, estos son los valores a tocar.
 	SizeGfx.w = 32; // RAFEL: Cambio valores para ejemplo con guybush
-	SizeGfx.h = 41; // RAFEL: Cambio valores para ejemplo con guybush
+	SizeGfx.h = 39; // RAFEL: Cambio valores para ejemplo con guybush
 	PositionRender.h = SizeGfx.h; // RAFEL: Cambio valores para ejemplo con guybush
 	PositionRender.w = SizeGfx.w; // RAFEL: Cambio valores para ejemplo con guybush
 	PositionRender.x = 100; // RAFEL: Estos son los valores a cambiar si lo quiero mover.
@@ -193,23 +193,29 @@ void Esquelety::move()
 	case UP:
 		PositionRender.y -= 1;
 
-		SizeGfx.y = (14 * 4) + (14 * 4);
+		SizeGfx.y = (9 * 6) + (9 * 6);
+		collider(8);
+		
 		break;
 	case DOWN:
 		PositionRender.y += 1;
 		
-		SizeGfx.y = (14 * 3) + (14 * 3);
-
+		SizeGfx.y = (9 * 4) + (9 * 4);
+		collider(8);
 		break;
 	case LEFT:
 		PositionRender.x -= 1;
-
-		SizeGfx.y = (14 * 2) + (14 * 2);
+		
+		SizeGfx.y+= (9 * 2) + (9 * 2);
+		
+		collider(4);
 		break;
 	case RIGHT:
 		PositionRender.x += 1;
-
-		SizeGfx.y = (14 * 2) + (14 * 2);
+		
+		SizeGfx.y = (9 * 2) + (9 * 2);
+		
+		collider(6);
 		break;
 	default:
 		break;
@@ -247,4 +253,42 @@ void Esquelety::dead()
 
 void Esquelety::collider(int _dir)
 {
+	switch (_dir) {
+	case 8:
+		while (!_instanceMap->getIDfromLayer(PositionRender.x + 6, PositionRender.y)) {
+			PositionRender.y++;
+		}
+		while (!_instanceMap->getIDfromLayer(SizeGfx.w + PositionRender.x - 6, PositionRender.y)) {
+			PositionRender.y++;
+		}
+
+		break;
+	case 6:
+		while (!_instanceMap->getIDfromLayer(PositionRender.x + SizeGfx.w - 6, PositionRender.y)) {
+			PositionRender.x--;
+		}
+		while (!_instanceMap->getIDfromLayer(SizeGfx.w + PositionRender.x - 6, SizeGfx.h + PositionRender.y)) {
+			PositionRender.x--;
+		}
+		break;
+	case 4:
+		while (!_instanceMap->getIDfromLayer(PositionRender.x + 6, PositionRender.y)) {
+			PositionRender.x++;
+		}
+		while (!_instanceMap->getIDfromLayer(PositionRender.x + 6, SizeGfx.h + PositionRender.y)) {
+			PositionRender.x++;
+		}
+		break;
+	case 2:
+		while (!_instanceMap->getIDfromLayer(PositionRender.x + 6, PositionRender.y + SizeGfx.h)) {
+			PositionRender.y--;
+		}
+		while (!_instanceMap->getIDfromLayer(SizeGfx.w + PositionRender.x - 6, SizeGfx.h + PositionRender.y)) {
+			PositionRender.y--;
+		}
+		break;
+
+	default:
+		break;
+	}
 }

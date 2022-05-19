@@ -44,6 +44,7 @@ int main(int argc, char* args[]) {
 	Map.init("tilesetpoqui.png");
 	
 	Player.setPos(&Map);
+	Esque.setPos(&Map);
 	
 	
 	_cam->setPos(&Player);

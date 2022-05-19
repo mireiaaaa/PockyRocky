@@ -2,14 +2,14 @@
 #include "sdl.h"
 class InputManager
 {
-	private:
+private:
 	InputManager();
 	static InputManager* unica_instancia;
 	SDL_Event test_event;
 
 	bool right;
 	bool left;
-	bool up; 
+	bool up;
 	bool down;
 	bool _ataque;
 	bool _parado;
@@ -18,8 +18,9 @@ class InputManager
 	bool _special;
 	bool _hurt;
 	bool _dead;
+	bool _out;
 public:
-	
+
 	~InputManager();
 	void update();
 	bool getRight();
@@ -33,6 +34,7 @@ public:
 	bool getSpecial();
 	bool getHurt();
 	bool getDead();
+	bool getOut();
 
 
 	static InputManager* getInstance()
@@ -42,6 +44,6 @@ public:
 
 		return unica_instancia;
 	}
-	
+
 };
 

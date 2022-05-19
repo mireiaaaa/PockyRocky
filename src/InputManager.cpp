@@ -6,7 +6,7 @@ InputManager* InputManager::unica_instancia = NULL;
 
 
 InputManager::InputManager() {
-	
+
 	right = false;
 	left = false;
 	up = false;
@@ -31,12 +31,12 @@ void InputManager::update()
 				left = true;
 				//_parado = false;
 			}
-			
+
 			if (test_event.key.keysym.scancode == SDL_SCANCODE_S) {
 				down = true;
 				//_parado = false;
 			}
-			
+
 			if (test_event.key.keysym.scancode == SDL_SCANCODE_W) {
 				up = true;
 				//_parado = false;
@@ -62,7 +62,11 @@ void InputManager::update()
 				_ataque = true;
 				//_parado = false;
 			}
-			
+			if (test_event.key.keysym.scancode == SDL_SCANCODE_ESC) {
+				_ataque = true;
+				//_parado = false;
+			}
+
 			break;
 		case SDL_KEYUP:
 
@@ -104,12 +108,12 @@ void InputManager::update()
 				_ataque = false;
 				//_parado = false;
 			}
-			
-		
+
+
 			break;
 		default: break;
 		}
-		
+
 	}
 }
 //hacer un update que cuando se da la tecla se pone a true y cuando solta la tecla se pone a false

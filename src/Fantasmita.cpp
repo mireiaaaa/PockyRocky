@@ -1,6 +1,7 @@
 #include "Fantasmita.h"
 #include "Video.h"
 #include "ResourceManager.h"
+#include "InputManager.h"
 #include "Camera.h"
 #include <iostream>
 
@@ -14,7 +15,7 @@ Fantasmita::Fantasmita()
 	frame = 0;
 	Maxframe = 0;
 	currentTimeFrame = 0;
-	maxTimeFrame = 100;
+	maxTimeFrame = 60;
 	// RAFEL2
 	_estadosFantasmita = Fantasmita::MOVE;
 	_instanceMap = nullptr;
@@ -84,7 +85,9 @@ void Fantasmita::update()
 		}
 	
 		}
-
+		if (InputManager::getInstance()->getDead() == true) {
+			_estadosFantasmita = Fantasmita::DEAD;
+		}
 
 
 
@@ -96,6 +99,9 @@ void Fantasmita::update()
 
 		break;
 	case DEAD:
+		dead();
+		
+
 		break;
 	default:
 		break;
@@ -129,7 +135,8 @@ void Fantasmita::updateFrame()
 		maxTimeFrame = 150;
 		break;
 	case DEAD:
-		
+		Maxframe = 3;//é pra ser 5
+		maxTimeFrame = 150;
 		break;
 	default:
 		break;
@@ -210,6 +217,24 @@ void Fantasmita::attacking()
 
 void Fantasmita::dead()
 {
+	switch (_dir) {
+	case UP:
+		SizeGfx.y = (14 * 4) + (14 * 4);
+		break;
+	case DOWN:
+		SizeGfx.y = (14 * 4) + (14 * 4);
+		break;
+	case LEFT:
+		SizeGfx.y = (14 * 4) + (14 * 4);
+
+		break;
+
+	case RIGHT:
+		SizeGfx.y = (14 * 4) + (14 * 4);
+		break;
+	default:
+		break;
+	}
 }
 
 void Fantasmita::collider(int _dir)

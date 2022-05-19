@@ -23,6 +23,8 @@ Personaje::Personaje()
 	_instanceMap = nullptr;
 	_oneTime = false;
 	_specialCount = 0;
+	_deadByHurtCount = 0;
+	_isHurt = false;
 }
 
 
@@ -77,11 +79,10 @@ void Personaje::update()
 		}
 		
 	if (InputManager::getInstance()->getHurt() == true) { // Se proteje
+		_deadByHurtCount++;
 			_state = Personaje::ST_HURT;
 	}
-	if (InputManager::getInstance()->getDead() == true) { // Se proteje
-			_state = Personaje::ST_DEAD;
-	}
+
 		break;
 	case Personaje::ST_WALK:
 		walking();
@@ -176,6 +177,13 @@ void Personaje::update()
 	case Personaje::ST_HURT:
 		
 		_hurtCount++;
+		
+		if (_deadByHurtCount == 5) {
+			_isHurt = true;
+			_state = Personaje::ST_DEAD;
+		}
+		
+		
 		if (_hurtCount >= 30) {
 			if (InputManager::getInstance()->getHurt() == false) {// deja de hacer ataque especial
 				_state = Personaje::ST_IDLE;
@@ -186,13 +194,19 @@ void Personaje::update()
 		break;
 	case Personaje::ST_DEAD:
 		_deadCount++;
-		if (_deadCount >= 30) {
-
-			if (InputManager::getInstance()->getDead() == false) {// deja de hacer ataque especial
+		
+		
+		if (_deadCount >= 150) {
+			_deadByHurtCount = 0;
+			_isHurt = false;
+			if ( _isHurt ==false) {// deja de hacer ataque especial
 				_state = Personaje::ST_IDLE;
+				
 			}
 
 		}
+		
+		
 		dead();
 		break;
 	default:
@@ -302,7 +316,7 @@ void Personaje::updateFrame()
 		break;
 	case Personaje::ST_DEAD:
 		Maxframe = 6;
-		maxTimeFrame = 90;
+		maxTimeFrame = 200;
 		break;
 	default:
 		break;

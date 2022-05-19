@@ -36,7 +36,11 @@ private:
 	bool _ground;
 	int _specialCount;
 	bool _oneTime;
+
+	//variables test
 	int _hurtCount;
 	int _deadCount;
+	int _deadByHurtCount;
+	bool _isHurt;
 
 };

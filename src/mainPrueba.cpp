@@ -10,6 +10,7 @@
 
 
 #include "Fantasmita.h"
+#include "Esquelety.h"
 #include "Personaje.h"
 using namespace std;
 #include<iostream>
@@ -32,12 +33,16 @@ int main(int argc, char* args[]) {
 	Personaje Player;
 	Mapa Map;
 	Fantasmita Ghost;
+	Esquelety Esque;
 
 	// RAFEL: Tras crear el objeto, te falta iniciarlo
 	Ghost.setPos(&Player);
+	Esque.setPos(&Player);
 	Player.init("pocky.png");
 	Ghost.init("fantasmita.png");
+	Esque.init("esquelety.png");
 	Map.init("tilesetpoqui.png");
+	
 	Player.setPos(&Map);
 	
 	
@@ -62,13 +67,16 @@ int main(int argc, char* args[]) {
 
 		Player.update();
 		Ghost.update();
+		Esque.update();
 		_cam->update();
 		Map.update();
 		
 		
 		Map.render();
+		Esque.render();
 		Player.render();
 		Ghost.render();
+		
 	
 		Video::getInstance()->updateScreen();
 		// RAFEL : En video tenemos las funciones que refrescan el frame

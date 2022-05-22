@@ -32,7 +32,7 @@ void Esquelety::init(const char* image)
 	PositionRender.h = SizeGfx.h; // RAFEL: Cambio valores para ejemplo con guybush
 	PositionRender.w = SizeGfx.w; // RAFEL: Cambio valores para ejemplo con guybush
 	PositionRender.x = 100; // RAFEL: Estos son los valores a cambiar si lo quiero mover.
-	PositionRender.y = 300; // RAFEL: Estos son los valores a cambiar si lo quiero mover.
+	PositionRender.y = 500; // RAFEL: Estos son los valores a cambiar si lo quiero mover.
 	//mudar variaveis pelas variaveis que tenho em video
 	_follow = false;
 	_dir = DOWN;
@@ -52,7 +52,7 @@ void Esquelety::update()
 	{
 	case SPAWN:
 		_contSpawn++;
-		if (_contSpawn >= 30) {
+		if (_contSpawn >= 25) {
 		
 				_estadosEsquelety = Esquelety::MOVE;
 
@@ -126,8 +126,8 @@ void Esquelety::updateFrame()
 	switch (_estadosEsquelety)
 	{
 	case SPAWN:
-		Maxframe = 2;
-		maxTimeFrame = 80;
+		Maxframe = 3;
+		maxTimeFrame = 200;
 		break;
 	case MOVE:
 		Maxframe = 2;
@@ -163,23 +163,23 @@ void Esquelety::spawn()
 	{
 	case UP:
 		
-		SizeGfx.y = (8 * 1) + (8 * 1);
+		SizeGfx.y = 0;
 		break;
 	case DOWN:
 		
 
-		SizeGfx.y = (8 * 1) + (8 * 1);
+		SizeGfx.y = 0;
 
 		break;
 	case LEFT:
 		
 
-		SizeGfx.y = (8 * 1) + (8 * 1);
+		SizeGfx.y = 0;
 		break;
 	case RIGHT:
 		
 
-		SizeGfx.y = (8 * 1) + (8 * 1);
+		SizeGfx.y = 0;
 		break;
 	default:
 		break;

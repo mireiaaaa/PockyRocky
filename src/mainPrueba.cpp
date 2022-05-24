@@ -12,6 +12,7 @@
 #include "Fantasmita.h"
 #include "Esquelety.h"
 #include "Personaje.h"
+#include "Umby.h"
 using namespace std;
 #include<iostream>
 
@@ -34,17 +35,22 @@ int main(int argc, char* args[]) {
 	Mapa Map;
 	Fantasmita Ghost;
 	Esquelety Esque;
+	Umby Umb;
 
 	// RAFEL: Tras crear el objeto, te falta iniciarlo
 	Ghost.setPos(&Player);
 	Esque.setPos(&Player);
+	Umb.setPos(&Player);
+
 	Player.init("pocky.png");
 	Ghost.init("fantasmita.png");
 	Esque.init("esquelety.png");
+	Umb.init("umby.png");
 	Map.init("tilesetpoqui.png");
 	
 	Player.setPos(&Map);
 	Esque.setPos(&Map);
+	Umb.setPos(&Map);
 	
 	
 	_cam->setPos(&Player);
@@ -69,6 +75,7 @@ int main(int argc, char* args[]) {
 		Player.update();
 		Ghost.update();
 		Esque.update();
+		Umb.update();
 		_cam->update();
 		Map.update();
 		
@@ -77,6 +84,7 @@ int main(int argc, char* args[]) {
 		Esque.render();
 		Player.render();
 		Ghost.render();
+		Umb.render();
 		
 	
 		Video::getInstance()->updateScreen();

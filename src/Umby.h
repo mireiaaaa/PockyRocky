@@ -9,13 +9,13 @@ class Umby :public Principal
 public:
 	~Umby();
 	Umby();
-	enum statesUmby { SPAWN, MOVE, HURT, DEAD };
+	enum statesUmby { IDLE, MOVE, DEAD };
 	void init(const char* image);
 	void update();
 	void render();
 
 	void updateFrame();
-	void spawn();
+	void idle();
 	void move();
 	void hurt();
 	void dead();
@@ -28,7 +28,7 @@ private:
 	Mapa* _instanceMap;
 	Personaje* _instancePersonaje;
 	statesUmby _estadosUmby;
-	int _contSpawn;
+	int _contIdle;
 	int _distX;
 	int _distY;
 	bool _follow;

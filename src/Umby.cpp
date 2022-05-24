@@ -18,7 +18,7 @@ Umby::Umby()
 	currentTimeFrame = 0;
 	maxTimeFrame = 100;
 	// RAFEL2
-	_estadosUmby = Umby::SPAWN;
+	_estadosUmby = Umby::IDLE;
 	_instanceMap = nullptr;
 }
 
@@ -27,8 +27,8 @@ void Umby::init(const char* image)
 	IDGfx = ResourceManager::getInstance()->loadAndGetGraphicID(Video::getInstance()->getRenderer(), image);
 	SizeGfx.x = 0; // RAFEL: Si queremos cambiar el frame, estos son los valores a tocar.
 	SizeGfx.y = 0; // RAFEL: Si queremos cambiar el frame, estos son los valores a tocar.
-	SizeGfx.w = 32; // RAFEL: Cambio valores para ejemplo con guybush
-	SizeGfx.h = 39; // RAFEL: Cambio valores para ejemplo con guybush
+	SizeGfx.w = 39; // RAFEL: Cambio valores para ejemplo con guybush
+	SizeGfx.h = 42; // RAFEL: Cambio valores para ejemplo con guybush
 	PositionRender.h = SizeGfx.h; // RAFEL: Cambio valores para ejemplo con guybush
 	PositionRender.w = SizeGfx.w; // RAFEL: Cambio valores para ejemplo con guybush
 	PositionRender.x = 100; // RAFEL: Estos son los valores a cambiar si lo quiero mover.
@@ -38,7 +38,7 @@ void Umby::init(const char* image)
 	_dir = DOWN;
 	_distX = ((_instancePersonaje->getPositionX()) + (_instancePersonaje->getSizeWidth() / 2));
 	_distY = ((_instancePersonaje->getPositionY()) + (_instancePersonaje->getSizeHeight() / 2));
-
+	_contIdle = 0;
 
 }
 
@@ -50,20 +50,21 @@ void Umby::update()
 
 	switch (_estadosUmby)
 	{
-	case SPAWN:
-		_contSpawn++;
-		if (_contSpawn >= 25) {
+	case IDLE:
+		_contIdle++;
+		if (_contIdle >= 200) {
 
 			_estadosUmby = Umby::MOVE;
-
+			_contIdle = 0;
 		}
-		spawn();
+		idle();
 
 		break;
 	case MOVE:
-		move();
+	
 
-		if (_distY >= PositionRender.y - 2 && _distY <= PositionRender.y + 2) {
+		
+		if (_distY >= PositionRender.y - 4 && _distY <= PositionRender.y + 4) {
 
 			if (_distX > PositionRender.x) {
 				_dir = RIGHT;
@@ -75,7 +76,7 @@ void Umby::update()
 			}
 
 		}
-		if (_distX >= PositionRender.x - 2 && _distX <= PositionRender.x + 2) {
+		if (_distX >= PositionRender.x - 4 && _distX <= PositionRender.x + 4) {
 			if (_distY > PositionRender.y) {
 				_dir = DOWN;
 			}
@@ -88,12 +89,18 @@ void Umby::update()
 			//_estadosUmby = Umby::ATTACK;
 
 		}
+		
+		_contIdle++;
+		if (_contIdle >= 100|| (_distY == PositionRender.y  && _distX == PositionRender.x)) {
 
+			_estadosUmby = Umby::IDLE;
+			_contIdle = 0;
 
+		}
+		move();
 		break;
 		//if personaje esta 60 px cerca(ejemplo) ir _estadosUmby=ATTACK;
-	case HURT:
-		hurt();
+
 		break;
 	case DEAD:
 		dead();
@@ -125,7 +132,7 @@ void Umby::updateFrame()
 
 	switch (_estadosUmby)
 	{
-	case SPAWN:
+	case IDLE:
 		Maxframe = 3;
 		maxTimeFrame = 200;
 		break;
@@ -133,10 +140,7 @@ void Umby::updateFrame()
 		Maxframe = 2;
 		maxTimeFrame = 80;
 		break;
-	case HURT:
-		Maxframe = 0;
-		maxTimeFrame = 80;
-		break;
+	
 	case DEAD:
 		Maxframe = 5;
 		maxTimeFrame = 80;
@@ -156,7 +160,7 @@ void Umby::updateFrame()
 
 }
 
-void Umby::spawn()
+void Umby::idle()
 {
 
 	switch (_dir)
@@ -191,27 +195,27 @@ void Umby::move()
 	switch (_dir)
 	{
 	case UP:
-		PositionRender.y -= 1;
+		PositionRender.y -= 4;
 
-		SizeGfx.y = (9 * 6) + (9 * 6);
+		SizeGfx.y = (9 * 2) + (9 * 2);
 		collider(8);
 
 		break;
 	case DOWN:
-		PositionRender.y += 1;
+		PositionRender.y += 4;
 
-		SizeGfx.y = (9 * 4) + (9 * 4);
-		collider(8);
+		SizeGfx.y = (9 * 2) + (9 * 2);
+		collider(2);
 		break;
 	case LEFT:
-		PositionRender.x -= 1;
+		PositionRender.x -= 4;
 
-		SizeGfx.y += (9 * 2) + (9 * 2);
+		SizeGfx.y = (9 * 2) + (9 * 2);
 
 		collider(4);
 		break;
 	case RIGHT:
-		PositionRender.x += 1;
+		PositionRender.x += 4;
 
 		SizeGfx.y = (9 * 2) + (9 * 2);
 
@@ -222,10 +226,7 @@ void Umby::move()
 	}
 }
 
-void Umby::hurt()
-{
-	SizeGfx.y = (14 * 5) + (14 * 5);
-}
+
 
 
 
@@ -255,35 +256,35 @@ void Umby::collider(int _dir)
 {
 	switch (_dir) {
 	case 8:
-		while (!_instanceMap->getIDfromLayer(PositionRender.x + 6, PositionRender.y)) {
+		while (!_instanceMap->getIDfromLayer(PositionRender.x + 8, PositionRender.y)) {
 			PositionRender.y++;
 		}
-		while (!_instanceMap->getIDfromLayer(SizeGfx.w + PositionRender.x - 6, PositionRender.y)) {
+		while (!_instanceMap->getIDfromLayer(SizeGfx.w + PositionRender.x - 8, PositionRender.y)) {
 			PositionRender.y++;
 		}
 
 		break;
 	case 6:
-		while (!_instanceMap->getIDfromLayer(PositionRender.x + SizeGfx.w - 6, PositionRender.y)) {
+		while (!_instanceMap->getIDfromLayer(PositionRender.x + SizeGfx.w - 8, PositionRender.y)) {
 			PositionRender.x--;
 		}
-		while (!_instanceMap->getIDfromLayer(SizeGfx.w + PositionRender.x - 6, SizeGfx.h + PositionRender.y)) {
+		while (!_instanceMap->getIDfromLayer(SizeGfx.w + PositionRender.x - 8, SizeGfx.h + PositionRender.y)) {
 			PositionRender.x--;
 		}
 		break;
 	case 4:
-		while (!_instanceMap->getIDfromLayer(PositionRender.x + 6, PositionRender.y)) {
+		while (!_instanceMap->getIDfromLayer(PositionRender.x + 8, PositionRender.y)) {
 			PositionRender.x++;
 		}
-		while (!_instanceMap->getIDfromLayer(PositionRender.x + 6, SizeGfx.h + PositionRender.y)) {
+		while (!_instanceMap->getIDfromLayer(PositionRender.x + 8, SizeGfx.h + PositionRender.y)) {
 			PositionRender.x++;
 		}
 		break;
 	case 2:
-		while (!_instanceMap->getIDfromLayer(PositionRender.x + 6, PositionRender.y + SizeGfx.h)) {
+		while (!_instanceMap->getIDfromLayer(PositionRender.x + 8, PositionRender.y + SizeGfx.h)) {
 			PositionRender.y--;
 		}
-		while (!_instanceMap->getIDfromLayer(SizeGfx.w + PositionRender.x - 6, SizeGfx.h + PositionRender.y)) {
+		while (!_instanceMap->getIDfromLayer(SizeGfx.w + PositionRender.x - 8, SizeGfx.h + PositionRender.y)) {
 			PositionRender.y--;
 		}
 		break;

@@ -1,7 +1,9 @@
 #pragma once
 #include "Principal.h"
+#include "Balas.h"
 //#include "Fantasmita.h"
 #include "Mapa.h"
+#include<vector>
 
 class Personaje :public Principal
 {
@@ -18,6 +20,7 @@ public:
 	void render();
 	void setPos(Mapa* _map) { _instanceMap = _map; };
 	void collider(int _dir);
+	void setPos( vector<Balas*> *_bala) { _instanceBala = _bala; };
 private:
 	Mapa* _instanceMap;
 	// RAFEL2
@@ -43,4 +46,6 @@ private:
 	int _deadByHurtCount;
 	bool _isHurt;
 
+	int _contBalas;
+	vector<Balas*> * _instanceBala;
 };

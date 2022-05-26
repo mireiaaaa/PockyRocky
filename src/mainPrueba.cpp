@@ -7,8 +7,8 @@
 #include "InputManager.h"
 #include "Mapa.h"
 #include "Camera.h"
-
-
+#include <vector>
+#include "Balas.h"
 #include "Fantasmita.h"
 #include "Esquelety.h"
 #include "Personaje.h"
@@ -36,11 +36,13 @@ int main(int argc, char* args[]) {
 	Fantasmita Ghost;
 	Esquelety Esque;
 	Umby Umb;
+	vector<Balas*> Bala;
 
 	// RAFEL: Tras crear el objeto, te falta iniciarlo
 	Ghost.setPos(&Player);
 	Esque.setPos(&Player);
 	Umb.setPos(&Player);
+	Player.setPos(&Bala);
 
 	Player.init("pocky.png");
 	Ghost.init("fantasmita.png");
@@ -71,7 +73,10 @@ int main(int argc, char* args[]) {
 
 		InputManager::getInstance()->update();
 		Video::getInstance()->clearScreen();
-
+		for (size_t i = 0; i < Bala.size(); i++)
+		{
+			Bala[i]->update();
+		}
 		Player.update();
 		Ghost.update();
 		Esque.update();
@@ -84,6 +89,10 @@ int main(int argc, char* args[]) {
 		Esque.render();
 		Player.render();
 		Ghost.render();
+		for (size_t i = 0; i < Bala.size(); i++)
+		{
+			Bala[i]->render();
+		}
 		Umb.render();
 		
 	

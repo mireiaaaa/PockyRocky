@@ -43,7 +43,7 @@ void Personaje::init(const char* image)
 	PositionRender.w = SizeGfx.w; // RAFEL: Cambio valores para ejemplo con guybush
 	PositionRender.x = 100; // RAFEL: Estos son los valores a cambiar si lo quiero mover.
 	PositionRender.y = 600; // RAFEL: Estos son los valores a cambiar si lo quiero mover.
-
+	_contBalas = 0;
 	//mudar variaveis pelas variaveis que tenho em video
 	 _dir= DOWN;
 }
@@ -51,6 +51,7 @@ void Personaje::init(const char* image)
 
 void Personaje::update()
 {
+	_contBalas++;
 	switch (_state)
 	{
 		
@@ -112,6 +113,13 @@ void Personaje::update()
 
 		break;
 	case Personaje::ST_IDLEATTACK:
+		if (_contBalas >=10) {
+			Balas* bala;
+			bala = new Balas();
+			bala->init(0, _dir, PositionRender.x + PositionRender.w / 2, PositionRender.y + PositionRender.h / 2);
+			_instanceBala->push_back(bala);
+			_contBalas = 0;
+		}
 		idleaction();
 		idleandAttack();
 		if (InputManager::getInstance()->getRight() ||
@@ -125,6 +133,13 @@ void Personaje::update()
 		}
 		break;
 	case Personaje::ST_WALKATTACK:
+		if (_contBalas >= 10) {
+			Balas* bala;
+			bala = new Balas();
+			bala->init(0, _dir, PositionRender.x + PositionRender.w / 2, PositionRender.y + PositionRender.h / 2);
+			_instanceBala->push_back(bala);
+			_contBalas = 0;
+		}
 		walking();
 		walkandAttack();
 		if (!InputManager::getInstance()->getRight() &&

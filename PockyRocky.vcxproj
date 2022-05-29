@@ -19,38 +19,58 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="SceneMain.cpp" />
+    <ClCompile Include="src\AnimaticScene.cpp" />
     <ClCompile Include="src\Balas.cpp" />
     <ClCompile Include="src\Boss.cpp" />
     <ClCompile Include="src\Camera.cpp" />
     <ClCompile Include="src\Esquelety.cpp" />
     <ClCompile Include="src\Fantasmita.cpp" />
+    <ClCompile Include="src\GameOverScene.cpp" />
+    <ClCompile Include="src\Hud.cpp" />
     <ClCompile Include="src\InputManager.cpp" />
     <ClCompile Include="src\mainPrueba.cpp" />
     <ClCompile Include="src\Mapa.cpp" />
+    <ClCompile Include="src\MenuScene.cpp" />
+    <ClCompile Include="src\OptionsScene.cpp" />
     <ClCompile Include="src\Personaje.cpp" />
     <ClCompile Include="src\Principal.cpp" />
     <ClCompile Include="src\ResourceManager.cpp" />
+    <ClCompile Include="src\Scene.cpp" />
+    <ClCompile Include="src\SceneDirector.cpp" />
+    <ClCompile Include="src\ScoresScene.cpp" />
     <ClCompile Include="src\Timer.cpp" />
     <ClCompile Include="src\tinyxml2.cpp" />
     <ClCompile Include="src\Umby.cpp" />
     <ClCompile Include="src\Video.cpp" />
+    <ClCompile Include="src\YouWinScene.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="SceneMain.h" />
+    <ClInclude Include="src\AnimaticScene.h" />
     <ClInclude Include="src\Balas.h" />
     <ClInclude Include="src\Boss.h" />
     <ClInclude Include="src\Camera.h" />
     <ClInclude Include="src\Defines.h" />
     <ClInclude Include="src\Esquelety.h" />
     <ClInclude Include="src\Fantasmita.h" />
+    <ClInclude Include="src\GameOverScene.h" />
+    <ClInclude Include="src\Hud.h" />
     <ClInclude Include="src\InputManager.h" />
     <ClInclude Include="src\Mapa.h" />
+    <ClInclude Include="src\MenuScene.h" />
+    <ClInclude Include="src\OptionsScene.h" />
     <ClInclude Include="src\Personaje.h" />
     <ClInclude Include="src\Principal.h" />
     <ClInclude Include="src\ResourceManager.h" />
+    <ClInclude Include="src\Scene.h" />
+    <ClInclude Include="src\SceneDirector.h" />
+    <ClInclude Include="src\ScoresScene.h" />
     <ClInclude Include="src\Timer.h" />
     <ClInclude Include="src\tinyxml2.h" />
     <ClInclude Include="src\Umby.h" />
     <ClInclude Include="src\Video.h" />
+    <ClInclude Include="src\YouWinScene.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

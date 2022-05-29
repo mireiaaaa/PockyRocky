@@ -1,5 +1,6 @@
 #include "Principal.h"
-
+#include "ResourceManager.h"
+#include "Video.h"
 Principal::Principal()
 {
 }
@@ -10,13 +11,14 @@ Principal::~Principal()
 
 
 
-void Principal::init()
+void Principal::init(const char* image)
 {
 	// RAFEL: Nada de surface. Solo Texture y se guarda en el ResourceManager
 
 	// Image = NULL;
 	// RAFEL: Nada de SDL
 	// ImageTexture = NULL;
+	IDGfx = ResourceManager::getInstance()->loadAndGetGraphicID(Video::getInstance()->getRenderer(), image);
 	PositionRender.h = 0;
 	PositionRender.w = 0;
 	PositionRender.y = 0;

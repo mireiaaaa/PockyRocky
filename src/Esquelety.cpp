@@ -6,7 +6,7 @@
 #include "Camera.h"
 #include <iostream>
 
-extern Camera* _cam;
+extern Camera* sCamera;
 Esquelety::~Esquelety()
 {
 }
@@ -31,7 +31,7 @@ void Esquelety::init(const char* image)
 	SizeGfx.h = 39; // RAFEL: Cambio valores para ejemplo con guybush
 	PositionRender.h = SizeGfx.h; // RAFEL: Cambio valores para ejemplo con guybush
 	PositionRender.w = SizeGfx.w; // RAFEL: Cambio valores para ejemplo con guybush
-	PositionRender.x = 100; // RAFEL: Estos son los valores a cambiar si lo quiero mover.
+	PositionRender.x = 200; // RAFEL: Estos son los valores a cambiar si lo quiero mover.
 	PositionRender.y = 500; // RAFEL: Estos son los valores a cambiar si lo quiero mover.
 	//mudar variaveis pelas variaveis que tenho em video
 	_follow = false;
@@ -61,9 +61,9 @@ void Esquelety::update()
 
 		break;
 	case MOVE:
-		move();
+		//move();
 
-		if (_distY >= PositionRender.y - 2 && _distY <= PositionRender.y + 2) {
+		if (_distY >= PositionRender.y - 2-60 && _distY <= PositionRender.y + 2+60) {
 
 			if (_distX > PositionRender.x) {
 				_dir = RIGHT;
@@ -75,7 +75,7 @@ void Esquelety::update()
 			}
 
 		}
-		if (_distX >= PositionRender.x - 2 && _distX <= PositionRender.x + 2) {
+		if (_distX >= PositionRender.x - 2-60 && _distX <= PositionRender.x + 2+60) {
 			if (_distY > PositionRender.y) {
 				_dir = DOWN;
 			}
@@ -109,11 +109,11 @@ void Esquelety::render()
 {
 	int animX = SizeGfx.x + SizeGfx.w * frame;
 	if (_dir == RIGHT) {
-		Video::getInstance()->renderGraphic(IDGfx, animX, SizeGfx.y, SizeGfx.w, SizeGfx.h, PositionRender.x - _cam->getX(), PositionRender.y - _cam->getY(),1);
+		Video::getInstance()->renderGraphic(IDGfx, animX, SizeGfx.y, SizeGfx.w, SizeGfx.h, PositionRender.x - sCamera->getX(), PositionRender.y - sCamera->getY(),1);
 	}
 	else {
 
-		Video::getInstance()->renderGraphic(IDGfx, animX, SizeGfx.y, SizeGfx.w, SizeGfx.h, PositionRender.x - _cam->getX(), PositionRender.y - _cam->getY());
+		Video::getInstance()->renderGraphic(IDGfx, animX, SizeGfx.y, SizeGfx.w, SizeGfx.h, PositionRender.x - sCamera->getX(), PositionRender.y - sCamera->getY());
 	}
 	//Video::getInstance()->renderGraphic(IDGfx, animX, SizeGfx.y, SizeGfx.w, SizeGfx.h, PositionRender.x , PositionRender.y , 1);
 

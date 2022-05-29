@@ -8,7 +8,7 @@
 /*! All the Scenes in the game. */
 
 
-enum statesSceneDirector { MENU, SCORES, OPTIONS, ANIMATIC, MAIN, GAMEOVER, YOUWIN, _LASTSCENE };
+enum statesSceneDirector { MENU, SCORES, OPTIONS, ANIMATIC, GAME, GAMEOVER, YOUWIN, _LASTSCENE };
 
 #define NUM_SCENES _LASTSCENE
 

@@ -18,9 +18,6 @@
     <ClCompile Include="src\Video.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\mainPrueba.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\Personaje.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -81,13 +78,16 @@
     <ClCompile Include="src\OptionsScene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\SceneDirector.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneMain.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\Scene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameScene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\mainForDirector.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SceneDirector.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -161,10 +161,10 @@
     <ClInclude Include="src\SceneDirector.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SceneMain.h">
+    <ClInclude Include="src\Scene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Scene.h">
+    <ClInclude Include="src\GameScene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

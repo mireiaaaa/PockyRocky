@@ -2,7 +2,7 @@
 #include "MenuScene.h"
 #include "OptionsScene.h"
 #include "ScoresScene.h"
-#include "SceneMain.h"
+#include "GameScene.h"
 #include "GameOverScene.h"
 #include "YouWinScene.h"
 #include "AnimaticScene.h"
@@ -31,23 +31,26 @@ void SceneDirector::init() {
 
 	ScoresScene* _scoresScene = new ScoresScene();
 	OptionsScene* _optionsScene = new OptionsScene();
-	AnimaticScene* _animaticScene = new AnimaticScene();
-	MainScene* _mainScene = new MainScene();
+	//AnimaticScene* _animaticScene = new AnimaticScene();
+	//MainScene* _mainScene = new MainScene();
 	YouWinScene* _youWinScene = new YouWinScene();
 	GameOverScene* _gameOver = new GameOverScene();
+	GameScene* _gameScene = new GameScene();
+
 	
-	mVectorScenes[SCORES] = main;
+	/*
 	mVectorScenes[SELECT_CHARACTER] = SelectCharacter;
 	mVectorScenes[STATS] = Stats;
 	mVectorScenes[INIT_LEVEL] = InitGame;
 	mVectorScenes[PAUSE] = Pause;
-	mVectorScenes[GAME] = game;
+	*/
+	mVectorScenes[GAME] = _gameScene;
 	mVectorScenes[GAMEOVER] = _gameOver;
 
-
+	_gameScene->init();
 	_gameOver->init();
 
-	mCurrScene = MAIN;
+	mCurrScene = GAME;
 }
 
 void SceneDirector::changeScene(statesSceneDirector next_scene, bool reinit) {

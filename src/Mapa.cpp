@@ -6,7 +6,7 @@
 #include "Camera.h"
 #include "Defines.h"
 
-extern Camera* _cam;
+extern Camera* sCamera;
 extern SDL_Renderer* gRenderer;
 
 Mapa::Mapa()
@@ -84,8 +84,8 @@ void Mapa::init(const char* image)
 
 void Mapa::update()
 {
-	_firstTileX = _cam->getX() / tileW;
-	_firstTileY = _cam->getY() / tileH;
+	_firstTileX = sCamera->getX() / tileW;
+	_firstTileY = sCamera->getY() / tileH;
 	_totalTilesPintadosX = (SCREEN_WIDTH / tileW) + _firstTileX + 1;
 	_totalTilesPintadosY = (SCREEN_HEIGHT / tileH) + _firstTileY + 1;
 
@@ -103,8 +103,8 @@ void Mapa::render()
 
 	for (int i = _firstTileY; i < _totalTilesPintadosY; i++) {//tmY
 		for (int j = _firstTileX; j < _totalTilesPintadosX;j++) {//tmX
-			rectT.x = j * tileW - _cam->getX();
-			rectT.y = i * tileH - _cam->getY();
+			rectT.x = j * tileW - sCamera->getX();
+			rectT.y = i * tileH - sCamera->getY();
 			rectT.w = tileW;
 			rectT.h = tileH;
 

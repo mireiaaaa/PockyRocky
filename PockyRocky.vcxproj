@@ -19,7 +19,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="SceneMain.cpp" />
     <ClCompile Include="src\AnimaticScene.cpp" />
     <ClCompile Include="src\Balas.cpp" />
     <ClCompile Include="src\Boss.cpp" />
@@ -29,7 +28,7 @@
     <ClCompile Include="src\GameOverScene.cpp" />
     <ClCompile Include="src\Hud.cpp" />
     <ClCompile Include="src\InputManager.cpp" />
-    <ClCompile Include="src\mainPrueba.cpp" />
+    <ClCompile Include="src\mainForDirector.cpp" />
     <ClCompile Include="src\Mapa.cpp" />
     <ClCompile Include="src\MenuScene.cpp" />
     <ClCompile Include="src\OptionsScene.cpp" />
@@ -37,6 +36,7 @@
     <ClCompile Include="src\Principal.cpp" />
     <ClCompile Include="src\ResourceManager.cpp" />
     <ClCompile Include="src\Scene.cpp" />
+    <ClCompile Include="src\GameScene.cpp" />
     <ClCompile Include="src\SceneDirector.cpp" />
     <ClCompile Include="src\ScoresScene.cpp" />
     <ClCompile Include="src\Timer.cpp" />
@@ -46,7 +46,6 @@
     <ClCompile Include="src\YouWinScene.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="SceneMain.h" />
     <ClInclude Include="src\AnimaticScene.h" />
     <ClInclude Include="src\Balas.h" />
     <ClInclude Include="src\Boss.h" />
@@ -65,6 +64,7 @@
     <ClInclude Include="src\ResourceManager.h" />
     <ClInclude Include="src\Scene.h" />
     <ClInclude Include="src\SceneDirector.h" />
+    <ClInclude Include="src\GameScene.h" />
     <ClInclude Include="src\ScoresScene.h" />
     <ClInclude Include="src\Timer.h" />
     <ClInclude Include="src\tinyxml2.h" />

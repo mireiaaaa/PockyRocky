@@ -6,7 +6,7 @@
 #include "Camera.h"
 #include <iostream>
 
-extern Camera* _cam;
+extern Camera* sCamera;
 Boss::~Boss()
 {
 }
@@ -171,11 +171,11 @@ void Boss::render()
 {
 	int animX = SizeGfx.x + SizeGfx.w * frame;
 	if (_dir == RIGHT) {
-		Video::getInstance()->renderGraphic(IDGfx, animX, SizeGfx.y, SizeGfx.w, SizeGfx.h, PositionRender.x - _cam->getX(), PositionRender.y - _cam->getY(), 1);
+		Video::getInstance()->renderGraphic(IDGfx, animX, SizeGfx.y, SizeGfx.w, SizeGfx.h, PositionRender.x - sCamera->getX(), PositionRender.y - sCamera->getY(), 1);
 	}
 	else {
 
-		Video::getInstance()->renderGraphic(IDGfx, animX, SizeGfx.y, SizeGfx.w, SizeGfx.h, PositionRender.x - _cam->getX(), PositionRender.y - _cam->getY());
+		Video::getInstance()->renderGraphic(IDGfx, animX, SizeGfx.y, SizeGfx.w, SizeGfx.h, PositionRender.x - sCamera->getX(), PositionRender.y - sCamera->getY());
 	}
 	
 

@@ -6,7 +6,7 @@
 #include "Camera.h"
 #include <iostream>
 
-extern Camera* _cam;
+extern Camera* sCamera;
 MenuScene::~MenuScene()
 {
 }

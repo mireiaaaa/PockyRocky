@@ -5,7 +5,7 @@
 #include "InputManager.h"
 #include<iostream>
 extern int tecla;
-extern Camera* _cam;
+extern Camera* sCamera;
 Personaje::~Personaje()
 {
 
@@ -237,10 +237,10 @@ void Personaje::render() {
 	int animX = SizeGfx.x + SizeGfx.w * frame;
 
 	if (_dir == RIGHT) {
-		Video::getInstance()->renderGraphic(IDGfx, animX, SizeGfx.y, SizeGfx.w, SizeGfx.h, PositionRender.x - _cam->getX(), PositionRender.y - _cam->getY(),1);
+		Video::getInstance()->renderGraphic(IDGfx, animX, SizeGfx.y, SizeGfx.w, SizeGfx.h, PositionRender.x - sCamera->getX(), PositionRender.y - sCamera->getY(),1);
 	}
 	else {
-		Video::getInstance()->renderGraphic(IDGfx, animX, SizeGfx.y, SizeGfx.w, SizeGfx.h, PositionRender.x - _cam->getX(), PositionRender.y - _cam->getY());
+		Video::getInstance()->renderGraphic(IDGfx, animX, SizeGfx.y, SizeGfx.w, SizeGfx.h, PositionRender.x - sCamera->getX(), PositionRender.y - sCamera->getY());
 	}
 }
 

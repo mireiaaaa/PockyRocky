@@ -5,7 +5,7 @@
 #include "Camera.h"
 #include <iostream>
 
-extern Camera* _cam;
+extern Camera* sCamera;
 Balas::~Balas()
 {
 }
@@ -101,7 +101,7 @@ void Balas::render()
 {
 	
 
-	Video::getInstance()->renderGraphic(IDGfx, 0, SizeGfx.y, SizeGfx.w, SizeGfx.h, PositionRender.x - _cam->getX(), PositionRender.y - _cam->getY());
+	Video::getInstance()->renderGraphic(IDGfx, 0, SizeGfx.y, SizeGfx.w, SizeGfx.h, PositionRender.x - sCamera->getX(), PositionRender.y - sCamera->getY());
 	//Video::getInstance()->renderGraphic(IDGfx, animX, SizeGfx.y, SizeGfx.w, SizeGfx.h, PositionRender.x , PositionRender.y , 1);
 
 

@@ -28,7 +28,7 @@ SceneDirector::~SceneDirector() {
 void SceneDirector::init() {
 	mVectorScenes.resize(NUM_SCENES);
 	
-
+	MenuScene* _menuScene = new MenuScene();
 	ScoresScene* _scoresScene = new ScoresScene();
 	OptionsScene* _optionsScene = new OptionsScene();
 	//AnimaticScene* _animaticScene = new AnimaticScene();
@@ -44,13 +44,22 @@ void SceneDirector::init() {
 	mVectorScenes[INIT_LEVEL] = InitGame;
 	mVectorScenes[PAUSE] = Pause;
 	*/
+	mVectorScenes[MENU] = _menuScene;
+	mVectorScenes[SCORES] = _scoresScene;
+	mVectorScenes[OPTIONS] = _optionsScene;
 	mVectorScenes[GAME] = _gameScene;
+	mVectorScenes[YOUWIN] = _youWinScene;
 	mVectorScenes[GAMEOVER] = _gameOver;
 
+	_menuScene->init();
+	_scoresScene->init();
+	_optionsScene->init();
 	_gameScene->init();
+	_youWinScene->init();
 	_gameOver->init();
 
 	mCurrScene = GAME;
+	//outras cenas nao carregam imagem
 }
 
 void SceneDirector::changeScene(statesSceneDirector next_scene, bool reinit) {

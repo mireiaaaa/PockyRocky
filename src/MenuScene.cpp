@@ -1,4 +1,4 @@
-#include "MenuScene.h"
+
 #include "MenuScene.h"
 #include "Video.h"
 #include "ResourceManager.h"

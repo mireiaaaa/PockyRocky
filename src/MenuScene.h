@@ -2,6 +2,7 @@
 #include "Scene.h"
 #include "Mapa.h"
 #include "Principal.h"
+#include "SceneDirector.h"
 
 
 class MenuScene :public Scene

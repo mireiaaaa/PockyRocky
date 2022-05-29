@@ -39,6 +39,7 @@
     <ClCompile Include="src\GameScene.cpp" />
     <ClCompile Include="src\SceneDirector.cpp" />
     <ClCompile Include="src\ScoresScene.cpp" />
+    <ClCompile Include="src\SoundManager.cpp" />
     <ClCompile Include="src\Timer.cpp" />
     <ClCompile Include="src\tinyxml2.cpp" />
     <ClCompile Include="src\Umby.cpp" />
@@ -66,6 +67,7 @@
     <ClInclude Include="src\SceneDirector.h" />
     <ClInclude Include="src\GameScene.h" />
     <ClInclude Include="src\ScoresScene.h" />
+    <ClInclude Include="src\SoundManager.h" />
     <ClInclude Include="src\Timer.h" />
     <ClInclude Include="src\tinyxml2.h" />
     <ClInclude Include="src\Umby.h" />

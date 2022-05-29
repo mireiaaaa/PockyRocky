@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Balas.cpp" />
+    <ClCompile Include="src\Boss.cpp" />
     <ClCompile Include="src\Camera.cpp" />
     <ClCompile Include="src\Esquelety.cpp" />
     <ClCompile Include="src\Fantasmita.cpp" />
@@ -36,6 +37,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Balas.h" />
+    <ClInclude Include="src\Boss.h" />
     <ClInclude Include="src\Camera.h" />
     <ClInclude Include="src\Defines.h" />
     <ClInclude Include="src\Esquelety.h" />

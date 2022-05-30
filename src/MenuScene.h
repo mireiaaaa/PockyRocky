@@ -20,9 +20,10 @@ public:
 	
 private:
 	Principal _imgMenu;
-
+	Principal _arrow;
 	//statesMenuScene _estadosMenuScene;
-	
+	int _arrowPos;
+	int _cont;
 	
 
 };

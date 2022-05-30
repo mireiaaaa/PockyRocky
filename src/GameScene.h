@@ -40,7 +40,7 @@ private:
 	//Principal _imgGame;
 	Personaje Player;
 	Mapa Map;
-	Fantasmita Ghost;
+	vector<Fantasmita*> Ghost;
 	Esquelety Esque;
 	Umby Umb;
 	Boss Nopino;

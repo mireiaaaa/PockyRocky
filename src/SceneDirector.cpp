@@ -58,7 +58,7 @@ void SceneDirector::init() {
 	_youWinScene->init();
 	_gameOver->init();
 
-	mCurrScene = GAME;
+	mCurrScene = MENU;
 	//outras cenas nao carregam imagem
 }
 

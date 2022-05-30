@@ -41,6 +41,12 @@ public:
 	void setSize(int valueW, int valueH) { SizeGfx.w = valueW; SizeGfx.h = valueH; };
 	void setSizeHeight(int value) { SizeGfx.h = value; };
 	void setSizeWidth(int value) { SizeGfx.w = value; };
+
+	bool samePos(MyRectangle* _cube);
+
+	MyRectangle* getCollision();
+	void isHurt();
+
 	virtual void update();
 protected:
 	// RAFEL: Nada de surface. Solo Texture y se guarda en el ResourceManager

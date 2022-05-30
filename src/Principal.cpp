@@ -51,7 +51,7 @@ void Principal::loadImage( const char * file)
 
 void Principal::render()
 {
-
+	Video::getInstance()->renderGraphic(IDGfx, SizeGfx.x, SizeGfx.y, SizeGfx.w, SizeGfx.h, PositionRender.x , PositionRender.y);
 }
 
 // RAFEL: Nada de SDL
@@ -67,6 +67,32 @@ void Principal::render()
 
 
 
+
+bool Principal::samePos(MyRectangle* _cube)
+{
+	if (_cube->x < PositionRender.x + SizeGfx.w &&
+		_cube->x + _cube->w > PositionRender.x &&
+		_cube->y < PositionRender.y + SizeGfx.h &&
+		_cube->h + _cube->y > PositionRender.y) {
+		return true;
+	}
+	return false;
+}
+
+MyRectangle* Principal::getCollision()
+{
+	MyRectangle _rect;
+	_rect.x = PositionRender.x;
+	_rect.y = PositionRender.y;
+	_rect.h = SizeGfx.h;
+	_rect.w = SizeGfx.w;
+	return &_rect;
+}
+
+void Principal::isHurt()
+{
+	
+}
 
 void Principal::update()
 {

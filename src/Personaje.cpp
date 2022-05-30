@@ -41,8 +41,8 @@ void Personaje::init(const char* image)
 	SizeGfx.h = 28; // RAFEL: Cambio valores para ejemplo con guybush
 	PositionRender.h = SizeGfx.h; // RAFEL: Cambio valores para ejemplo con guybush
 	PositionRender.w = SizeGfx.w; // RAFEL: Cambio valores para ejemplo con guybush
-	PositionRender.x = 1700; //100 RAFEL: Estos son los valores a cambiar si lo quiero mover.
-	PositionRender.y = 100; //600 RAFEL: Estos son los valores a cambiar si lo quiero mover.
+	PositionRender.x = 100; //100 RAFEL: Estos son los valores a cambiar si lo quiero mover.
+	PositionRender.y = 500; //600 RAFEL: Estos son los valores a cambiar si lo quiero mover.
 	_contBalas = 0;
 	//mudar variaveis pelas variaveis que tenho em video
 	 _dir= DOWN;
@@ -79,10 +79,7 @@ void Personaje::update()
 			}
 		}
 		
-	if (InputManager::getInstance()->getHurt() == true) { // Se proteje
-		_deadByHurtCount++;
-			_state = Personaje::ST_HURT;
-	}
+	
 
 		break;
 	case Personaje::ST_WALK:
@@ -199,10 +196,10 @@ void Personaje::update()
 		}
 		
 		
-		if (_hurtCount >= 30) {
-			if (InputManager::getInstance()->getHurt() == false) {// deja de hacer ataque especial
+		if (_hurtCount >= 10) {
+			
 				_state = Personaje::ST_IDLE;
-			}
+			
 			
 		}
 		hurt();
@@ -580,4 +577,10 @@ void Personaje::dead()
 	default:
 		break;
 	}
+}
+
+void Personaje::isHurt()
+{
+	_deadByHurtCount++;
+	_state = Personaje::ST_HURT;
 }

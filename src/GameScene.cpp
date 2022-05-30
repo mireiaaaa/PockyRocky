@@ -6,6 +6,7 @@
 #include "Camera.h"
 #include "SceneDirector.h"
 #include <iostream>
+
 extern SceneDirector* sDirector;
 extern InputManager* sInputControl;
 //extern Audio* sAudio;
@@ -33,8 +34,14 @@ void GameScene::init()
 	//int pos=0;
 	
 	//const Uint8* state;
+	Fantasmita* GhostVector;
+	GhostVector = new Fantasmita;
+	Ghost.push_back(GhostVector);
+	for (size_t i = 0; i < Ghost.size(); i++)
+	{
+		Ghost[i]->setPos(&Player);
+	}
 
-	Ghost.setPos(&Player);
 	Esque.setPos(&Player);
 	Umb.setPos(&Player);
 	Nopino.setPos(&Player);
@@ -42,7 +49,10 @@ void GameScene::init()
 
 
 	Player.init("pocky.png");
-	Ghost.init("fantasmita.png");
+	for (size_t i = 0; i < Ghost.size(); i++)
+	{
+		Ghost[i]->init("fantasmita.png");
+	}
 	Esque.init("esquelety.png");
 	Umb.init("umby.png");
 	Nopino.init("boss.png");
@@ -74,13 +84,28 @@ void GameScene::update()
 		Bala[i]->update();
 	}
 	Player.update();
-	Ghost.update();
+	for (size_t i = 0; i < Ghost.size(); i++)
+	{
+		Ghost[i]->update();
+	}
 	Esque.update();
 	Umb.update();
 	Nopino.update();
 	sCamera->update();
 	Map.update();
 
+	for (size_t i = 0; i < Ghost.size(); i++)
+		{
+			
+			if (Player.samePos(Ghost[i]->getCollision())) {
+			Player.isHurt();
+			delete Ghost[i];
+		
+
+			Ghost.erase(Ghost.begin() + i);
+		}
+	}
+	
 }
 
 
@@ -92,11 +117,15 @@ void GameScene::render()
 	Map.render();
 	Esque.render();
 	Player.render();
-	Ghost.render();
+	for (size_t i = 0; i < Ghost.size(); i++)
+	{
+		Ghost[i]->render();
+	}
 	Nopino.render();
 	for (size_t i = 0; i < Bala.size(); i++)
 	{
 		Bala[i]->render();
+
 	}
 	Umb.render();
 

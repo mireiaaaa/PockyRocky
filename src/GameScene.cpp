@@ -6,7 +6,7 @@
 #include "Camera.h"
 #include "SceneDirector.h"
 #include <iostream>
-
+#include "Hud.h"
 extern SceneDirector* sDirector;
 extern InputManager* sInputControl;
 //extern Audio* sAudio;
@@ -34,7 +34,8 @@ void GameScene::init()
 	//int pos=0;
 	
 	//const Uint8* state;
-
+	HUD.init();
+	
 
 	Esquelety* EsqueVector;
 	EsqueVector = new Esquelety;
@@ -151,7 +152,7 @@ void GameScene::init()
 void GameScene::update()
 {
 
-	
+	HUD.update();
 	
 	for (size_t i = 0; i < Bala.size(); i++)
 	{
@@ -236,7 +237,7 @@ void GameScene::update()
 void GameScene::render()
 {
 	
-
+	HUD.render();
 	Map.render();
 	Player.render();
 	for (size_t i = 0; i < Esque.size(); i++)

@@ -30,7 +30,7 @@ public:
 	virtual void init(const char* image);
 	//void loadImage( const char* file);
 	//void loadImage(SDL_Renderer *renderer,const char* file);
-	virtual void render();
+	
 	void setAngulo(double value) { Angulo = value; };
 	void setPositionX(int value) { PositionRender.x = value; };
 	void setPositionXY(int valueX, int valueY) { PositionRender.x = valueX; PositionRender.y = valueY; };
@@ -47,8 +47,10 @@ public:
 
 	MyRectangle* getCollision();
 	void isHurt();
-
+	
 	virtual void update();
+	virtual void render();
+	virtual void renderFrame(int SizeX);
 protected:
 	// RAFEL: Nada de surface. Solo Texture y se guarda en el ResourceManager
 	// RAFEL: Guarda la ID que loadAndGetGraphicID te devuelve. No sabes que numero va a ocupar tu grafico en el almacen.

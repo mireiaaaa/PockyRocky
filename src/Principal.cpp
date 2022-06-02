@@ -54,6 +54,11 @@ void Principal::render()
 	Video::getInstance()->renderGraphic(IDGfx, SizeGfx.x, SizeGfx.y, SizeGfx.w, SizeGfx.h, PositionRender.x , PositionRender.y);
 }
 
+void Principal::renderFrame(int SizeX)
+{
+	Video::getInstance()->renderGraphic(IDGfx, SizeX, SizeGfx.y, SizeGfx.w, SizeGfx.h, PositionRender.x, PositionRender.y);
+}
+
 // RAFEL: Nada de SDL
 //void Principal::setScreenSurface(SDL_Surface* punterSurface)
 //{

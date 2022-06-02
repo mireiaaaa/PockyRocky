@@ -17,6 +17,7 @@
 #include "Personaje.h"
 #include "Umby.h"
 #include "Boss.h"
+#include "Hud.h"
 using namespace std;
 #include<iostream>
 
@@ -45,7 +46,7 @@ private:
 	vector<Umby*> Umb;
 	Boss Nopino;
 	vector<Balas*> Bala;
-
+	Hud HUD;
 	//statesGameScene _estadosGameScene;
 
 

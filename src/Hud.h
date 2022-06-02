@@ -2,6 +2,7 @@
 
 #include "Mapa.h"
 #include "Principal.h"
+#include "Personaje.h"
 
 
 class Hud :public Principal
@@ -9,7 +10,7 @@ class Hud :public Principal
 public:
 	~Hud();
 	Hud();
-	//enum statesHud { SPAWN, MOVE, HURT, DEAD };
+	enum _ImgHud { PONTUACIONCERO,PONTUACIONNUM,CORAZON, ICONO };
 	void init();
 	void update();
 	void render();
@@ -18,10 +19,15 @@ public:
 
 
 private:
-	Principal _img;
+	Principal _corazon;
+	Principal _pontuacionCero;
+	Principal _pontuacionNum;
+	Principal _icono;
 
-	//statesHud _estadosHud;
+	_ImgHud _img;
 
-
-
+	void pontuacionCero();
+	void pontuacionNum();
+	void corazon();
+	void icono();
 };

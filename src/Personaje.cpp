@@ -23,7 +23,7 @@ Personaje::Personaje()
 	_instanceMap = nullptr;
 	_oneTime = false;
 	_specialCount = 0;
-	_deadByHurtCount = 0;
+	_life = 10;
 	_isHurt = false;
 }
 
@@ -111,6 +111,7 @@ void Personaje::update()
 
 		break;
 	case Personaje::ST_IDLEATTACK:
+		
 		if (_contBalas >=10) {
 			Balas* bala;
 			bala = new Balas();
@@ -191,13 +192,13 @@ void Personaje::update()
 		
 		
 		
-		if (_deadByHurtCount >= 20) {
+		if (_life <= 0) {
 			_isHurt = true;
 			_state = Personaje::ST_DEAD;
 		}
 		
 		
-		if (_hurtCount >= 10) {
+		if (_hurtCount >= 10) {//tiempo de que enseñara sprite de hurt
 			
 				_state = Personaje::ST_IDLE;
 			
@@ -210,7 +211,7 @@ void Personaje::update()
 		
 		
 		if (_deadCount >= 150) {
-			_deadByHurtCount = 0;
+			_life = 0;
 			_isHurt = false;
 			if ( _isHurt ==false) {// deja de hacer ataque especial
 				_state = Personaje::ST_IDLE;
@@ -583,11 +584,21 @@ void Personaje::dead()
 void Personaje::isHurt()
 {
 	_hurtCount++;
-	_deadByHurtCount++;
+	_life--;
 	_state = Personaje::ST_HURT;
 }
 
 void Personaje::moreScore()
 {
 	_score+=100;
+}
+
+int Personaje::getScore()
+{
+	return _score;
+}
+
+int Personaje::getHP()
+{
+	return _life;
 }

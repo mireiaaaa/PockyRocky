@@ -34,8 +34,9 @@ void GameScene::init()
 	//int pos=0;
 	
 	//const Uint8* state;
+	HUD.setPos(&Player);
 	HUD.init();
-	
+
 
 	Esquelety* EsqueVector;
 	EsqueVector = new Esquelety;
@@ -85,7 +86,7 @@ void GameScene::init()
 		}
 		//segunda fila
 		else if (i >= 7 && i <= 8) {
-			GhostVector->init("fantasmita.png", 100, 250);
+			GhostVector->init("fantasmita.png", 100, 600);
 		}
 		else if (i >= 9 && i <= 10) {
 			GhostVector->init("fantasmita.png", 80, 250);
@@ -197,18 +198,21 @@ void GameScene::update()
 	}
 	for (size_t i = 0; i < Ghost.size(); i++)
 	{
-		for (size_t j = 0; j < Bala.size(); j++)
-		{
-
 		if (Player.samePos(Ghost[i]->getCollision())) {
 
-			Player.isHurt();
+      		Player.isHurt();
 			delete Ghost[i];
 
 
 			Ghost.erase(Ghost.begin() + i);
+			continue;
 		}
-		if (Bala[j]->samePos(Ghost[i]->getCollision())+0.1) {
+		for (size_t j = 0; j < Bala.size(); j++)
+		{
+
+		
+
+ 		if (Ghost[i]->samePos(Bala[j]->getCollision())+0.1) {
 
 			Player.moreScore();
 			delete Ghost[i];
@@ -237,7 +241,7 @@ void GameScene::update()
 void GameScene::render()
 {
 	
-	HUD.render();
+	
 	Map.render();
 	Player.render();
 	for (size_t i = 0; i < Esque.size(); i++)
@@ -260,7 +264,7 @@ void GameScene::render()
 	}
 
 
-	
+	HUD.render();
 
 
 }

@@ -55,6 +55,7 @@ protected:
 	// RAFEL: Nada de surface. Solo Texture y se guarda en el ResourceManager
 	// RAFEL: Guarda la ID que loadAndGetGraphicID te devuelve. No sabes que numero va a ocupar tu grafico en el almacen.
 	int IDGfx;
+
 	//SDL_Surface* Image;
 
 	// RAFEL: No ha de haber nada de SDL aquí.

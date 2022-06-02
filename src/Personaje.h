@@ -23,6 +23,8 @@ public:
 	void setPos( vector<Balas*> *_bala) { _instanceBala = _bala; };
 	void isHurt();
 	void moreScore();
+	int getScore();
+	int getHP();
 private:
 	Mapa* _instanceMap;
 	// RAFEL2
@@ -46,7 +48,7 @@ private:
 	//variables test
 	int _hurtCount;
 	int _deadCount;
-	int _deadByHurtCount;
+	int _life;
 	bool _isHurt;
 
 	int _contBalas;

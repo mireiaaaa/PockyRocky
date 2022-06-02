@@ -116,22 +116,22 @@ void Balas::attacking()
 
 
 	case LEFT:
-		PositionRender.x -= 5;
+		PositionRender.x -= 3;
 		SizeGfx.y = (14 * 1) + (14 * 1);
 
 		break;
 
 	case RIGHT:
-		PositionRender.x += 5;
+		PositionRender.x += 3;
 		SizeGfx.y = (14 * 3) + (14 * 3);
 		break;
 	case UP:
-		PositionRender.y -= 5;
+		PositionRender.y -= 3;
 		SizeGfx.y = 0;
 
 		break;
 	case DOWN:
-		PositionRender.y += 5;
+		PositionRender.y += 3;
 		SizeGfx.y = (14 * 2) + (14 * 2);
 
 		break;

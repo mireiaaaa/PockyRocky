@@ -10,7 +10,7 @@ public:
 	~Fantasmita();
 	Fantasmita();
 	enum statesFantasmita {ATTACK,MOVE,DEAD};
-	void init(const char* image);
+	void init(const char* image,int PosX,int PosY);
 	void update();
 	void render();
 

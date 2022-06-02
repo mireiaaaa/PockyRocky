@@ -25,6 +25,7 @@ public:
 	int getPositionY() { return PositionRender.y; };
 	int getSizeWidth() { return SizeGfx.w; }
 	int getSizeHeight() { return SizeGfx.h; }
+	int getDir() { return _dir; }
 	double getAngulo() { return Angulo; }; // RAFEL: estaba a int en vez de double
 	virtual void init(const char* image);
 	//void loadImage( const char* file);

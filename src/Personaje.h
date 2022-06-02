@@ -22,6 +22,7 @@ public:
 	void collider(int _dir);
 	void setPos( vector<Balas*> *_bala) { _instanceBala = _bala; };
 	void isHurt();
+	void moreScore();
 private:
 	Mapa* _instanceMap;
 	// RAFEL2
@@ -36,7 +37,7 @@ private:
 	void special();
 	void hurt();
 	void dead();
-	
+	int _score;
 	int _cont;
 	bool _ground;
 	int _specialCount;

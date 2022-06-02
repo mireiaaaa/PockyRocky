@@ -41,8 +41,8 @@ private:
 	Personaje Player;
 	Mapa Map;
 	vector<Fantasmita*> Ghost;
-	Esquelety Esque;
-	Umby Umb;
+	vector<Esquelety*> Esque;
+	vector<Umby*> Umb;
 	Boss Nopino;
 	vector<Balas*> Bala;
 

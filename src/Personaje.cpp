@@ -44,6 +44,7 @@ void Personaje::init(const char* image)
 	PositionRender.x = 100; //100 RAFEL: Estos son los valores a cambiar si lo quiero mover.
 	PositionRender.y = 500; //600 RAFEL: Estos son los valores a cambiar si lo quiero mover.
 	_contBalas = 0;
+	_score = 0;
 	//mudar variaveis pelas variaveis que tenho em video
 	 _dir= DOWN;
 }
@@ -188,9 +189,9 @@ void Personaje::update()
 		break;
 	case Personaje::ST_HURT:
 		
-		_hurtCount++;
 		
-		if (_deadByHurtCount == 5) {
+		
+		if (_deadByHurtCount >= 20) {
 			_isHurt = true;
 			_state = Personaje::ST_DEAD;
 		}
@@ -581,6 +582,12 @@ void Personaje::dead()
 
 void Personaje::isHurt()
 {
+	_hurtCount++;
 	_deadByHurtCount++;
 	_state = Personaje::ST_HURT;
+}
+
+void Personaje::moreScore()
+{
+	_score+=100;
 }

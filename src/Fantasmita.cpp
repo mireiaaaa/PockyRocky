@@ -21,7 +21,7 @@ Fantasmita::Fantasmita()
 	_instanceMap = nullptr;
 }
 
-void Fantasmita::init(const char* image)
+void Fantasmita::init(const char* image, int PosX, int PosY)
 {
 	IDGfx = ResourceManager::getInstance()->loadAndGetGraphicID(Video::getInstance()->getRenderer(), image);
 	SizeGfx.x = 0; // RAFEL: Si queremos cambiar el frame, estos son los valores a tocar.
@@ -30,8 +30,8 @@ void Fantasmita::init(const char* image)
 	SizeGfx.h = 24; // RAFEL: Cambio valores para ejemplo con guybush
 	PositionRender.h = SizeGfx.h; // RAFEL: Cambio valores para ejemplo con guybush
 	PositionRender.w = SizeGfx.w; // RAFEL: Cambio valores para ejemplo con guybush
-	PositionRender.x = 130; // RAFEL: Estos son los valores a cambiar si lo quiero mover.
-	PositionRender.y = 350; // RAFEL: Estos son los valores a cambiar si lo quiero mover.
+	PositionRender.x = PosX; // RAFEL: Estos son los valores a cambiar si lo quiero mover.
+	PositionRender.y = PosY; // RAFEL: Estos son los valores a cambiar si lo quiero mover.
 	//mudar variaveis pelas variaveis que tenho em video
 	_follow = false;
 	_dir = DOWN;

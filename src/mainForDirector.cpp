@@ -62,7 +62,7 @@ int main(int argc, char* argv[]) {
 		last_time = actualtime;
 		*/
 		// Updates scene
-		sDirector->getCurrentScene()->update();
+ 		sDirector->getCurrentScene()->update();
 
 		
 			sDirector->getCurrentScene()->render();

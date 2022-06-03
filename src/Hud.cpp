@@ -41,24 +41,7 @@ void Hud::init()
 
 void Hud::update()
 {
-	switch (_img)
-	{
-	case Hud::PONTUACIONCERO:
-		pontuacionCero();
-		break;
-	case Hud::PONTUACIONNUM:
-		pontuacionNum();
-		break;
-	case Hud::CORAZON:
-		corazon();
-		break;
-	case Hud::ICONO:
-		icono();
-		break;
-
-	default:
-		break;
-	}
+	
 
 }
 
@@ -211,22 +194,6 @@ void Hud::reinit()
 {
 }
 
-void Hud::pontuacionCero()
-{
-
-}
-
-void Hud::pontuacionNum()
-{
-}
-
-void Hud::corazon()
-{
-}
-
-void Hud::icono()
-{
-}
 
 
 

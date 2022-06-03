@@ -3,9 +3,12 @@
 #include "Video.h"
 #include "ResourceManager.h"
 #include "InputManager.h"
+#include "SceneDirector.h"
 #include "Camera.h"
 #include <iostream>
 
+extern InputManager* sInputControl;
+extern SceneDirector* sDirector;
 
 GameOverScene::~GameOverScene()
 {
@@ -19,7 +22,7 @@ void GameOverScene::init()
 {
 
 
-	_imgGameOver.init("GameOver.png");
+	_imgGameOver.init("lose.png");
 	_imgGameOver.setSize(258, 226);
 	_imgGameOver.setPositionXY(0, 0);
 
@@ -27,6 +30,13 @@ void GameOverScene::init()
 
 void GameOverScene::update()
 {
+
+
+
+	if(sInputControl->getAtaque()){
+			sDirector->changeScene(MENU, 1);
+	}
+
 }
 
 

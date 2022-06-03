@@ -35,18 +35,16 @@ void GameScene::init()
 	
 	//const Uint8* state;
 	HUD.setPos(&Player);
-	HUD.init();
+	//HUD.init();
 
 
-	Esquelety* EsqueVector;
-	EsqueVector = new Esquelety;
-	Esque.push_back(EsqueVector);
+	
 
-	Umby* UmbyVector;
+	/*Umby* UmbyVector;
 	UmbyVector = new Umby;
-	Umb.push_back(UmbyVector);
+	Umb.push_back(UmbyVector);*/
 		
-
+	/*
 
 	for (size_t i = 0; i < Umb.size(); i++)
 	{
@@ -56,15 +54,37 @@ void GameScene::init()
 	{
 		Esque[i]->setPos(&Player);
 	}
-
+*/
 	Nopino.setPos(&Player);
 	Player.setPos(&Bala);
 
 
-	Player.init("pocky.png");
+	//Player.init("pocky.png");
 
 
+	Esquelety* EsqueVector;
+	/*
+	for (size_t i = 0; i < 4; i++) {	
 
+
+		EsqueVector = new Esquelety;
+		EsqueVector->setPos(&Player);
+
+		if (i >= 1 && i <= 2) {
+			EsqueVector->init("esquelety.png", 300, 300);
+		}
+		else if (i >= 3 && i <= 4) {
+			EsqueVector->init("esquelety.png", 300, 300);
+		}
+		else if (i >= 5 && i <= 6) {
+			EsqueVector->init("esquelety.png", 300, 300);
+		}
+		//segunda fila
+		else if (i >= 7 && i <= 8) {
+			EsqueVector->init("esquelety.png", 300, 600);
+		}
+		Esque.push_back(EsqueVector);
+	}
 
 	Fantasmita* GhostVector;
 	for (size_t i = 0; i < 18; i++)
@@ -111,14 +131,12 @@ void GameScene::init()
 		Ghost.push_back(GhostVector);
 		
 	
-	}
+	}*/
+	/*
 	for(size_t i = 0; i < Umb.size(); i++){
 		Umb[i]->init("umby.png");
-	}
-	for (size_t i = 0; i < Esque.size(); i++)
-	{
-		Esque[i]->init("esquelety.png");
-	}
+	}*/
+	
 	Nopino.init("boss.png");
 	Map.init("tilesetpoqui.png");
 
@@ -126,7 +144,7 @@ void GameScene::init()
 	
 	
 
-
+	/*
 
 
 	for (size_t i = 0; i < Umb.size(); i++) {
@@ -135,14 +153,14 @@ void GameScene::init()
 	for (size_t i = 0; i < Esque.size(); i++)
 	{
 		Esque[i]->setPos(&Map);
-	}
+	}*/
 	Player.setPos(&Map);
 	Nopino.setPos(&Map);
 
 
 	sCamera->setPos(&Player);
 	sCamera->setPos(&Map);
-	sCamera->init();
+	//sCamera->init();
 
 
 
@@ -212,7 +230,7 @@ void GameScene::update()
 
 		
 
- 		if (Ghost[i]->samePos(Bala[j]->getCollision())+0.1) {
+ 		if (Ghost[i]->samePos(Bala[j]->getCollision())) {
 
 			Player.moreScore();
 			delete Ghost[i];
@@ -233,6 +251,48 @@ void GameScene::update()
 			Ghost.erase(Ghost.begin() + i);
 		}*/
 
+	}
+	if (Player.getHP() <= 0) {
+		for (size_t i = 0; i < Ghost.size(); i++)
+		{
+			
+				delete Ghost[i];
+
+
+		}
+		Ghost.resize(0);
+		for (size_t i = 0; i < Umb.size(); i++)
+		{
+
+			delete Umb[i];
+
+
+		}
+
+		Umb.resize(0);
+		for (size_t i = 0; i < Esque.size(); i++)
+		{
+
+			delete Esque[i];
+
+
+
+
+		}
+		Esque.resize(0);
+		for (size_t i = 0; i < Bala.size(); i++)
+		{
+
+			delete Bala[i];
+
+
+			Bala.erase(Bala.begin() + i);
+
+
+
+		}
+		Bala.resize(0);
+		sDirector->changeScene(GAMEOVER, 1);
 	}
 }
 
@@ -271,6 +331,124 @@ void GameScene::render()
 
 void GameScene::reinit()
 {
+	mReinit = false;
+
+	HUD.init();
+
+
+	
+	Umby* UmbyVector;
+	UmbyVector = new Umby;
+	Umb.push_back(UmbyVector);
+
+
+
+	for (size_t i = 0; i < Umb.size(); i++)
+	{
+		Umb[i]->setPos(&Player);
+	}
+	
+
+	
+
+
+	Player.init("pocky.png");
+
+
+	Esquelety* EsqueVector;
+	for (size_t i = 0; i < 4; i++) {
+
+
+		EsqueVector = new Esquelety;
+		EsqueVector->setPos(&Player);
+
+		if (i >= 1 && i <= 2) {
+			EsqueVector->init("esquelety.png", 300, 300);
+		}
+		else if (i >= 3 && i <= 4) {
+			EsqueVector->init("esquelety.png", 350, 300);
+		}
+		else if (i >= 5 && i <= 6) {
+			EsqueVector->init("esquelety.png", 300, 300);
+		}
+		//segunda fila
+		else if (i >= 7 && i <= 8) {
+			EsqueVector->init("esquelety.png", 300, 600);
+		}
+		Esque.push_back(EsqueVector);
+	}
+
+	Fantasmita* GhostVector;
+	for (size_t i = 0; i < 8; i++)
+	{
+		GhostVector = new Fantasmita;
+		GhostVector->setPos(&Player);
+
+
+		//6 fantasmitas juntos dos fileras
+		//primera fila
+		if (i == 0) {
+			GhostVector->init("fantasmita.png", 100, 300);
+		}
+		else if (i == 1) {
+			GhostVector->init("fantasmita.png", 80, 300);
+		}
+		else if (i == 2) {
+			GhostVector->init("fantasmita.png", 60, 300);
+		}
+		//segunda fila
+		else if (i == 3) {
+			GhostVector->init("fantasmita.png", 100, 600);
+		}
+		else if (i == 4) {
+			GhostVector->init("fantasmita.png", 80, 250);
+		}
+		else if (i == 5) {
+			GhostVector->init("fantasmita.png", 60, 250);
+		}
+
+		//tres fantasmitas
+		else if (i == 6) {
+			GhostVector->init("fantasmita.png", 100, 100);
+		}
+		else if (i == 7) {
+			GhostVector->init("fantasmita.png", 80, 100);
+		}
+		else if (i == 8) {
+			GhostVector->init("fantasmita.png", 60, 100);
+		}
+
+
+
+		Ghost.push_back(GhostVector);
+
+
+	}
+	for (size_t i = 0; i < Umb.size(); i++) {
+		Umb[i]->init("umby.png");
+	}
+	
+	Nopino.init("boss.png");
+	Map.init("tilesetpoqui.png");
+
+
+
+
+
+
+
+
+	for (size_t i = 0; i < Umb.size(); i++) {
+		Umb[i]->setPos(&Map);
+	}
+	
+
+
+
+	sCamera->init();
+
+
+
 }
 
 

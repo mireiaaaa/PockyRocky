@@ -31,8 +31,5 @@ private:
 	int _mScore;
 	_ImgHud _img;
 	int IDHeart;
-	void pontuacionCero();
-	void pontuacionNum();
-	void corazon();
-	void icono();
+
 };

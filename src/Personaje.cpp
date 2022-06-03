@@ -45,6 +45,7 @@ void Personaje::init(const char* image)
 	PositionRender.y = 500; //600 RAFEL: Estos son los valores a cambiar si lo quiero mover.
 	_contBalas = 0;
 	_score = 0;
+	_life = 10;
 	//mudar variaveis pelas variaveis que tenho em video
 	 _dir= DOWN;
 }

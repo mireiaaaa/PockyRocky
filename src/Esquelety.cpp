@@ -52,8 +52,9 @@ void Esquelety::update()
 	{
 	case SPAWN:
 		_contSpawn++;
+
 		if (_contSpawn >= 25) {
-		
+				
 				_estadosEsquelety = Esquelety::MOVE;
 
 		}
@@ -61,21 +62,22 @@ void Esquelety::update()
 
 		break;
 	case MOVE:
-		//move();
-
-		if (_distY >= PositionRender.y - 2-60 && _distY <= PositionRender.y + 2+60) {
+		if (_distY >= PositionRender.y-100 && _distY <= PositionRender.y+ 100 && _distX >= PositionRender.x - 100 && _distX <= PositionRender.x + 100) {
+			move();
+		}
+		if (_distY >= PositionRender.y  && _distY <= PositionRender.y ) {
 
 			if (_distX > PositionRender.x) {
 				_dir = RIGHT;
-				cout << "derecha";
+				
 			}
 			else {
 				_dir = LEFT;
-				cout << "esquerda";
+				
 			}
 
 		}
-		if (_distX >= PositionRender.x - 2-60 && _distX <= PositionRender.x + 2+60) {
+		if (_distX >= PositionRender.x && _distX <= PositionRender.x ) {
 			if (_distY > PositionRender.y) {
 				_dir = DOWN;
 			}

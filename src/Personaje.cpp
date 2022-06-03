@@ -48,11 +48,14 @@ void Personaje::init(const char* image)
 	_life = 10;
 	//mudar variaveis pelas variaveis que tenho em video
 	 _dir= DOWN;
+	 _isDead=false;
 }
 
 
 void Personaje::update()
 {
+	cout <<"PosX:"<< PositionRender.x << endl;
+	cout << "PosY:" << PositionRender.y << endl;
 	_contBalas++;
 	switch (_state)
 	{
@@ -191,7 +194,7 @@ void Personaje::update()
 		break;
 	case Personaje::ST_HURT:
 		
-		
+		_hurtCount++;
 		
 		if (_life <= 0) {
 			_isHurt = true;
@@ -199,7 +202,7 @@ void Personaje::update()
 		}
 		
 		
-		if (_hurtCount >= 10) {//tiempo de que enseñara sprite de hurt
+		if (_hurtCount >= 20) {//tiempo de que enseñara sprite de hurt
 			
 				_state = Personaje::ST_IDLE;
 			
@@ -214,10 +217,10 @@ void Personaje::update()
 		if (_deadCount >= 150) {
 			_life = 0;
 			_isHurt = false;
-			if ( _isHurt ==false) {// deja de hacer ataque especial
-				_state = Personaje::ST_IDLE;
+			
+				_isDead = true;
 				
-			}
+			
 
 		}
 		
@@ -582,9 +585,20 @@ void Personaje::dead()
 	}
 }
 
+int Personaje::PockyEstado()
+{
+	
+	return (int)_state;
+}
+
+bool Personaje::getDead()
+{
+	return _isDead;
+}
+
 void Personaje::isHurt()
 {
-	_hurtCount++;
+
 	_life--;
 	_state = Personaje::ST_HURT;
 }

@@ -25,15 +25,15 @@ Boss::Boss()
 void Boss::init(const char* image)
 {
 	IDGfx = ResourceManager::getInstance()->loadAndGetGraphicID(Video::getInstance()->getRenderer(), image);
-	SizeGfx.x = 0; // RAFEL: Si queremos cambiar el frame, estos son los valores a tocar.
-	SizeGfx.y = 0; // RAFEL: Si queremos cambiar el frame, estos son los valores a tocar.
-	SizeGfx.w = 69; //69 RAFEL: Cambio valores para ejemplo con guybush
-	SizeGfx.h = 76; // 76 RAFEL: Cambio valores para ejemplo con guybush
-	PositionRender.h = SizeGfx.h; // RAFEL: Cambio valores para ejemplo con guybush
-	PositionRender.w = SizeGfx.w; // RAFEL: Cambio valores para ejemplo con guybush
-	PositionRender.x = 1700; // RAFEL: Estos son los valores a cambiar si lo quiero mover.
-	PositionRender.y = 100;// RAFEL: Estos son los valores a cambiar si lo quiero mover.
-	//mudar variaveis pelas variaveis que tenho em video
+	SizeGfx.x = 0; 
+	SizeGfx.y = 0; 
+	SizeGfx.w = 69;
+	SizeGfx.h = 76; 
+	PositionRender.h = SizeGfx.h;
+	PositionRender.w = SizeGfx.w; 
+	PositionRender.x = 1700; 
+	PositionRender.y = 100;
+	
 	_follow = false;
 	_dir = LEFT;
 	_distX = ((_instancePersonaje->getPositionX()) + (_instancePersonaje->getSizeWidth() / 2));
@@ -49,9 +49,9 @@ void Boss::update()
 {
 	_distX = ((_instancePersonaje->getPositionX()) + (_instancePersonaje->getSizeWidth() / 2));
 	_distY = ((_instancePersonaje->getPositionY()) + (_instancePersonaje->getSizeHeight() / 2));
-	//_cont++;
+
 	
-	//_numAle = rand() % (2);
+	
 
 	switch (_estadosBoss)
 	{
@@ -85,11 +85,11 @@ void Boss::update()
 
 				if (_distX > PositionRender.x) {
 					_dir = RIGHT;
-					cout << "derecha";
+					
 				}
 				else {
 					_dir = LEFT;
-					cout << "esquerda";
+					
 				}
 
 			}
@@ -125,11 +125,11 @@ void Boss::update()
 
 				if (_distX > PositionRender.x) {
 					_dir = RIGHT;
-					cout << "derecha";
+					
 				}
 				else {
 					_dir = LEFT;
-					cout << "esquerda";
+					
 				}
 
 			}

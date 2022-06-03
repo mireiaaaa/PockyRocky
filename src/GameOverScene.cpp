@@ -33,7 +33,7 @@ void GameOverScene::update()
 
 
 
-	if(sInputControl->getAtaque()){
+	if(sInputControl->getEnter()){
 			sDirector->changeScene(MENU, 1);
 	}
 

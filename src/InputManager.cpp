@@ -67,6 +67,10 @@ void InputManager::update()
 				_out = true;
 				//_parado = false;
 			}
+			if (test_event.key.keysym.scancode == SDL_SCANCODE_RETURN) {
+				_enter = true;
+				//_parado = false;
+			}
 
 			break;
 		case SDL_KEYUP:
@@ -111,6 +115,10 @@ void InputManager::update()
 			}
 			if (test_event.key.keysym.scancode == SDL_SCANCODE_ESCAPE) {
 				_out = false;
+				//_parado = false;
+			}
+			if (test_event.key.keysym.scancode == SDL_SCANCODE_RETURN) {
+				_enter = false;
 				//_parado = false;
 			}
 
@@ -175,6 +183,11 @@ bool InputManager::getDead()
 bool InputManager::getOut()
 {
 	return _out;
+}
+
+bool InputManager::getEnter()
+{
+	return _enter;
 }
 
 

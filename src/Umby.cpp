@@ -22,7 +22,7 @@ Umby::Umby()
 	_instanceMap = nullptr;
 }
 
-void Umby::init(const char* image)
+void Umby::init(const char* image, int PosX, int PosY)
 {
 	IDGfx = ResourceManager::getInstance()->loadAndGetGraphicID(Video::getInstance()->getRenderer(), image);
 	SizeGfx.x = 0; // RAFEL: Si queremos cambiar el frame, estos son los valores a tocar.
@@ -31,8 +31,8 @@ void Umby::init(const char* image)
 	SizeGfx.h = 42; // RAFEL: Cambio valores para ejemplo con guybush
 	PositionRender.h = SizeGfx.h; // RAFEL: Cambio valores para ejemplo con guybush
 	PositionRender.w = SizeGfx.w; // RAFEL: Cambio valores para ejemplo con guybush
-	PositionRender.x = 100; // RAFEL: Estos son los valores a cambiar si lo quiero mover.
-	PositionRender.y = 500; // RAFEL: Estos son los valores a cambiar si lo quiero mover.
+	PositionRender.x = PosX; // RAFEL: Estos son los valores a cambiar si lo quiero mover.
+	PositionRender.y = PosY; // RAFEL: Estos son los valores a cambiar si lo quiero mover.
 	//mudar variaveis pelas variaveis que tenho em video
 	_follow = false;
 	_dir = DOWN;
@@ -68,11 +68,11 @@ void Umby::update()
 
 			if (_distX > PositionRender.x) {
 				_dir = RIGHT;
-				cout << "derecha";
+			
 			}
 			else {
 				_dir = LEFT;
-				cout << "esquerda";
+				
 			}
 
 		}

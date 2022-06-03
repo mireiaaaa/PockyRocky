@@ -5,6 +5,7 @@
 #include "Mapa.h"
 #include<vector>
 
+
 class Personaje :public Principal
 {
 public:
@@ -12,7 +13,7 @@ public:
 	enum StatesPersonaje {
 		ST_IDLE, ST_WALK, ST_IDLEATTACK, ST_WALKATTACK, ST_DEFEND, ST_SLIDE,ST_SPECIAL, ST_HURT,ST_DEAD
 	};
-	//FAZER ESTADO DE ATAQUE ESPECIAL
+	
 	~Personaje();
 	Personaje();
 	void init(const char* image);
@@ -25,6 +26,8 @@ public:
 	void moreScore();
 	int getScore();
 	int getHP();
+	int PockyEstado();
+	bool getDead();
 private:
 	Mapa* _instanceMap;
 	// RAFEL2
@@ -39,6 +42,7 @@ private:
 	void special();
 	void hurt();
 	void dead();
+	
 	int _score;
 	int _cont;
 	bool _ground;
@@ -50,7 +54,7 @@ private:
 	int _deadCount;
 	int _life;
 	bool _isHurt;
-
+	bool _isDead;
 	int _contBalas;
 	vector<Balas*> * _instanceBala;
 };

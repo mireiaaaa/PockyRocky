@@ -85,13 +85,14 @@ bool Principal::samePos(MyRectangle* _cube)
 }
 
 MyRectangle* Principal::getCollision()
-{
+{/*
 	MyRectangle _rect;
 	_rect.x = PositionRender.x;
 	_rect.y = PositionRender.y;
 	_rect.h = SizeGfx.h;
 	_rect.w = SizeGfx.w;
-	return &_rect;
+	return &_rect;*/
+	return &PositionRender;
 }
 
 void Principal::isHurt()

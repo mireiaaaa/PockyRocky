@@ -65,11 +65,11 @@ void Fantasmita::update()
 			_estadosFantasmita = Fantasmita::ATTACK;
 			if(_distX > PositionRender.x ){
 			_dir = RIGHT;
-			cout << "derecha";
+			
 			}
 			else {
 				_dir = LEFT;
-				cout << "esquerda";
+				
 			}
 			
 		}
@@ -79,7 +79,7 @@ void Fantasmita::update()
 			}
 			
 			
-			cout << "bajo";
+			
 			//_estadosFantasmita = Fantasmita::ATTACK;
 			
 		}

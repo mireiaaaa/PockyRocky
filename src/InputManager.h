@@ -19,6 +19,7 @@ private:
 	bool _hurt;
 	bool _dead;
 	bool _out;
+	bool _enter;
 public:
 
 	~InputManager();
@@ -35,6 +36,7 @@ public:
 	bool getHurt();
 	bool getDead();
 	bool getOut();
+	bool getEnter();
 
 
 	static InputManager* getInstance()

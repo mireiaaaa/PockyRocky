@@ -36,6 +36,7 @@ private:
 	int _contShoot;
 	int _contHurt;
 
+
 	int _distX;
 	int _distY;
 	bool _follow;

@@ -31,111 +31,17 @@ void GameScene::init()
 	
 	SDL_Event test_event;
 
-	//int pos=0;
-	
-	//const Uint8* state;
+
 	HUD.setPos(&Player);
-	//HUD.init();
-
-
-	
-
-	/*Umby* UmbyVector;
-	UmbyVector = new Umby;
-	Umb.push_back(UmbyVector);*/
-		
-	/*
-
-	for (size_t i = 0; i < Umb.size(); i++)
-	{
-		Umb[i]->setPos(&Player);
-	}
-	for (size_t i = 0; i < Esque.size(); i++)
-	{
-		Esque[i]->setPos(&Player);
-	}
-*/
 	Nopino.setPos(&Player);
 	Player.setPos(&Bala);
 
 
-	//Player.init("pocky.png");
+	
 
 
 	Esquelety* EsqueVector;
-	/*
-	for (size_t i = 0; i < 4; i++) {	
-
-
-		EsqueVector = new Esquelety;
-		EsqueVector->setPos(&Player);
-
-		if (i >= 1 && i <= 2) {
-			EsqueVector->init("esquelety.png", 300, 300);
-		}
-		else if (i >= 3 && i <= 4) {
-			EsqueVector->init("esquelety.png", 300, 300);
-		}
-		else if (i >= 5 && i <= 6) {
-			EsqueVector->init("esquelety.png", 300, 300);
-		}
-		//segunda fila
-		else if (i >= 7 && i <= 8) {
-			EsqueVector->init("esquelety.png", 300, 600);
-		}
-		Esque.push_back(EsqueVector);
-	}
-
-	Fantasmita* GhostVector;
-	for (size_t i = 0; i < 18; i++)
-	{
-		GhostVector = new Fantasmita;
-		GhostVector->setPos(&Player);
-
-
-		//6 fantasmitas juntos dos fileras
-		//primera fila
-		if(i >= 1 && i <= 2){
-			GhostVector->init("fantasmita.png", 100,300);
-		}
-		else if(i>=3&&i<=4){
-			GhostVector->init("fantasmita.png", 80, 300);
-		}
-		else if (i >= 5 && i <= 6) {
-			GhostVector->init("fantasmita.png", 60, 300);
-		}
-		//segunda fila
-		else if (i >= 7 && i <= 8) {
-			GhostVector->init("fantasmita.png", 100, 600);
-		}
-		else if (i >= 9 && i <= 10) {
-			GhostVector->init("fantasmita.png", 80, 250);
-		}
-		else if (i >= 11 && i <= 12) {
-			GhostVector->init("fantasmita.png", 60, 250);
-		}
-
-		//tres fantasmitas
-		else if (i >= 13 && i <= 14) {
-			GhostVector->init("fantasmita.png", 100, 100);
-		}
-		else if (i >= 15 && i <= 16) {
-			GhostVector->init("fantasmita.png", 80, 100);
-		}
-		else if (i >= 17 && i <= 18) {
-			GhostVector->init("fantasmita.png", 60, 100);
-		}
-
-
 	
-		Ghost.push_back(GhostVector);
-		
-	
-	}*/
-	/*
-	for(size_t i = 0; i < Umb.size(); i++){
-		Umb[i]->init("umby.png");
-	}*/
 	
 	Nopino.init("boss.png");
 	Map.init("tilesetpoqui.png");
@@ -144,23 +50,14 @@ void GameScene::init()
 	
 	
 
-	/*
-
-
-	for (size_t i = 0; i < Umb.size(); i++) {
-		Umb[i]->setPos(&Map);
-	}
-	for (size_t i = 0; i < Esque.size(); i++)
-	{
-		Esque[i]->setPos(&Map);
-	}*/
+	
 	Player.setPos(&Map);
 	Nopino.setPos(&Map);
 
 
 	sCamera->setPos(&Player);
 	sCamera->setPos(&Map);
-	//sCamera->init();
+	
 
 
 
@@ -172,12 +69,13 @@ void GameScene::update()
 {
 
 	HUD.update();
+	Player.update();
 	
 	for (size_t i = 0; i < Bala.size(); i++)
 	{
 		Bala[i]->update();
 	}
-	Player.update();
+	
 	for (size_t i = 0; i < Ghost.size(); i++)
 	{
 		Ghost[i]->update();
@@ -193,66 +91,121 @@ void GameScene::update()
 	sCamera->update();
 	Map.update();
 
+	bool quit = false;
 	for (size_t i = 0; i < Ghost.size(); i++)
 	{
-			
-			if (Player.samePos(Ghost[i]->getCollision())) {
-			
-			Player.isHurt();
-			delete Ghost[i];
-			
-
-			Ghost.erase(Ghost.begin() + i);
-			}
-
-
-			//NAO FUNCIONA MT BEM N SEI PQ
-			/*
-			if (Player.samePos(Ghost[i]->getCollision())&& Personaje::ST_IDLE&& Player.getDir()==UP ) {
-				delete Ghost[i];
-				Ghost.erase(Ghost.begin() + i);
-			}*/
-			
-	}
-	for (size_t i = 0; i < Ghost.size(); i++)
-	{
+		if (quit) {
+			break;
+		}
 		if (Player.samePos(Ghost[i]->getCollision())) {
 
-      		Player.isHurt();
+			if (Player.PockyEstado() != 4) {
+				Player.isHurt();
+			}
+			else {
+				Player.moreScore();
+			}
 			delete Ghost[i];
 
 
 			Ghost.erase(Ghost.begin() + i);
-			continue;
+			break;
 		}
 		for (size_t j = 0; j < Bala.size(); j++)
 		{
+   			if (Ghost[i]->samePos(Bala[j]->getCollision())) {
+				
+				Player.moreScore();
+				delete Ghost[i];
+				delete Bala[j];
 
-		
-
- 		if (Ghost[i]->samePos(Bala[j]->getCollision())) {
-
-			Player.moreScore();
-			delete Ghost[i];
-			delete Bala[j];
-
-
-			Ghost.erase(Ghost.begin() + i);
-			Bala.erase(Bala.begin() + i);
-		}
+				Ghost.erase(Ghost.begin() + i);
+				Bala.erase(Bala.begin() + j);
+				quit = true;
+				break;
+			}
 
 		}
 
-
-		//NAO FUNCIONA MT BEM N SEI PQ
-		/*
-		if (Player.samePos(Ghost[i]->getCollision())&& Personaje::ST_IDLE&& Player.getDir()==UP ) {
-			delete Ghost[i];
-			Ghost.erase(Ghost.begin() + i);
-		}*/
 
 	}
-	if (Player.getHP() <= 0) {
+	//colision esque
+	for (size_t i = 0; i < Esque.size(); i++)
+	{
+		if (quit) {
+			break;
+		}
+		if (Player.samePos(Esque[i]->getCollision())) {
+
+			if (Player.PockyEstado() != 4) {
+				Player.isHurt();
+			}
+			else {
+				Player.moreScore();
+			}
+			delete Esque[i];
+
+
+			Esque.erase(Esque.begin() + i);
+			break;
+		}
+		for (size_t j = 0; j < Bala.size(); j++)
+		{
+			if (Esque[i]->samePos(Bala[j]->getCollision())) {
+
+				Player.moreScore();
+				delete Esque[i];
+				delete Bala[j];
+
+				Esque.erase(Esque.begin() + i);
+				Bala.erase(Bala.begin() + j);
+				quit = true;
+				break;
+			}
+
+		}
+
+
+	}
+	//colision Umb
+	for (size_t i = 0; i < Umb.size(); i++)
+	{
+		if (quit) {
+			break;
+		}
+		if (Player.samePos(Umb[i]->getCollision())) {
+
+			if (Player.PockyEstado() != 4) {
+				Player.isHurt();
+			}
+			else {
+				Player.moreScore();
+			}
+			delete Umb[i];
+
+
+			Umb.erase(Umb.begin() + i);
+			break;
+		}
+		for (size_t j = 0; j < Bala.size(); j++)
+		{
+			if (Umb[i]->samePos(Bala[j]->getCollision())) {
+
+				Player.moreScore();
+				delete Umb[i];
+				delete Bala[j];
+
+				Umb.erase(Umb.begin() + i);
+				Bala.erase(Bala.begin() + j);
+				quit = true;
+				break;
+			}
+
+		}
+
+
+	}
+	if (Player.getDead() == true) {
 		for (size_t i = 0; i < Ghost.size(); i++)
 		{
 			
@@ -336,53 +289,58 @@ void GameScene::reinit()
 	HUD.init();
 
 
-	
-	Umby* UmbyVector;
-	UmbyVector = new Umby;
-	Umb.push_back(UmbyVector);
-
-
-
-	for (size_t i = 0; i < Umb.size(); i++)
-	{
-		Umb[i]->setPos(&Player);
-	}
-	
-
-	
-
-
 	Player.init("pocky.png");
 
 
-	Esquelety* EsqueVector;
+	Umby* UmbyVector;
 	for (size_t i = 0; i < 4; i++) {
+		UmbyVector = new Umby();
+		UmbyVector->setPos(&Player);
+		UmbyVector->setPos(&Map);
 
-
-		EsqueVector = new Esquelety;
-		EsqueVector->setPos(&Player);
-
-		if (i >= 1 && i <= 2) {
-			EsqueVector->init("esquelety.png", 300, 300);
+		if (i ==0) {
+			UmbyVector->init("umby.png", 150, 320);
 		}
-		else if (i >= 3 && i <= 4) {
-			EsqueVector->init("esquelety.png", 350, 300);
+		else if (i==1) {
+			UmbyVector->init("umby.png", 100, 320);
 		}
-		else if (i >= 5 && i <= 6) {
-			EsqueVector->init("esquelety.png", 300, 300);
+		else if (i == 2) {
+			UmbyVector->init("umby.png", 180, 320);
 		}
 		//segunda fila
-		else if (i >= 7 && i <= 8) {
-			EsqueVector->init("esquelety.png", 300, 600);
+		else if (i==3) {
+			UmbyVector->init("umby.png", 200, 320);
 		}
+		Umb.push_back(UmbyVector);
+
+
+
+	}
+
+	Esquelety* EsqueVector;
+	for (size_t i = 0; i < 2; i++) {
+
+
+		EsqueVector = new Esquelety();
+		EsqueVector->setPos(&Player);
+		EsqueVector->setPos(&Map);
+
+		if (i==0) {
+			EsqueVector->init("esquelety.png", 704, 296);
+		}
+		else if (i ==1) {
+			EsqueVector->init("esquelety.png", 704, 396);
+		}
+		
 		Esque.push_back(EsqueVector);
 	}
 
 	Fantasmita* GhostVector;
 	for (size_t i = 0; i < 8; i++)
 	{
-		GhostVector = new Fantasmita;
+		GhostVector = new Fantasmita();
 		GhostVector->setPos(&Player);
+
 
 
 		//6 fantasmitas juntos dos fileras
@@ -424,24 +382,11 @@ void GameScene::reinit()
 
 
 	}
-	for (size_t i = 0; i < Umb.size(); i++) {
-		Umb[i]->init("umby.png");
-	}
+	
 	
 	Nopino.init("boss.png");
 	Map.init("tilesetpoqui.png");
 
-
-
-
-
-
-
-
-	for (size_t i = 0; i < Umb.size(); i++) {
-		Umb[i]->setPos(&Map);
-	}
-	
 
 
 

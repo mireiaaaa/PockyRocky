@@ -7,6 +7,7 @@
 #include "SceneDirector.h"
 #include <iostream>
 #include "Hud.h"
+#include "SoundManager.h"
 extern SceneDirector* sDirector;
 extern InputManager* sInputControl;
 //extern Audio* sAudio;

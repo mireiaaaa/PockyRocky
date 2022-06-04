@@ -4,8 +4,12 @@
 #include "ResourceManager.h"
 #include "InputManager.h"
 #include<iostream>
+#include "Sound.h"
+#include "SoundManager.h"
 extern int tecla;
 extern Camera* sCamera;
+extern Sound* sSound;
+extern SoundManager* sSoundManager;
 Personaje::~Personaje()
 {
 
@@ -40,8 +44,9 @@ void Personaje::init(const char* image)
 	SizeGfx.h = 28; // RAFEL: Cambio valores para ejemplo con guybush
 	PositionRender.h = SizeGfx.h; // RAFEL: Cambio valores para ejemplo con guybush
 	PositionRender.w = SizeGfx.w; // RAFEL: Cambio valores para ejemplo con guybush
-	PositionRender.x = 1563; //1563 RAFEL: Estos son los valores a cambiar si lo quiero mover.
-	PositionRender.y = 270; //270 RAFEL: Estos son los valores a cambiar si lo quiero mover.
+	PositionRender.x = 114; //1563 RAFEL: Estos son los valores a cambiar si lo quiero mover.
+	PositionRender.y = 907; //270 RAFEL: Estos son los valores a cambiar si lo quiero mover.
+
 	_contBalas = 0;
 	_hurting = 0;
 	_score = 0;
@@ -60,9 +65,9 @@ void Personaje::update()
 		_isHurt = true;
 		_state = Personaje::ST_DEAD;
 	}
-	/*
+	
 	cout <<"PosX:"<< PositionRender.x << endl;
-	cout << "PosY:" << PositionRender.y << endl;*/
+	cout << "PosY:" << PositionRender.y << endl;
 	_contBalas++;
 	switch (_state)
 	{
@@ -124,6 +129,7 @@ void Personaje::update()
 	case Personaje::ST_IDLEATTACK:
 		
 		if (_contBalas >=10) {
+			sSound->playAudio(-1, sSoundManager->loadAndGetAudioID("shoot.ogg"), 0);
 			Balas* bala;
 			bala = new Balas();
 			bala->init(0, _dir, PositionRender.x + PositionRender.w / 2, PositionRender.y + PositionRender.h / 2);
@@ -143,7 +149,9 @@ void Personaje::update()
 		}
 		break;
 	case Personaje::ST_WALKATTACK:
+
 		if (_contBalas >= 10) {
+			sSound->playAudio(-1, sSoundManager->loadAndGetAudioID("shoot.ogg"), 0);
 			Balas* bala;
 			bala = new Balas();
 			bala->init(0, _dir, PositionRender.x + PositionRender.w / 2, PositionRender.y + PositionRender.h / 2);

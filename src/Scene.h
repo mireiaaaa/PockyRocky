@@ -27,6 +27,7 @@ class Scene
         //! Handles the updating of the scene
         virtual void update() = 0;
 
+        virtual void setScore(int score);
         void setReInit(bool loaded = true)    {mReinit = loaded;};
         bool mustReInit()                {return mReinit;};
 

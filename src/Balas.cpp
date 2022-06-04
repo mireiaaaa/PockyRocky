@@ -4,8 +4,10 @@
 #include "InputManager.h"
 #include "Camera.h"
 #include <iostream>
-
+#include "Sound.h"
+#include "SoundManager.h"
 extern Camera* sCamera;
+
 Balas::~Balas()
 {
 }
@@ -23,6 +25,7 @@ Balas::Balas()
 
 void Balas::init(int tipoSprite,int dir,int PosX,int PosY)
 {
+	
 	//IDGfx = ResourceManager::getInstance()->loadAndGetGraphicID(Video::getInstance()->getRenderer(), image);
 	SizeGfx.x = 0; // RAFEL: Si queremos cambiar el frame, estos son los valores a tocar.
 	SizeGfx.y = 0; // RAFEL: Si queremos cambiar el frame, estos son los valores a tocar.
@@ -40,6 +43,25 @@ void Balas::init(int tipoSprite,int dir,int PosX,int PosY)
 	switch (_tipoSprite) {
 	case POCKY:
 		IDGfx = ResourceManager::getInstance()->loadAndGetGraphicID(Video::getInstance()->getRenderer(), "balas.png");
+		switch (_dir)
+		{
+		case UP:
+			PositionRender.x -= 8;
+			PositionRender.y -= 35;
+			break;
+		case DOWN:
+			PositionRender.x -= 8;
+			PositionRender.y += 2;
+			break;
+		case LEFT:
+			PositionRender.x -= 34 / 2;
+			PositionRender.y -= 28 / 2;
+			break;
+
+		default:
+			break;
+
+		}
 		break;
 	case BOSS:
 		IDGfx = ResourceManager::getInstance()->loadAndGetGraphicID(Video::getInstance()->getRenderer(), "nopinoBala.png");
@@ -49,6 +71,28 @@ void Balas::init(int tipoSprite,int dir,int PosX,int PosY)
 		PositionRender.w = SizeGfx.w; 
 		SizeGfx.x = 0; 
 		SizeGfx.y = 0; 
+		switch (_dir)
+		{
+		case UP:
+			PositionRender.x -= 12;
+			PositionRender.y -= 35;
+			break;
+		case DOWN:
+			PositionRender.x -= 8;
+			PositionRender.y += 2;
+			break;
+		case LEFT:
+			PositionRender.x -=17;
+			
+			break;
+		case RIGHT:
+			PositionRender.x += 17;
+			break;
+
+		default:
+			break;
+
+		}
 
 		break;
 	default:

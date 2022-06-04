@@ -30,8 +30,7 @@ void Hud::init()
     IDHeart = ResourceManager::getInstance()->loadAndGetGraphicID(Video::getInstance()->getRenderer(), "heart.png");
     
 
-    _corazon.setSize(256, 224);
-    _corazon.setPositionXY(300, 202);
+   
     
     _icono.init("icono.png");
     _icono.setSize(16, 16);
@@ -92,7 +91,7 @@ void Hud::ShowScore(int posY, int posX, int _score)
 
 }
 
-void Hud::ShowLife(int posY, int posX, int _HP)
+void Hud::ShowLife(int posX, int posY, int _HP)
 {
 	switch (_HP)
 	{
@@ -179,13 +178,13 @@ void Hud::ShowLife(int posY, int posX, int _HP)
 
 void Hud::render()
 {
-	ShowScore(0, 0, _instancePersonaje->getScore());
-	ShowLife(20, 20, _instancePersonaje->getHP());
+	ShowScore(202, 37, _instancePersonaje->getScore());
+	ShowLife(20, 212, _instancePersonaje->getHP());
 	//_imgGameOver.render();
-	int animX = SizeGfx.x + SizeGfx.w * frame;
+
 	//_pontuacionCero.renderFrame(animX);
 	//_pontuacionNum.renderFrame(animX);
-	_corazon.renderFrame(animX);
+	
 	_icono.render();
 
 }

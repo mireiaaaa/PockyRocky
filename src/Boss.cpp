@@ -43,11 +43,13 @@ void Boss::init(const char* image)
 	_contWalk = 0;
 
 	_dead = false;
-	_life = 30;
+	_life = 60;
 	_contMov = 0;
 	_contShoot=0;
 	_dirShoot = false;
 	_contBalas = 0;
+	_estadosBoss = Boss::WALK;
+	_deadCount = 0;
 }
 
 void Boss::update()
@@ -93,7 +95,7 @@ void Boss::update()
 		if (_contBalas >= 10) {
 			Balas* bala;
 			bala = new Balas();
-			bala->init(1, _dir, PositionRender.x + PositionRender.w / 2-10, PositionRender.y + PositionRender.h / 2+10);
+			bala->init(1, _dir, PositionRender.x + PositionRender.w / 2, PositionRender.y + PositionRender.h / 2);
 			_instanceBala->push_back(bala);
 			_contBalas = 0;
 		}
@@ -126,17 +128,16 @@ void Boss::update()
 		}
 
 		break;
-	case HURT:
-		_contWalk = 0;
-		if (_life <= 0) {
-			_estadosBoss = Boss::DEAD;
-		}
-		hurt();
-		break;
+	
 	case DEAD:
-		_dead = true;
-		dead();
+		_deadCount++;
 		
+		if (_deadCount >= 600) {
+			_life = 0;
+			
+			_dead = true;
+		}
+		dead();
 		break;
 
 	default:
@@ -175,10 +176,7 @@ void Boss::updateFrame()
 		Maxframe = 5;
 		maxTimeFrame = 80;
 		break;
-	case HURT:
-		Maxframe = 1;
-		maxTimeFrame = 80;
-		break;
+	
 	case DEAD:
 		Maxframe = 2;
 		maxTimeFrame = 80;
@@ -255,39 +253,24 @@ void Boss::shoot()
 	}
 }
 
-void Boss::hurt()
-{
-	SizeGfx.y = (14 * 5) + (14 * 5);
-}
+
 
 
 
 void Boss::dead()
 {
-	switch (_dir) {
-	case UP:
-		SizeGfx.y = (14 * 6) + (14 * 6);
-		break;
-	case DOWN:
-		SizeGfx.y = (14 * 6) + (14 * 6);
-		break;
-	case LEFT:
-		SizeGfx.y = (14 * 6) + (14 * 6);
-
-		break;
-
-	case RIGHT:
-		SizeGfx.y = (14 * 6) + (14 * 6);
-		break;
-	default:
-		break;
-	}
+	SizeGfx.y = (12 * 8) + (12 * 8);
+	
+	
 }
 
 void Boss::isHurt()
 {
 	
 	_life--;
+	if (_life <= 0) {
+		_estadosBoss = Boss::DEAD;
+	}
 	
 }
 

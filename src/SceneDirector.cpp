@@ -11,6 +11,11 @@
 
 SceneDirector* SceneDirector::pInstance = NULL;
 
+void SceneDirector::setScore(int score)
+{
+	mVectorScenes[SCORES]->setScore(score);
+}
+
 SceneDirector* SceneDirector::getInstance() {
 	if (!pInstance) {
 		pInstance = new SceneDirector();

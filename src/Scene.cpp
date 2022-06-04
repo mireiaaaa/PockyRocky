@@ -15,3 +15,7 @@ void Scene::init() {
 void Scene::reinit() {
     mReinit = false;
 }
+
+void Scene::setScore(int score)
+{
+}

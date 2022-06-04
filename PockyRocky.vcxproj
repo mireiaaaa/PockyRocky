@@ -20,6 +20,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\AnimaticScene.cpp" />
+    <ClCompile Include="src\Sound.cpp" />
+    <ClCompile Include="src\SoundManager.cpp" />
     <ClCompile Include="src\Balas.cpp" />
     <ClCompile Include="src\Boss.cpp" />
     <ClCompile Include="src\Camera.cpp" />
@@ -39,7 +41,6 @@
     <ClCompile Include="src\GameScene.cpp" />
     <ClCompile Include="src\SceneDirector.cpp" />
     <ClCompile Include="src\ScoresScene.cpp" />
-    <ClCompile Include="src\SoundManager.cpp" />
     <ClCompile Include="src\Timer.cpp" />
     <ClCompile Include="src\tinyxml2.cpp" />
     <ClCompile Include="src\Umby.cpp" />
@@ -48,6 +49,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\AnimaticScene.h" />
+    <ClInclude Include="src\Sound.h" />
+    <ClInclude Include="src\SoundManager.h" />
     <ClInclude Include="src\Balas.h" />
     <ClInclude Include="src\Boss.h" />
     <ClInclude Include="src\Camera.h" />
@@ -67,7 +70,6 @@
     <ClInclude Include="src\SceneDirector.h" />
     <ClInclude Include="src\GameScene.h" />
     <ClInclude Include="src\ScoresScene.h" />
-    <ClInclude Include="src\SoundManager.h" />
     <ClInclude Include="src\Timer.h" />
     <ClInclude Include="src\tinyxml2.h" />
     <ClInclude Include="src\Umby.h" />

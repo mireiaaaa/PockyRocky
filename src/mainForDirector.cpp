@@ -10,6 +10,7 @@
 #include <stdlib.h>
 #include <time.h> 
 #include"SoundManager.h"
+#include"Sound.h"
 
 //#include "Highscore.h"
 
@@ -21,28 +22,27 @@ SceneDirector* sDirector = NULL;
 InputManager* sInputControl = NULL;
 Video* sVideo = NULL;
 ResourceManager* sResourceManager = NULL;
-//Audio* sSoundManager = NULL;
+Sound* sSound = NULL;
 SoundManager* sSoundManager = NULL;
 
 Camera* sCamera = NULL;
-//Highscore* sHighscore = NULL;
 
 
 int main(int argc, char* argv[]) {
 
 	srand(time(NULL));
-	//Init Singletons en orden
+	
 	sCamera = Camera::getInstance();
 	sResourceManager = ResourceManager::getInstance();
 	sVideo = Video::getInstance();
 	sSoundManager = SoundManager::getInstance();
-	//sAudio = Audio::getInstance();
+	sSound = Sound::getInstance();
 	sInputControl = InputManager::getInstance();
 	
 	sDirector = SceneDirector::getInstance();
-	//sHighscore = Highscore::getInstance();
 	
-
+	sSound->playAudio(0, sSoundManager->loadAndGetAudioID("mainTheme.ogg"), 1);
+	
 	//Main Loop
 	// Init Time control
 	//Timer* globalTimer = new Timer();
@@ -73,6 +73,6 @@ int main(int argc, char* argv[]) {
 	}
 
 	sVideo->close();
-	//sAudio->close();
+	sSound->close();
 	return 0;
 }

@@ -145,7 +145,7 @@ bool Mapa::getIDfromLayer(int PosX, int PosY)
 	int _tileX = PosX / tileW;
 	int _tileY = PosY / tileH;
 	
-	if (_background[_tileY][_tileX] != 17 && _background[_tileY][_tileX] != 18 && _background[_tileY][_tileX] != 19 && _background[_tileY][_tileX] != 24 && _background[_tileY][_tileX] != 25 && _background[_tileY][_tileX] != 26) {
+ 	if (_background[_tileY][_tileX] != 17 && _background[_tileY][_tileX] != 18 && _background[_tileY][_tileX] != 19 && _background[_tileY][_tileX] != 24 && _background[_tileY][_tileX] != 25 && _background[_tileY][_tileX] != 26) {
 		return false;
 	}
 	return true;

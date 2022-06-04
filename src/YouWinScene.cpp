@@ -5,7 +5,10 @@
 #include "InputManager.h"
 #include "Camera.h"
 #include <iostream>
+#include "SceneDirector.h"
 
+extern InputManager* sInputControl;
+extern SceneDirector* sDirector;
 
 YouWinScene::~YouWinScene()
 {
@@ -27,6 +30,9 @@ void YouWinScene::init()
 
 void YouWinScene::update()
 {
+	if (sInputControl->getAtaque()) {
+		sDirector->changeScene(MENU, 1);
+	}
 }
 
 

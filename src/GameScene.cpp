@@ -8,6 +8,9 @@
 #include <iostream>
 #include "Hud.h"
 #include "SoundManager.h"
+#include "Sound.h"
+extern Sound* sSound;
+extern SoundManager* sSoundManager;
 extern SceneDirector* sDirector;
 extern InputManager* sInputControl;
 //extern Audio* sAudio;
@@ -190,7 +193,7 @@ void GameScene::update()
 
 	}
 	//collision Nopino
-	if(Nopino.samePos(Player.getCollision())) {
+	if(Nopino.samePos(Player.getCollision())&&Nopino.BossEstado()!=2) {
 
 		if (Player.PockyEstado() != 4) {
 			Player.isHurt();
@@ -253,7 +256,9 @@ void GameScene::update()
 
 	}
 	if (Nopino.getDead() == true) {
-		
+		sDirector->setScore(Player.getScore());
+		Player.init("pocky.png");
+		Nopino.init("boss.png");
 		for (size_t i = 0; i < Ghost.size(); i++)
 		{
 
@@ -309,6 +314,9 @@ void GameScene::update()
 	
 	}
 	if (Player.getDead() == true) {
+		sDirector->setScore(Player.getScore());
+		Player.init("pocky.png");
+		Nopino.init("boss.png");
 		for (size_t i = 0; i < Ghost.size(); i++)
 		{
 			
@@ -404,13 +412,14 @@ void GameScene::render()
 
 void GameScene::reinit()
 {
+	sSound->playAudio(0, sSoundManager->loadAndGetAudioID("mainTheme.ogg"), 1);
 	mReinit = false;
 
 	HUD.init();
 
 
 	Player.init("pocky.png");
-
+	Nopino.init("boss.png");
 
 	Umby* UmbyVector;
 	for (size_t i = 0; i < 4; i++) {
@@ -419,17 +428,17 @@ void GameScene::reinit()
 		UmbyVector->setPos(&Map);
 
 		if (i ==0) {
-			UmbyVector->init("umby.png", 150, 320);
+			UmbyVector->init("umby.png", 79, 356);
 		}
 		else if (i==1) {
-			UmbyVector->init("umby.png", 100, 320);
+			UmbyVector->init("umby.png", 100, 356);
 		}
 		else if (i == 2) {
-			UmbyVector->init("umby.png", 180, 320);
+			UmbyVector->init("umby.png", 180, 356);
 		}
 		//segunda fila
 		else if (i==3) {
-			UmbyVector->init("umby.png", 200, 320);
+			UmbyVector->init("umby.png", 200, 356);
 		}
 		Umb.push_back(UmbyVector);
 
@@ -452,11 +461,14 @@ void GameScene::reinit()
 			EsqueVector->init("esquelety.png", 704, 396);
 		}
 		
+		
+
+		
 		Esque.push_back(EsqueVector);
 	}
 
 	Fantasmita* GhostVector;
-	for (size_t i = 0; i < 8; i++)
+	for (size_t i = 0; i < 12; i++)
 	{
 		GhostVector = new Fantasmita();
 		GhostVector->setPos(&Player);
@@ -485,7 +497,7 @@ void GameScene::reinit()
 			GhostVector->init("fantasmita.png", 60, 250);
 		}
 
-		//tres fantasmitas
+		//tercera  fila
 		else if (i == 6) {
 			GhostVector->init("fantasmita.png", 100, 100);
 		}
@@ -497,7 +509,27 @@ void GameScene::reinit()
 		}
 
 
+		//cuarta fila
+		else if (i == 9) {
+			GhostVector->init("fantasmita.png", 1530, 401);
+		}
+		else if (i == 10) {
+			GhostVector->init("fantasmita.png", 1510, 401);
+		}
+		else if (i == 11) {
+			GhostVector->init("fantasmita.png", 1490, 401);
+		}
 
+		//quinta fila
+		else if (i == 9) {
+			GhostVector->init("fantasmita.png", 897, 750);
+		}
+		else if (i == 10) {
+			GhostVector->init("fantasmita.png", 1045, 750);
+		}
+		
+
+	
 		Ghost.push_back(GhostVector);
 
 

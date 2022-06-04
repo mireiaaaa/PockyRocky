@@ -25,6 +25,7 @@ public:
 
 	Scene* getCurrentScene() { return mVectorScenes[mCurrScene]; };
 
+	void setScore(int score);
 	//! Gets pointer to instance
 	static SceneDirector* getInstance();
 

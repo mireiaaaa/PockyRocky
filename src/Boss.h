@@ -10,7 +10,7 @@ class Boss :public Principal
 public:
 	~Boss();
 	Boss();
-	enum statesBoss { WALK,SHOOT, HURT, DEAD };
+	enum statesBoss { WALK,SHOOT, DEAD };
 	void init(const char* image);
 	void update();
 	void render();
@@ -18,7 +18,7 @@ public:
 	void updateFrame();
 	void walk();
 	void shoot();
-	void hurt();
+	
 	void dead();
 	void isHurt();
 	bool getDead() { return _dead; };
@@ -27,6 +27,8 @@ public:
 	void setPos(vector<Balas*>* _bala) { _instanceBala = _bala; };
 	void setPos(Mapa* _map) { _instanceMap = _map; };
 	void collider(int _dir);
+
+	int BossEstado() { return (int)_estadosBoss; };
 private:
 	Mapa* _instanceMap;
 	Personaje* _instancePersonaje;
@@ -41,7 +43,7 @@ private:
 	int _contMov;
 	bool _dirShoot;
 	int _contBalas;
-
+	int _deadCount;
 	int _distX;
 	int _distY;
 	

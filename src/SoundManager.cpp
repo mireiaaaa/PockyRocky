@@ -1,68 +1,66 @@
 #include "SoundManager.h"
+#include <iostream>
+
 SoundManager* SoundManager::pInstance = NULL;
+
+SoundManager::SoundManager()
+{
+	_FirstFreeSlot = 0;
+}
+
 SoundManager::~SoundManager()
 {
 }
 
-void SoundManager::removeSound()
+Mix_Chunk* SoundManager::getAudioByID(Sint32 ID)
 {
-	Mix_CloseAudio();
+	return _AudioVector.at(ID);
 }
 
-Sint32 SoundManager::loadAndGetSoundID( const char* file)
-{
 
-	sound= Mix_LoadMUS(file);
-	sounds.push_back(sound);
-	return Sint32();
+int SoundManager::loadAndGetAudioID(const char* file)
+{
+	if (_IDMap.find(file) == _IDMap.end()) { return addAudio(file); }; 
+
+	return _IDMap.find(file)->second;
 }
 
-std::string SoundManager::getSoundPathByID(Sint32 ID)
+int SoundManager::addAudio(const char* file)
 {
-	return std::string();
+	_FirstFreeSlot = updateFirstFreeSlotAudio();
+
+	Mix_Chunk* audio = Mix_LoadWAV(file);
+	if (!audio) {
+		std::cout << Mix_GetError() << std::endl;
+		system("pause");
+		return -1;
+	}
+	if (!(_FirstFreeSlot == -1)) { 
+		_AudioVector[_FirstFreeSlot] = audio;
+		_IDMap.insert(std::pair<std::string, int>(file, _FirstFreeSlot));
+	}
+	else { 
+		_AudioVector.push_back(audio);
+		_IDMap.insert(std::pair<std::string, int>(file, _AudioVector.size() - 1));
+	}
+
+	return _IDMap.find(file)->second;
 }
 
-SDL_Texture* SoundManager::getSoundByID(Sint32 ID)
+Uint32 SoundManager::updateFirstFreeSlotAudio()
 {
-	return nullptr;
-}
+	for (size_t i = 0; i < _AudioVector.size(); i++)
+	{
+		if (_AudioVector[i] == NULL) {
+			return i;
+		}
+	}
 
-void SoundManager::setAlphaSound(Sint32 ID, Uint8 alpha_value)
-{
-}
-
-void SoundManager::playLoadedSounds()
-{
-	Mix_PlayMusic(sound,-1);
-}
-
-Sint32 SoundManager::createSound()
-{
-
-	frequency = 44100;
-	format = MIX_DEFAULT_FORMAT;
-	channels = 2;
-	chunksize = 1024;
-	Mix_AllocateChannels(1);
-	Mix_OpenAudio(frequency, format, channels, chunksize);
-	return Sint32();
+	return -1;
 }
 
 SoundManager* SoundManager::getInstance()
 {
-	return nullptr;
-}
-
-SoundManager::SoundManager()
-{
-}
-
-Sint32 SoundManager::addSound(SDL_Renderer* Renderer, const char* file)
-{
-	return Sint32();
-}
-
-Uint32 SoundManager::updateFirstFreeSlotSound()
-{
-	return Uint32();
+	if (pInstance == NULL)pInstance = new SoundManager();
+	return pInstance;
 }

@@ -5,6 +5,9 @@
 #include "InputManager.h"
 #include "Camera.h"
 #include <iostream>
+#include "SceneDirector.h"
+extern InputManager* sInputControl;
+extern SceneDirector* sDirector;
 
 
 OptionsScene::~OptionsScene()
@@ -13,6 +16,7 @@ OptionsScene::~OptionsScene()
 
 OptionsScene::OptionsScene()
 {
+
 }
 
 void OptionsScene::init()
@@ -27,6 +31,9 @@ void OptionsScene::init()
 
 void OptionsScene::update()
 {
+	if (sInputControl->getAtaque()) {
+		sDirector->changeScene(MENU, 1);
+	}
 }
 
 

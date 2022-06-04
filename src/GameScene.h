@@ -46,6 +46,7 @@ private:
 	vector<Umby*> Umb;
 	Boss Nopino;
 	vector<Balas*> Bala;
+	vector<Balas*> nopinoBala;
 	Hud HUD;
 	//statesGameScene _estadosGameScene;
 

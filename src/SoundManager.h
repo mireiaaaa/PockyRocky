@@ -56,18 +56,18 @@ private:
 
 	Uint32 updateFirstFreeSlotSound();
 
-	Mix_Chunk* sound;
+	Mix_Music* sound;
 	
 	std::map<std::string, Sint32>	_IDMap;	
 	Uint32				mFirstFreeSlot;		
 	static SoundManager* pInstance;		
 	SDL_Rect mSize;
-	Mix_Chunk* Renderezizador;
+
 	int frequency;
 	Uint16 format;
 	int channels;
 	int chunksize;
-	std::vector<Mix_Chunk*> sounds;
+	std::vector<Mix_Music*> sounds;
 };
 
 #endif

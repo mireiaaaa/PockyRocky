@@ -19,7 +19,7 @@ void YouWinScene::init()
 {
 
 
-	_imgYouWin.init("YouWin.png");
+	_imgYouWin.init("win.png");
 	_imgYouWin.setSize(258, 226);
 	_imgYouWin.setPositionXY(0, 0);
 

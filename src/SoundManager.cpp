@@ -1,5 +1,5 @@
 #include "SoundManager.h"
-
+SoundManager* SoundManager::pInstance = NULL;
 SoundManager::~SoundManager()
 {
 }
@@ -12,9 +12,9 @@ void SoundManager::removeSound()
 Sint32 SoundManager::loadAndGetSoundID( const char* file)
 {
 
-	sound=Mix_LoadWAV(file);
+	sound= Mix_LoadMUS(file);
 	sounds.push_back(sound);
-	
+	return Sint32();
 }
 
 std::string SoundManager::getSoundPathByID(Sint32 ID)
@@ -33,6 +33,7 @@ void SoundManager::setAlphaSound(Sint32 ID, Uint8 alpha_value)
 
 void SoundManager::playLoadedSounds()
 {
+	Mix_PlayMusic(sound,-1);
 }
 
 Sint32 SoundManager::createSound()
@@ -44,6 +45,7 @@ Sint32 SoundManager::createSound()
 	chunksize = 1024;
 	Mix_AllocateChannels(1);
 	Mix_OpenAudio(frequency, format, channels, chunksize);
+	return Sint32();
 }
 
 SoundManager* SoundManager::getInstance()

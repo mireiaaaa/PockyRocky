@@ -65,29 +65,28 @@ void Esquelety::update()
 		if (_distY >= PositionRender.y-100 && _distY <= PositionRender.y+ 100 && _distX >= PositionRender.x - 100 && _distX <= PositionRender.x + 100) {
 			move();
 		}
-		if (_distY >= PositionRender.y  && _distY <= PositionRender.y ) {
-
+		
 			if (_distX > PositionRender.x) {
 				_dir = RIGHT;
-				
+
 			}
 			else {
 				_dir = LEFT;
-				
+
 			}
 
-		}
+		
 		if (_distX >= PositionRender.x && _distX <= PositionRender.x ) {
 			if (_distY > PositionRender.y) {
-				_dir = DOWN;
+				_dir = UP;
 			}
 			else
 			{
-				_dir = UP;
+				_dir = DOWN;
 			}
 
 
-			//_estadosEsquelety = Esquelety::ATTACK;
+			//_estadosUmby = ESQUELETY::ATTACK;
 
 		}
 
@@ -110,15 +109,16 @@ void Esquelety::update()
 void Esquelety::render()
 {
 	int animX = SizeGfx.x + SizeGfx.w * frame;
+	
 	if (_dir == RIGHT) {
 		Video::getInstance()->renderGraphic(IDGfx, animX, SizeGfx.y, SizeGfx.w, SizeGfx.h, PositionRender.x - sCamera->getX(), PositionRender.y - sCamera->getY(),1);
 	}
 	else {
 
 		Video::getInstance()->renderGraphic(IDGfx, animX, SizeGfx.y, SizeGfx.w, SizeGfx.h, PositionRender.x - sCamera->getX(), PositionRender.y - sCamera->getY());
-	}
-	//Video::getInstance()->renderGraphic(IDGfx, animX, SizeGfx.y, SizeGfx.w, SizeGfx.h, PositionRender.x , PositionRender.y , 1);
 
+		//Video::getInstance()->renderGraphic(IDGfx, animX, SizeGfx.y, SizeGfx.w, SizeGfx.h, PositionRender.x , PositionRender.y , 1);
+	}
 
 }
 
@@ -208,7 +208,7 @@ void Esquelety::move()
 	case LEFT:
 		PositionRender.x -= 1;
 		
-		SizeGfx.y+= (9 * 2) + (9 * 2);
+		SizeGfx.y= (9 * 2) + (9 * 2);
 		
 		collider(4);
 		break;

@@ -65,7 +65,7 @@ void MenuScene::update()
 			break;
 		}
 	}
-	if (!sInputControl->getAtaque()) {
+	if (sInputControl->getAtaque()) {
 		switch (_arrowPos)
 		{
 		case 0:

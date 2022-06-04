@@ -1,7 +1,7 @@
 #include "SceneDirector.h"
 #include "InputManager.h"
 //#include "Audio.h"
-//#include "AudioManager.h"
+//#include "SoundManager.h"
 #include "Video.h"
 #include "ResourceManager.h"
 //#include "Timer.h"
@@ -9,6 +9,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h> 
+#include"SoundManager.h"
 
 //#include "Highscore.h"
 
@@ -20,33 +21,34 @@ SceneDirector* sDirector = NULL;
 InputManager* sInputControl = NULL;
 Video* sVideo = NULL;
 ResourceManager* sResourceManager = NULL;
-//Audio* sAudio = NULL;
-//AudioManager* sAudioManager = NULL;
+//Audio* sSoundManager = NULL;
+SoundManager* sSoundManager = NULL;
 
 Camera* sCamera = NULL;
 //Highscore* sHighscore = NULL;
 
 
 int main(int argc, char* argv[]) {
+
 	srand(time(NULL));
 	//Init Singletons en orden
 	sCamera = Camera::getInstance();
 	sResourceManager = ResourceManager::getInstance();
 	sVideo = Video::getInstance();
-	//sAudioManager = AudioManager::getInstance();
+	sSoundManager = SoundManager::getInstance();
 	//sAudio = Audio::getInstance();
 	sInputControl = InputManager::getInstance();
 	
 	sDirector = SceneDirector::getInstance();
 	//sHighscore = Highscore::getInstance();
-
+	
 
 	//Main Loop
 	// Init Time control
 	//Timer* globalTimer = new Timer();
 	//globalTimer->start();
 	//Uint32 last_time = 0;
-
+	sVideo->setRenderColor(8,64,8,255);
 	while (gameOn) {
 		//ReInit o no
 		sVideo->clearScreen();

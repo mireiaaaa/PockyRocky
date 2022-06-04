@@ -21,7 +21,7 @@ Balas::Balas()
 	_instanceMap = nullptr;
 }
 
-void Balas::init(int _tipoSprite,int dir,int PosX,int PosY)
+void Balas::init(int tipoSprite,int dir,int PosX,int PosY)
 {
 	//IDGfx = ResourceManager::getInstance()->loadAndGetGraphicID(Video::getInstance()->getRenderer(), image);
 	SizeGfx.x = 0; // RAFEL: Si queremos cambiar el frame, estos son los valores a tocar.
@@ -36,34 +36,20 @@ void Balas::init(int _tipoSprite,int dir,int PosX,int PosY)
 	//mudar variaveis pelas variaveis que tenho em video
 	_follow = false;
 	_dir = (Dir)dir;
-	switch (_dir)
-	{
-	case UP:
-		PositionRender.x -= 8  ;
-		PositionRender.y -= 35;
-		break;
-	case DOWN:
-		PositionRender.x -= 8;
-		PositionRender.y += 2;
-		break;
-	case LEFT:
-		PositionRender.x -= 34 / 2;
-		PositionRender.y -= 28 / 2;
-		break;
-	
-	default:
-		break;
-
-	}
+	_tipoSprite = (typeSprite)tipoSprite;
 	switch (_tipoSprite) {
 	case POCKY:
 		IDGfx = ResourceManager::getInstance()->loadAndGetGraphicID(Video::getInstance()->getRenderer(), "balas.png");
 		break;
-	case ESQUELETY:
-		//IDGfx = ResourceManager::getInstance()->loadAndGetGraphicID(Video::getInstance()->getRenderer(), "balas.png");
-		break;
 	case BOSS:
-		//IDGfx = ResourceManager::getInstance()->loadAndGetGraphicID(Video::getInstance()->getRenderer(), "balas.png");
+		IDGfx = ResourceManager::getInstance()->loadAndGetGraphicID(Video::getInstance()->getRenderer(), "nopinoBala.png");
+		SizeGfx.w = 10; 
+		SizeGfx.h = 10; 
+		PositionRender.h = SizeGfx.h; 
+		PositionRender.w = SizeGfx.w; 
+		SizeGfx.x = 0; 
+		SizeGfx.y = 0; 
+
 		break;
 	default:
 		break;
@@ -112,33 +98,53 @@ void Balas::render()
 
 void Balas::attacking()
 {
-	switch (_dir) {
+	if (_tipoSprite == POCKY) {
+		switch (_dir) {
 
 
-	case LEFT:
-		PositionRender.x -= 5;
-		SizeGfx.y = (14 * 1) + (14 * 1);
+		case LEFT:
+			PositionRender.x -= 5;
+			SizeGfx.y = (14 * 1) + (14 * 1);
 
-		break;
+			break;
 
-	case RIGHT:
-		PositionRender.x += 5;
-		SizeGfx.y = (14 * 3) + (14 * 3);
-		break;
-	case UP:
-		PositionRender.y -= 5;
-		SizeGfx.y = 0;
+		case RIGHT:
+			PositionRender.x += 5;
+			SizeGfx.y = (14 * 3) + (14 * 3);
+			break;
+		case UP:
+			PositionRender.y -= 5;
+			SizeGfx.y = 0;
 
-		break;
-	case DOWN:
-		PositionRender.y += 5;
-		SizeGfx.y = (14 * 2) + (14 * 2);
+			break;
+		case DOWN:
+			PositionRender.y += 5;
+			SizeGfx.y = (14 * 2) + (14 * 2);
 
-		break;
-	default:
-		break;
+			break;
+		default:
+			break;
+		}
 	}
-
+	else {
+		switch (_dir)
+		{
+		case UP:
+			PositionRender.y -= 5;
+			break;
+		case DOWN:
+			PositionRender.y += 5;
+			break;
+		case LEFT:
+			PositionRender.x -= 5;
+			break;
+		case RIGHT:
+			PositionRender.x += 5;
+			break;
+		default:
+			break;
+		}
+	}
 }
 
 void Balas::dead()

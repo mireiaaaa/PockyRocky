@@ -31,18 +31,23 @@ void Boss::init(const char* image)
 	SizeGfx.h = 76; 
 	PositionRender.h = SizeGfx.h;
 	PositionRender.w = SizeGfx.w; 
-	PositionRender.x = 1700; 
-	PositionRender.y = 100;
-	
-	_follow = false;
+	PositionRender.x = 1555;
+	PositionRender.y = 90;
+
+
 	_dir = LEFT;
 	_distX = ((_instancePersonaje->getPositionX()) + (_instancePersonaje->getSizeWidth() / 2));
 	_distY = ((_instancePersonaje->getPositionY()) + (_instancePersonaje->getSizeHeight() / 2));
-	_numAle = 2;
+
 	_contShoot = 0;
 	_contWalk = 0;
-	_contRoll = 0;
-	_contHurt = 0;
+
+	_dead = false;
+	_life = 30;
+	_contMov = 0;
+	_contShoot=0;
+	_dirShoot = false;
+	_contBalas = 0;
 }
 
 void Boss::update()
@@ -51,112 +56,87 @@ void Boss::update()
 	_distY = ((_instancePersonaje->getPositionY()) + (_instancePersonaje->getSizeHeight() / 2));
 
 	
-	
+	int distx = (PositionRender.x + PositionRender.w / 2) - _distX;
+	int disty = (PositionRender.y + PositionRender.h / 2) - _distY;
+
 
 	switch (_estadosBoss)
 	{
 	case WALK:
-		srand(time(NULL));
+	
 		_contShoot = 0;
 		_contWalk++;
 		
-		_contRoll = 0;
-		if (_contWalk >= 25) {
+		
+		
+		if (_contWalk >= 250) {
+			
+			
+			
+			
+			_estadosBoss = Boss::SHOOT;
+			_dirShoot = true;
+			
 
-			if (_numAle == 1) {
-				_estadosBoss = Boss::SHOOT;
-				_numAle = 0;
-			}
-			else if (_numAle == 2) {
-				_estadosBoss = Boss::ROLL;
-				_numAle = 0;
-			}
+			
 
 		}
 		walk();
 
 		break;
-	case ROLL:
-		_contWalk = 0;
-		_contRoll++;
-		if (_contRoll <= 25) {
 
-			if (_distY >= PositionRender.y - 2 && _distY <= PositionRender.y + 2) {
-
-				if (_distX > PositionRender.x) {
-					_dir = RIGHT;
-					
-				}
-				else {
-					_dir = LEFT;
-					
-				}
-
-			}
-			if (_distX >= PositionRender.x - 2 && _distX <= PositionRender.x + 2) {
-				if (_distY > PositionRender.y) {
-					_dir = DOWN;
-				}
-				else
-				{
-					_dir = UP;
-				}
-
-
-			}
-
-		}
-
-		else
-		{
-			_estadosBoss = Boss::WALK;
-		}
-		roll();
-
-
-		break;
 	case SHOOT:
+		
 		_contWalk = 0;
 		_contShoot++;
+		_contBalas++;
+		if (_contBalas >= 10) {
+			Balas* bala;
+			bala = new Balas();
+			bala->init(1, _dir, PositionRender.x + PositionRender.w / 2-10, PositionRender.y + PositionRender.h / 2+10);
+			_instanceBala->push_back(bala);
+			_contBalas = 0;
+		}
 		
-		if (_contShoot <= 25) {
 
-			if (_distY >= PositionRender.y - 2 && _distY <= PositionRender.y + 2) {
+		if (_dirShoot == true) {
 
-				if (_distX > PositionRender.x) {
-					_dir = RIGHT;
-					
+			if (abs(distx) >= abs(disty)) {//muda valor negativo pra positivo
+				if (distx >= 0) {
+					_dir = LEFT;
 				}
 				else {
-					_dir = LEFT;
-					
+					_dir = RIGHT;
 				}
-
 			}
-			if (_distX >= PositionRender.x - 2 && _distX <= PositionRender.x + 2) {
-				if (_distY > PositionRender.y) {
-					_dir = DOWN;
-				}
-				else
-				{
+			else {
+				if (disty >= 0) {
 					_dir = UP;
 				}
-
-
+				else {
+					_dir = DOWN;
+				}
 			}
+			shoot();
+			_dirShoot = false;
 		}
-			break;
+		
+		if (_contShoot >= 120) {
+			_estadosBoss = Boss::WALK;
+		}
+
+		break;
 	case HURT:
 		_contWalk = 0;
-		_contHurt++;
-		if (_contHurt <= 20) {
+		if (_life <= 0) {
 			_estadosBoss = Boss::DEAD;
 		}
 		hurt();
 		break;
 	case DEAD:
-		
+		_dead = true;
 		dead();
+		
 		break;
 
 	default:
@@ -191,10 +171,6 @@ void Boss::updateFrame()
 		Maxframe = 3;
 		maxTimeFrame = 80;
 		break;
-	case ROLL:
-		Maxframe = 4;
-		maxTimeFrame = 80;
-		break;
 	case SHOOT:
 		Maxframe = 5;
 		maxTimeFrame = 80;
@@ -209,7 +185,7 @@ void Boss::updateFrame()
 	default:
 		break;
 	}
-
+	if(_estadosBoss != Boss::SHOOT){
 	currentTimeFrame += Video::getInstance()->getDeltaTime();
 	if (currentTimeFrame >= maxTimeFrame) {
 		frame++;
@@ -218,46 +194,10 @@ void Boss::updateFrame()
 			frame = 0;
 		}
 		currentTimeFrame = 0;
-	}
+	}}
 
 }
 
-void Boss::roll()
-{
-
-	switch (_dir)
-	{
-	case UP:
-		PositionRender.y -= 1;
-
-		SizeGfx.y = (12 * 3) + (12 * 3);
-		collider(8);
-
-		break;
-	case DOWN:
-		PositionRender.y += 1;
-
-		SizeGfx.y = (12 * 3) + (12 * 3);
-		collider(8);
-		break;
-	case LEFT:
-		PositionRender.x -= 1;
-
-		SizeGfx.y += (12 * 3) + (12 * 3);
-
-		collider(4);
-		break;
-	case RIGHT:
-		PositionRender.x += 1;
-
-		SizeGfx.y = (12 * 3) + (12 * 3);
-
-		collider(6);
-		break;
-	default:
-		break;
-	}
-}
 
 void Boss::walk()
 {
@@ -265,30 +205,54 @@ void Boss::walk()
 	{
 	
 	case LEFT:
-		PositionRender.x -= 3;
+		_contMov++;
+		PositionRender.x -= 1;
 
 		SizeGfx.y = (12 * 0) + (12 * 0);
-
-		collider(4);
-		if (PositionRender.x <= 20) {
+		if(_contMov>=200){
 			_dir = RIGHT;
+			_contMov = 0;
 		}
+		collider(4);
+		
 		break;
 	case RIGHT:
-		PositionRender.x += 3;
+		_contMov++;
+		PositionRender.x += 1;
 
 		SizeGfx.y = (12 * 0) + (12 * 0);
-
+		if (_contMov >= 200) {
+			_dir = LEFT;
+			_contMov = 0;
+		}
 		collider(6);
 		break;
 	default:
+		_dir = RIGHT;
 		break;
 	}
 }
 
 void Boss::shoot()
 {
-	
+	SizeGfx.y = (12 * 5) + (12 * 5);
+	switch (_dir)
+	{
+	case UP:
+		frame = 3;
+		break;
+	case DOWN:
+		frame = 1;
+		break;
+	case LEFT:
+		frame = 2;
+		break;
+	case RIGHT:
+		frame = 2;
+		break;
+	default:
+		break;
+	}
 }
 
 void Boss::hurt()
@@ -318,6 +282,13 @@ void Boss::dead()
 	default:
 		break;
 	}
+}
+
+void Boss::isHurt()
+{
+	
+	_life--;
+	
 }
 
 //ERRO COM A COLISAO DO BOSS, FICA PRESO NA PAREDE

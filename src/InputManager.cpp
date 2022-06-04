@@ -13,6 +13,8 @@ InputManager::InputManager() {
 	down = false;
 	_parado = true;
 	_out = false;
+	_enter = false;
+	_ataque = false;
 }
 InputManager::~InputManager()
 {

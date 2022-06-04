@@ -20,7 +20,7 @@ Video::Video() {
 	gRenderer = SDL_CreateRenderer(gWindow, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 	SDL_RenderSetLogicalSize(gRenderer, 256, 224);
 	SDL_RenderSetViewport(gRenderer, &_windowRect);
-	SDL_SetRenderDrawColor(gRenderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
+	SDL_SetRenderDrawColor(gRenderer, 48, 112, 16, 255);
 
 	NowTime = 0;
 	DeltaTime = 0;
@@ -66,6 +66,7 @@ void Video::renderGraphic(int img, int posXGfx, int posYGfx, int width, int heig
 
 void Video::setRenderColor(int r, int g, int b, int a)
 {
+	SDL_SetRenderDrawColor(gRenderer, r, g, b, a);
 }
 SDL_Renderer* Video::getRenderer()
 {

@@ -8,7 +8,7 @@ public:
 	~Balas();
 	Balas();
 	enum statesBalas { ATTACK, DEAD };
-	enum typeSprite {POCKY,BOSS,ESQUELETY};
+	enum typeSprite {POCKY,BOSS};
 	void init(int _tipoSprite, int dir, int PosX, int PosY);
 	void update();
 	void render();

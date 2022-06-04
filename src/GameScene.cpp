@@ -35,6 +35,7 @@ void GameScene::init()
 
 	HUD.setPos(&Player);
 	Nopino.setPos(&Player);
+	Nopino.setPos(&nopinoBala);
 	Player.setPos(&Bala);
 
 
@@ -75,6 +76,10 @@ void GameScene::update()
 	for (size_t i = 0; i < Bala.size(); i++)
 	{
 		Bala[i]->update();
+	}
+	for (size_t i = 0; i < nopinoBala.size(); i++)
+	{
+		nopinoBala[i]->update();
 	}
 	
 	for (size_t i = 0; i < Ghost.size(); i++)
@@ -127,9 +132,25 @@ void GameScene::update()
 			}
 
 		}
+		
 
 
 	}
+	for (size_t j = 0; j < nopinoBala.size(); j++)
+		{
+			if (Player.samePos(nopinoBala[j]->getCollision())) {
+
+				Player.isHurt();
+				
+				delete nopinoBala[j];
+
+				
+				nopinoBala.erase(nopinoBala.begin() + j);
+				quit = true;
+				break;
+			}
+
+		}
 	//colision esque
 	for (size_t i = 0; i < Esque.size(); i++)
 	{
@@ -166,6 +187,31 @@ void GameScene::update()
 
 		}
 
+
+	}
+	//collision Nopino
+	if(Nopino.samePos(Player.getCollision())) {
+
+		if (Player.PockyEstado() != 4) {
+			Player.isHurt();
+		}
+		
+
+	}
+	for (size_t j = 0; j < Bala.size(); j++)
+	{
+		if (Nopino.samePos(Bala[j]->getCollision())) {
+
+
+			Nopino.isHurt();
+			Player.moreScore();
+			delete Bala[j];
+
+			
+			Bala.erase(Bala.begin() + j);
+			quit = true;
+			break;
+		}
 
 	}
 	//colision Umb
@@ -205,6 +251,62 @@ void GameScene::update()
 		}
 
 
+	}
+	if (Nopino.getDead() == true) {
+		
+		for (size_t i = 0; i < Ghost.size(); i++)
+		{
+
+			delete Ghost[i];
+
+
+		}
+		Ghost.resize(0);
+		for (size_t i = 0; i < Umb.size(); i++)
+		{
+
+			delete Umb[i];
+
+
+		}
+
+		Umb.resize(0);
+		for (size_t i = 0; i < Esque.size(); i++)
+		{
+
+			delete Esque[i];
+
+
+
+
+		}
+		Esque.resize(0);
+		for (size_t i = 0; i < Bala.size(); i++)
+		{
+
+			delete Bala[i];
+
+
+			Bala.erase(Bala.begin() + i);
+
+
+
+		}
+		Bala.resize(0);
+		for (size_t i = 0; i < nopinoBala.size(); i++)
+		{
+
+			delete nopinoBala[i];
+
+
+			nopinoBala.erase(nopinoBala.begin() + i);
+
+
+
+		}
+		nopinoBala.resize(0);
+		sDirector->changeScene(YOUWIN, 1);
+	
 	}
 	if (Player.getDead() == true) {
 		for (size_t i = 0; i < Ghost.size(); i++)
@@ -246,6 +348,18 @@ void GameScene::update()
 
 		}
 		Bala.resize(0);
+		for (size_t i = 0; i < nopinoBala.size(); i++)
+		{
+
+			delete nopinoBala[i];
+
+
+			nopinoBala.erase(nopinoBala.begin() + i);
+
+
+
+		}
+		nopinoBala.resize(0);
 		sDirector->changeScene(GAMEOVER, 1);
 	}
 }
@@ -270,6 +384,11 @@ void GameScene::render()
 	for (size_t i = 0; i < Bala.size(); i++)
 	{
 		Bala[i]->render();
+
+	}
+	for (size_t i = 0; i < nopinoBala.size(); i++)
+	{
+		nopinoBala[i]->render();
 
 	}
 	for (size_t i = 0; i < Umb.size(); i++){

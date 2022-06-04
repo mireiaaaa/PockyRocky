@@ -32,8 +32,7 @@ Personaje::Personaje()
 void Personaje::init(const char* image)
 {
 
-	//DANDO ERRO N SEI PQ AAAA
-	// RAFEL: Guarda la ID que loadAndGetGraphicID te devuelve. No sabes que numero va a ocupar tu grafico en el almacen.
+	_state = Personaje::ST_IDLE;
 	IDGfx = ResourceManager::getInstance()->loadAndGetGraphicID(Video::getInstance()->getRenderer(), image);
 	SizeGfx.x = 0; // RAFEL: Si queremos cambiar el frame, estos son los valores a tocar.
 	SizeGfx.y = 0; // RAFEL: Si queremos cambiar el frame, estos son los valores a tocar.
@@ -41,9 +40,10 @@ void Personaje::init(const char* image)
 	SizeGfx.h = 28; // RAFEL: Cambio valores para ejemplo con guybush
 	PositionRender.h = SizeGfx.h; // RAFEL: Cambio valores para ejemplo con guybush
 	PositionRender.w = SizeGfx.w; // RAFEL: Cambio valores para ejemplo con guybush
-	PositionRender.x = 100; //100 RAFEL: Estos son los valores a cambiar si lo quiero mover.
-	PositionRender.y = 500; //600 RAFEL: Estos son los valores a cambiar si lo quiero mover.
+	PositionRender.x = 1563; //1563 RAFEL: Estos son los valores a cambiar si lo quiero mover.
+	PositionRender.y = 270; //270 RAFEL: Estos son los valores a cambiar si lo quiero mover.
 	_contBalas = 0;
+	_hurting = 0;
 	_score = 0;
 	_life = 10;
 	//mudar variaveis pelas variaveis que tenho em video
@@ -54,8 +54,15 @@ void Personaje::init(const char* image)
 
 void Personaje::update()
 {
+	_hurting++;
+
+	if (_life <= 0) {
+		_isHurt = true;
+		_state = Personaje::ST_DEAD;
+	}
+	/*
 	cout <<"PosX:"<< PositionRender.x << endl;
-	cout << "PosY:" << PositionRender.y << endl;
+	cout << "PosY:" << PositionRender.y << endl;*/
 	_contBalas++;
 	switch (_state)
 	{
@@ -196,10 +203,7 @@ void Personaje::update()
 		
 		_hurtCount++;
 		
-		if (_life <= 0) {
-			_isHurt = true;
-			_state = Personaje::ST_DEAD;
-		}
+		
 		
 		
 		if (_hurtCount >= 20) {//tiempo de que enseñara sprite de hurt
@@ -598,9 +602,11 @@ bool Personaje::getDead()
 
 void Personaje::isHurt()
 {
-
+	if(_hurting>=100&&_state!=ST_DEAD){
+	_hurting = 0;
 	_life--;
 	_state = Personaje::ST_HURT;
+	}
 }
 
 void Personaje::moreScore()
